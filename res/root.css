@@ -4,4 +4,9 @@ td {
     border: 1px solid #333;
 }
 
+div#feedback {
+    background-color: plum;
+    margin-left: 20px;
+}
+
 /*  */
