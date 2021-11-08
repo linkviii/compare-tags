@@ -12,11 +12,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let numCol = 0;
     // map header to column number
     const colMap = new Map();
-    button.addEventListener("click", function () {
-        console.log("ay, got clicked");
-        numRow++;
-        numCol++;
-        console.log(`row ${numRow}, col ${numCol}`);
+    function newCol(numCol) {
+        /* Make header */
         {
             const head = document.createElement("th");
             head.textContent = `${numCol}`;
@@ -34,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 row.append(data);
             }
         }
+    }
+    ;
+    function newRow(numRow) {
         /* new row */
         const row = document.createElement("tr");
         {
@@ -48,29 +48,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
             row.append(data);
         }
         tableBody.append(row);
+    }
+    ;
+    button.addEventListener("click", function () {
+        console.log("ay, got clicked");
+        numRow++;
+        numCol++;
+        console.log(`row ${numRow}, col ${numCol}`);
+        newCol(numCol);
+        newRow(numRow);
     });
     // ------------------
     buttonCol.addEventListener("click", function () {
         console.log("ay, got clicked");
         numCol++;
         console.log(`row ${numRow}, col ${numCol}`);
-        {
-            const head = document.createElement("th");
-            head.textContent = `${numCol}`;
-            headerRow.append(head);
-        }
-        /* Fix old rows */
-        for (let rowVal = 1; rowVal <= tableBody.children.length; rowVal++) {
-            // for (let row of tableBody.children){
-            const row = tableBody.children[rowVal - 1];
-            let rowColCount = row.children.length;
-            for (; rowColCount <= numCol; rowColCount++) {
-                const data = document.createElement("td");
-                // data.textContent = `${rowVal}, ${rowColCount}`;
-                data.textContent = `${rowVal * rowColCount}`;
-                row.append(data);
-            }
-        }
+        newCol(numCol);
     });
     // ------------------
     // ------------------
@@ -78,32 +71,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         console.log("ay, got clicked");
         numRow++;
         console.log(`row ${numRow}, col ${numCol}`);
-        /* Fix old rows */
-        for (let rowVal = 1; rowVal <= tableBody.children.length; rowVal++) {
-            // for (let row of tableBody.children){
-            const row = tableBody.children[rowVal - 1];
-            let rowColCount = row.children.length;
-            for (; rowColCount <= numCol; rowColCount++) {
-                const data = document.createElement("td");
-                // data.textContent = `${rowVal}, ${rowColCount}`;
-                data.textContent = `${rowVal * rowColCount}`;
-                row.append(data);
-            }
-        }
-        /* new row */
-        const row = document.createElement("tr");
-        {
-            // const data = document.createElement("td");
-            const data = document.createElement("th");
-            data.textContent = `${numRow}`;
-            row.append(data);
-        }
-        for (let i = 1; i <= numCol; i++) {
-            const data = document.createElement("td");
-            data.textContent = `${i * numRow}`;
-            row.append(data);
-        }
-        tableBody.append(row);
+        newRow(numRow);
     });
 });
 //# sourceMappingURL=main.js.map
