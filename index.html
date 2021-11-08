@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>Animelist Tag Explorer</title>
+    <!-- <link href="favicon.png" rel="shortcut icon" type="image/x-icon" id="favicon"> -->
+    <link href="./res/root.css" rel="stylesheet" type="text/css">
+    <!-- <link href="./js/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="./js/lib/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./js/lib/jquery-ui/jquery-ui.structure.min.css"> -->
+    <!-- <link rel="stylesheet" href="./js/lib/awesomplete/awesomplete.css" /> -->
+
+</head>
+
+<body>
+
+    <h1>Tags</h1>
+
+    <button id="row-button">new row</button>
+    <button id="col-button">new col</button>
+    <button id="button">new both</button>
+
+    <div>
+        <table id="tag-table">
+            <thead>
+                
+                <tr id="header-row">
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- **************************************************** -->
+
+    <script type="module">
+        import * as main from "./js/main.js";
+        window.main = main;
+        console.log("main module loaded", new Date().toLocaleTimeString());
+    </script>
+
+
+</body>
+
+</html>
