@@ -1,0 +1,219 @@
+{
+    "269": {
+        "title": {
+            "romaji": "Bleach",
+            "english": "Bleach",
+            "native": "ブリーチ",
+            "userPreferred": "Bleach"
+        },
+        "tags": [
+            {
+                "id": 43,
+                "name": "Swordplay",
+                "rank": 97
+            },
+            {
+                "id": 66,
+                "name": "Super Power",
+                "rank": 96
+            },
+            {
+                "id": 56,
+                "name": "Shounen",
+                "rank": 96
+            },
+            {
+                "id": 147,
+                "name": "Afterlife",
+                "rank": 88
+            },
+            {
+                "id": 82,
+                "name": "Male Protagonist",
+                "rank": 84
+            },
+            {
+                "id": 220,
+                "name": "Ghost",
+                "rank": 81
+            },
+            {
+                "id": 15,
+                "name": "Demons",
+                "rank": 78
+            },
+            {
+                "id": 321,
+                "name": "Urban Fantasy",
+                "rank": 75
+            },
+            {
+                "id": 490,
+                "name": "Anachronism",
+                "rank": 64
+            },
+            {
+                "id": 105,
+                "name": "Ensemble Cast",
+                "rank": 60
+            },
+            {
+                "id": 244,
+                "name": "Isekai",
+                "rank": 57
+            },
+            {
+                "id": 636,
+                "name": "Cosmic Horror",
+                "rank": 55
+            },
+            {
+                "id": 632,
+                "name": "Centaur",
+                "rank": 53
+            },
+            {
+                "id": 516,
+                "name": "Language Barrier",
+                "rank": 47
+            },
+            {
+                "id": 255,
+                "name": "Ninja",
+                "rank": 46
+            },
+            {
+                "id": 1045,
+                "name": "Heterosexual",
+                "rank": 43
+            },
+            {
+                "id": 335,
+                "name": "Tanned Skin",
+                "rank": 40
+            },
+            {
+                "id": 96,
+                "name": "Time Manipulation",
+                "rank": 36
+            },
+            {
+                "id": 779,
+                "name": "Kuudere",
+                "rank": 20
+            },
+            {
+                "id": 100,
+                "name": "Nudity",
+                "rank": 20
+            }
+        ],
+        "genres": [
+            "Action",
+            "Adventure",
+            "Supernatural"
+        ]
+    },
+    "11751": {
+        "title": {
+            "romaji": "Senki Zesshou Symphogear",
+            "english": "Symphogear",
+            "native": "戦姫絶唱シンフォギア",
+            "userPreferred": "Senki Zesshou Symphogear"
+        },
+        "tags": [
+            {
+                "id": 99,
+                "name": "Henshin",
+                "rank": 94
+            },
+            {
+                "id": 265,
+                "name": "Musical",
+                "rank": 92
+            },
+            {
+                "id": 86,
+                "name": "Primarily Female Cast",
+                "rank": 90
+            },
+            {
+                "id": 98,
+                "name": "Female Protagonist",
+                "rank": 89
+            },
+            {
+                "id": 172,
+                "name": "Superhero",
+                "rank": 79
+            },
+            {
+                "id": 66,
+                "name": "Super Power",
+                "rank": 79
+            },
+            {
+                "id": 85,
+                "name": "Tragedy",
+                "rank": 75
+            },
+            {
+                "id": 208,
+                "name": "Mythology",
+                "rank": 71
+            },
+            {
+                "id": 76,
+                "name": "Yuri",
+                "rank": 70
+            },
+            {
+                "id": 115,
+                "name": "Idol",
+                "rank": 69
+            },
+            {
+                "id": 46,
+                "name": "School",
+                "rank": 63
+            },
+            {
+                "id": 164,
+                "name": "Tsundere",
+                "rank": 60
+            },
+            {
+                "id": 43,
+                "name": "Swordplay",
+                "rank": 55
+            },
+            {
+                "id": 489,
+                "name": "Drugs",
+                "rank": 50
+            },
+            {
+                "id": 173,
+                "name": "Motorcycles",
+                "rank": 43
+            },
+            {
+                "id": 144,
+                "name": "Meta",
+                "rank": 42
+            },
+            {
+                "id": 100,
+                "name": "Nudity",
+                "rank": 30
+            }
+        ],
+        "genres": [
+            "Action",
+            "Drama",
+            "Mahou Shoujo",
+            "Music",
+            "Sci-Fi"
+        ]
+    }
+}

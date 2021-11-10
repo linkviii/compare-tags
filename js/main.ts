@@ -8,6 +8,10 @@ import "./jquery.js";
 export const usingTestData = false;
 // export const usingTestData = true;
 
+const testUrl = "res/testData.json"
+export const testData = await fetch(testUrl).then(response => response.json());
+
+
 /* INIT */
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -122,13 +126,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 export async function getAniList(userName: string): Promise<any | Error> {
 
   if (usingTestData) {
-      console.warn("Using test data.");
-      giveFeedback("Using test data");
+    console.warn("Using test data.");
+    giveFeedback("Using test data");
 
-      const url = "res/anilist_example.json";
+    const url = "res/anilist_example.json";
 
-      let job = await fetch(url).then(response => response.json());
-      return job;
+    let job = await fetch(url).then(response => response.json());
+    return job;
 
   }
 
@@ -163,41 +167,142 @@ export async function getAniList(userName: string): Promise<any | Error> {
   `; // Could probably munch the whitespace with a regex but no real need to
 
   const variables = {
-      userName: userName
+    userName: userName
   };
 
 
   // Define the config we'll need for our Api request
   const url = 'https://graphql.anilist.co',
-      options = {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-          },
-          body: JSON.stringify({
-              query: query,
-              variables: variables
-          })
-      };
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        variables: variables
+      })
+    };
 
 
   const response = await fetch(url, options);
   const foo = await response.json();
 
   if (foo.errors) {
-      console.error(foo.errors);
-      return new Error("Error fetching list");
+    console.error(foo.errors);
+    return new Error("Error fetching list");
   }
 
   const data = foo.data.MediaListCollection;
 
   if (data.hasNextChunk) {
-      console.warn("TODO: next chunk not implemented yet.");
+    console.warn("TODO: next chunk not implemented yet.");
   }
 
 
   return data;
+
+}
+
+export function parseInputForId(input: string): number {
+  /* https://anilist.co/anime/269/Bleach/ → 269 */
+
+  input = input.trim();
+  input = input.toLocaleLowerCase();
+  const asParsed = parseInt(input);
+  if (!isNaN(asParsed)){
+    return asParsed;
+  }
+
+  // Format so url constructor can parse it
+  if (!input.startsWith("http")){
+    input = "https://" + input;
+  }
+
+  const url = new URL(input);
+
+  if (url.hostname !== "anilist.co"){
+    return NaN;
+  }
+
+  const parts = url.pathname.split("/");
+  if (parts.length < 3) {
+    return NaN;
+  }
+  return parseInt(parts[2]);
+
+}
+
+export async function getAniAnime(input: string): Promise<any | Error> {
+
+  if (usingTestData) {
+    console.warn("Using test data.");
+    giveFeedback("Using test data");
+
+    const url = "res/anilist_example.json";
+
+    let job = await fetch(url).then(response => response.json());
+    return job;
+
+  }
+
+  const query = `
+    query ($id: Int){
+      Media(id: $id) {
+        title {
+          romaji
+          english
+          native
+          userPreferred
+        }
+        tags {
+          id
+          name
+          rank
+        }
+        genres 
+      }
+    }
+  `; // Could probably munch the whitespace with a regex but no real need to
+
+  const id = parseInputForId(input);
+  const variables = {
+    id: id
+  };
+
+
+  // Define the config we'll need for our Api request
+  const url = 'https://graphql.anilist.co',
+    options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        query: query,
+        variables: variables
+      })
+    };
+
+
+  const response = await fetch(url, options);
+  const foo = await response.json();
+
+  if (foo.errors) {
+    console.error(foo.errors);
+    return new Error("Error fetching list");
+  }
+
+  const data = foo.data;
+
+  // if (data.hasNextChunk) {
+  //   console.warn("TODO: next chunk not implemented yet.");
+  // }
+
+
+  return data.Media;
 
 }
 
@@ -211,7 +316,7 @@ function giveFeedback(str: string, sec = 5) {
   feedback.text(str);
   // feedback[0].textContent = str;
   setTimeout(function () {
-      feedback.text("");
+    feedback.text("");
   }, time);
 
 }

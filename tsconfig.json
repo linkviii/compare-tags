@@ -2,7 +2,7 @@
     "compilerOptions": {
       "target": "ES2017",
       "sourceMap": true,
-      "module": "es6",
+      "module": "esnext",
       "baseUrl": "./js"
     },
     "exclude": [
