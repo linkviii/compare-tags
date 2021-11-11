@@ -178,9 +178,11 @@ export async function getAniAnime(input) {
         let job = await fetch(url).then(response => response.json());
         return job;
     }
+    // todo year/season
     const query = `
     query ($id: Int){
       Media(id: $id) {
+        id
         title {
           romaji
           english
@@ -275,7 +277,7 @@ class HTable {
             let rowColCount = row.children.length;
             for (; rowColCount <= data.index; rowColCount++) {
                 const data = document.createElement("td");
-                data.textContent = "x";
+                // data.textContent = "x";
                 row.append(data);
             }
         }
@@ -292,25 +294,52 @@ class HTable {
         }
         for (let i = 1; i < this.headRow.children.length; ++i) {
             const box = document.createElement("td");
-            box.textContent = 'x';
+            // box.textContent = 'x';
             row.append(box);
         }
         this.body.append(row);
         this.rows.set(data.id, data);
     }
 }
+const tagThreshold = 50;
 export function test() {
     for (let [id, anime] of Object.entries(testData)) {
         anime.id = parseInt(id);
     }
-    const table = new HTable("test");
+    const tagTable = new HTable("test");
+    const genreTable = new HTable("test");
     for (let anime of Object.values(testData)) {
         for (let tag of anime.tags) {
-            if (tag.rank > 50 && !table.columns.has(tag.id.toString())) {
-                table.addCol({ id: tag.id.toString(), name: tag.name });
+            if (tag.rank > tagThreshold && !tagTable.columns.has(tag.id.toString())) {
+                tagTable.addCol({ id: tag.id.toString(), name: tag.name });
             }
         }
-        table.addRow({ id: anime.id.toString(), name: anime.title.english });
+        for (let genre of anime.genres) {
+            genreTable.addCol({ id: genre, name: genre });
+        }
+        tagTable.addRow({ id: anime.id.toString(), name: anime.title.english });
+        genreTable.addRow({ id: anime.id.toString(), name: anime.title.english });
+    }
+    for (let row of tagTable.rows.values()) {
+        let anime = testData[row.id];
+        // for (let col of table.columns.values()){
+        //   let tag 
+        // }
+        const tr = tagTable.body.children[row.index];
+        for (let tag of anime.tags) {
+            if (tag.rank > tagThreshold) {
+                const box = tr.children[tagTable.columns.get(tag.id.toString()).index];
+                box.textContent = "X";
+            }
+        }
+    }
+    for (let row of genreTable.rows.values()) {
+        let anime = testData[row.id];
+        const tr = genreTable.body.children[row.index];
+        for (let genre of anime.genres) {
+            const box = tr.children[genreTable.columns.get(genre).index];
+            box.textContent = "X";
+        }
     }
 }
 //# sourceMappingURL=main.js.map
