@@ -1,5 +1,6 @@
 {
     "269": {
+        "id": 269,
         "title": {
             "romaji": "Bleach",
             "english": "Bleach",
@@ -112,9 +113,17 @@
             "Action",
             "Adventure",
             "Supernatural"
-        ]
+        ],
+        "season": "FALL",
+        "seasonYear": 2004,
+        "startDate": {
+            "year": 2004,
+            "month": 10,
+            "day": 5
+        }
     },
     "11751": {
+        "id": 11751,
         "title": {
             "romaji": "Senki Zesshou Symphogear",
             "english": "Symphogear",
@@ -214,6 +223,13 @@
             "Mahou Shoujo",
             "Music",
             "Sci-Fi"
-        ]
+        ],
+        "season": "WINTER",
+        "seasonYear": 2012,
+        "startDate": {
+            "year": 2012,
+            "month": 1,
+            "day": 7
+        }
     }
 }
