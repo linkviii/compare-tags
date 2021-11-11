@@ -11,18 +11,28 @@ export const usingTestData = false;
 const testUrl = "res/testData.json"
 export const testData = await fetch(testUrl).then(response => response.json());
 
+export const app = {} as any;
+
 
 /* INIT */
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  //do work
+function init() {
   console.log("init page");
   giveFeedback("Page loaded");
 
+  /*  */
+  app.tags = new HTable("tags");
+  app.genres = new HTable("genres");
+  app.years = new TimeLayout("years");
+}
 
-
+document.addEventListener("DOMContentLoaded", function (event) {
+  //do work
+  init();
 
 });
+
+$(init);
 /* END Init */
 
 
@@ -334,10 +344,110 @@ class HTable {
 
 }
 
+interface SeasonData {
+  div: HTMLElement;
+}
+interface SeasonMap {
+  WINTER: SeasonData;
+  SPRING: SeasonData;
+  SUMMER: SeasonData;
+  FALL: SeasonData;
+}
+
+interface YearData {
+  year: number;
+  div: HTMLElement;
+  seasons: SeasonMap;
+}
+
+
+function newYear(year: number): YearData {
+  const data = {} as YearData;
+  data.year = year;
+  data.div = document.createElement("div");
+  data.seasons = {} as SeasonMap;
+
+  const yearLabel = document.createElement("h3");
+  yearLabel.classList.add("year-label");
+  yearLabel.textContent = year.toString();
+  data.div.append(yearLabel);
+
+  for (let seasonName of SeasonSet) {
+    const season = document.createElement("div");
+    const seasonLabel = document.createElement("h4");
+    seasonLabel.classList.add("season-label");
+    seasonLabel.textContent = seasonName;
+    season.append(seasonLabel);
+    season.style.display = "none";
+
+    data.div.append(season);
+    data.seasons[seasonName] = { div: season };
+  }
+  return data;
+}
+
+class TimeLayout {
+  top: HTMLElement;
+  yearList: YearData[] = [];
+
+  constructor(parentId: string) {
+
+    const parent = document.getElementById(parentId);
+
+    this.top = document.createElement("div");
+    parent.append(this.top);
+
+
+  }
+
+  getYear(year: number): YearData {
+
+
+    let searchIdx = 0;
+    for (; searchIdx < this.yearList.length; ++searchIdx) {
+      if (this.yearList[searchIdx].year >= year) {
+        break;
+      }
+    }
+    // At end or of empty list
+    if (searchIdx >= this.yearList.length) {
+      const data = newYear(year);
+      this.top.append(data.div);
+      this.yearList.push(data);
+      return data;
+    }
+
+    const closest = this.yearList[searchIdx];
+    if (closest.year == year) {
+      return closest;
+    }
+    const data = newYear(year);
+    this.top.insertBefore(data.div, closest.div);
+
+    this.yearList.splice(searchIdx, 0, data);
+    return data;
+
+
+  }
+
+  addAnime(anime: Anime) {
+    const year = this.getYear(anime.seasonYear);
+    const season = year.seasons[anime.season];
+    season.div.style.display = "inherit";
+
+    const animeLabel = document.createElement("div");
+    const date = asYYYYMMDD(anime.startDate);
+    animeLabel.textContent = `${anime.title.english}: ${date}`;
+
+    season.div.append(animeLabel);
+  }
+
+}
+
 interface ADate {
-  year:number;
-  month:number;
-  day:number;
+  year: number;
+  month: number;
+  day: number;
 }
 
 interface Tag {
@@ -360,8 +470,17 @@ interface Anime {
   startDate: ADate;
 }
 
+const SeasonSet = ["WINTER", "SPRING", "SUMMER", "FALL"];
+
 const tagThreshold = 50;
 
+const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
+
+function asYYYYMMDD(date: ADate): string {
+  const mm = zeroPad(date.month, 2);
+  const dd = zeroPad(date.day, 2);
+  return `${date.year}-${mm}-${dd}`;
+}
 
 export function test() {
 
@@ -369,8 +488,11 @@ export function test() {
     anime.id = parseInt(id);
   }
 
-  const tagTable = new HTable("test");
-  const genreTable = new HTable("test");
+  const tagTable = app.tags;
+  const genreTable = app.genres;
+
+  const yearThing = app.years;
+
   for (let anime of Object.values(testData) as Anime[]) {
     for (let tag of anime.tags) {
       if (tag.rank > tagThreshold && !tagTable.columns.has(tag.id.toString())) {
@@ -407,6 +529,10 @@ export function test() {
       box.textContent = "X";
     }
 
+  }
+
+  for (let anime of Object.values(testData) as Anime[]) {
+    yearThing.addAnime(anime);
   }
 
 }
