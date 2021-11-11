@@ -234,4 +234,83 @@ function giveFeedback(str, sec = 5) {
         feedback.text("");
     }, time);
 }
+class HTable {
+    //
+    constructor(parentId) {
+        //
+        this.columns = new Map();
+        this.rows = new Map();
+        //
+        this.parent = document.getElementById(parentId);
+        this.table = document.createElement("table");
+        this.parent.append(this.table);
+        {
+            const head = document.createElement("thead");
+            this.table.append(head);
+            {
+                this.headRow = document.createElement("tr");
+                head.append(this.headRow);
+                {
+                    const spacer = document.createElement("th");
+                    this.headRow.append(spacer);
+                }
+            }
+            this.body = document.createElement("tbody");
+            this.table.append(this.body);
+        }
+    }
+    addCol(desc) {
+        const data = desc;
+        /* Make header */
+        {
+            data.index = this.headRow.children.length;
+            const head = document.createElement("th");
+            head.textContent = desc.name;
+            this.headRow.append(head);
+        }
+        /* Fix old rows */
+        for (let rowVal = 0; rowVal < this.body.children.length; rowVal++) {
+            // for (let row of tableBody.children){
+            const row = this.body.children[rowVal];
+            let rowColCount = row.children.length;
+            for (; rowColCount <= data.index; rowColCount++) {
+                const data = document.createElement("td");
+                data.textContent = "x";
+                row.append(data);
+            }
+        }
+        this.columns.set(data.id, data);
+    }
+    addRow(desc) {
+        const data = desc;
+        data.index = this.body.children.length;
+        const row = document.createElement("tr");
+        {
+            const box = document.createElement("th");
+            box.textContent = data.name;
+            row.append(box);
+        }
+        for (let i = 1; i < this.headRow.children.length; ++i) {
+            const box = document.createElement("td");
+            box.textContent = 'x';
+            row.append(box);
+        }
+        this.body.append(row);
+        this.rows.set(data.id, data);
+    }
+}
+export function test() {
+    for (let [id, anime] of Object.entries(testData)) {
+        anime.id = parseInt(id);
+    }
+    const table = new HTable("test");
+    for (let anime of Object.values(testData)) {
+        for (let tag of anime.tags) {
+            if (tag.rank > 50 && !table.columns.has(tag.id.toString())) {
+                table.addCol({ id: tag.id.toString(), name: tag.name });
+            }
+        }
+        table.addRow({ id: anime.id.toString(), name: anime.title.english });
+    }
+}
 //# sourceMappingURL=main.js.map
