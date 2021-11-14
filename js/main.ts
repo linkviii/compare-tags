@@ -58,7 +58,7 @@ function init() {
           giveFeedback("Invalid anime id or url");
 
         } else {
-          giveFeedback(`${anime.title.english} is already in the tables.`);
+          giveFeedback(`${someName(anime)} is already in the tables.`);
         }
         return;
       }
@@ -496,7 +496,7 @@ class TimeLayout {
 
     const animeLabel = document.createElement("div");
     const date = asYYYYMMDD(anime.startDate);
-    animeLabel.textContent = `${anime.title.english}: ${date}`;
+    animeLabel.textContent = `${someName(anime)}: ${date}`;
 
     season.div.append(animeLabel);
   }
@@ -529,6 +529,15 @@ interface Anime {
   startDate: ADate;
 }
 
+function someName(title: Title | Anime): string {
+
+  if ("title" in title) {
+    title = title.title;
+  }
+
+  return title.english || title.romaji || title.romaji;
+}
+
 const SeasonSet = ["WINTER", "SPRING", "SUMMER", "FALL"];
 
 const tagThreshold = 50;
@@ -548,7 +557,7 @@ function displayAnime(anime: Anime) {
       app.tags.addCol({ id: tag.id.toString(), name: tag.name });
     }
   }
-  app.tags.addRow({ id: anime.id.toString(), name: anime.title.english });
+  app.tags.addRow({ id: anime.id.toString(), name: someName(anime) });
 
   // Genres
   for (let genre of anime.genres) {
@@ -556,7 +565,7 @@ function displayAnime(anime: Anime) {
       app.genres.addCol({ id: genre, name: genre });
     }
   }
-  app.genres.addRow({ id: anime.id.toString(), name: anime.title.english });
+  app.genres.addRow({ id: anime.id.toString(), name: someName(anime) });
 
   // Years 
   app.years.addAnime(anime);
@@ -639,8 +648,8 @@ export function test0() {
     for (let genre of anime.genres) {
       genreTable.addCol({ id: genre, name: genre });
     }
-    tagTable.addRow({ id: anime.id.toString(), name: anime.title.english });
-    genreTable.addRow({ id: anime.id.toString(), name: anime.title.english });
+    tagTable.addRow({ id: anime.id.toString(), name: someName(anime) });
+    genreTable.addRow({ id: anime.id.toString(), name: someName(anime) });
   }
 
   for (let row of tagTable.rows.values()) {
