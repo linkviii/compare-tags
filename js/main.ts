@@ -10,9 +10,20 @@ export const usingTestData = false;
 
 const testUrl = "res/testData.json"
 export const testData = await fetch(testUrl).then(response => response.json());
+const animeDb = new Map<string, Anime>();
 
-export const app = {} as any;
+export let app: App; // Don't construct until page ready
 
+/*  */
+
+class App {
+  tags = new HTable("tags");
+  genres = new HTable("genres");
+  years = new TimeLayout("years");
+
+  idInput = document.getElementById("anime-id") as HTMLInputElement;
+  addButton = document.getElementById("add-anime") as HTMLButtonElement;
+}
 
 /* INIT */
 
@@ -21,9 +32,51 @@ function init() {
   giveFeedback("Page loaded");
 
   /*  */
-  app.tags = new HTable("tags");
-  app.genres = new HTable("genres");
-  app.years = new TimeLayout("years");
+  app = new App();
+
+  /*  */
+
+  app.idInput.addEventListener("keyup", function (event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      app.addButton.click();
+    }
+  });
+
+
+  app.addButton.addEventListener("click",
+    async function () {
+
+      const id = parseInputForId(app.idInput.value);
+      if (isNaN(id)) {
+        giveFeedback("Invalid anime id or url");
+        return;
+      }
+      if (animeDb.has(id.toString())) {
+        const anime = animeDb.get(id.toString());
+        if (null === anime) {
+          giveFeedback("Invalid anime id or url");
+
+        } else {
+          giveFeedback(`${anime.title.english} is already in the tables.`);
+        }
+        return;
+      }
+
+      let anime = await getAniAnime(id);
+      if (anime instanceof Error) {
+        anime = null as Anime;
+        giveFeedback("Invalid anime id or url");
+      }
+      animeDb.set(id.toString(), anime);
+      if (anime === null) {
+        return;
+      }
+
+      displayAnime(anime);
+
+
+    });
 }
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -123,6 +176,11 @@ export function parseInputForId(input: string): number {
   /* https://anilist.co/anime/269/Bleach/ → 269 */
 
   input = input.trim();
+
+  if (input.length == 0) {
+    return NaN;
+  }
+
   input = input.toLocaleLowerCase();
   const asParsed = parseInt(input);
   if (!isNaN(asParsed)) {
@@ -148,7 +206,8 @@ export function parseInputForId(input: string): number {
 
 }
 
-export async function getAniAnime(input: string): Promise<any | Error> {
+// export async function getAniAnime(input: string): Promise<any | Error> {
+export async function getAniAnime(id: number): Promise<Anime | Error> {
 
   if (usingTestData) {
     console.warn("Using test data.");
@@ -189,7 +248,7 @@ export async function getAniAnime(input: string): Promise<any | Error> {
     }
   `; // Could probably munch the whitespace with a regex but no real need to
 
-  const id = parseInputForId(input);
+  // const id = parseInputForId(input);
   const variables = {
     id: id
   };
@@ -225,7 +284,7 @@ export async function getAniAnime(input: string): Promise<any | Error> {
   // }
 
 
-  return data.Media;
+  return data.Media as Anime;
 
 }
 
@@ -482,7 +541,85 @@ function asYYYYMMDD(date: ADate): string {
   return `${date.year}-${mm}-${dd}`;
 }
 
+function displayAnime(anime: Anime) {
+  // Tags
+  for (let tag of anime.tags) {
+    if (tag.rank > tagThreshold && !app.tags.columns.has(tag.id.toString())) {
+      app.tags.addCol({ id: tag.id.toString(), name: tag.name });
+    }
+  }
+  app.tags.addRow({ id: anime.id.toString(), name: anime.title.english });
+
+  // Genres
+  for (let genre of anime.genres) {
+    if (!app.genres.columns.has(genre)) {
+      app.genres.addCol({ id: genre, name: genre });
+    }
+  }
+  app.genres.addRow({ id: anime.id.toString(), name: anime.title.english });
+
+  // Years 
+  app.years.addAnime(anime);
+
+  //
+  fillTables();
+
+}
+
+function fillAnimeRows(anime: Anime) {
+  const tagTable = app.tags;
+  const genreTable = app.genres;
+
+
+  // Tags
+  {
+    const row = tagTable.rows.get(anime.id.toString());
+    const tr = tagTable.body.children[row.index];
+    for (let tag of anime.tags) {
+      if (tag.rank > tagThreshold) {
+        const box = tr.children[tagTable.columns.get(tag.id.toString()).index];
+        box.textContent = "X";
+      }
+    }
+  }
+
+  // Genres
+  {
+    const row = genreTable.rows.get(anime.id.toString());
+
+    const tr = genreTable.body.children[row.index];
+    for (let genre of anime.genres) {
+      const box = tr.children[genreTable.columns.get(genre).index];
+      box.textContent = "X";
+    }
+  }
+}
+
+function fillTables() {
+  const tagTable = app.tags;
+  const genreTable = app.genres;
+
+  for (let row of tagTable.rows.values()) {
+    let anime = animeDb.get(row.id);
+    fillAnimeRows(anime);
+  }
+
+}
+
 export function test() {
+
+  for (let [id, anime] of Object.entries(testData) as any) {
+    anime.id = parseInt(id);
+    animeDb.set(id, anime);
+  }
+
+  for (let anime of animeDb.values()) {
+    displayAnime(anime);
+  }
+
+}
+
+export function test0() {
 
   for (let [id, anime] of Object.entries(testData) as any) {
     anime.id = parseInt(id);
