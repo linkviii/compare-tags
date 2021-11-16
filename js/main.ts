@@ -553,7 +553,7 @@ function asYYYYMMDD(date: ADate): string {
 function displayAnime(anime: Anime) {
   // Tags
   for (let tag of anime.tags) {
-    if (tag.rank > tagThreshold && !app.tags.columns.has(tag.id.toString())) {
+    if (tag.rank >= tagThreshold && !app.tags.columns.has(tag.id.toString())) {
       app.tags.addCol({ id: tag.id.toString(), name: tag.name });
     }
   }
@@ -585,7 +585,7 @@ function fillAnimeRows(anime: Anime) {
     const row = tagTable.rows.get(anime.id.toString());
     const tr = tagTable.body.children[row.index];
     for (let tag of anime.tags) {
-      if (tag.rank > tagThreshold) {
+      if (tag.rank >= tagThreshold) {
         const box = tr.children[tagTable.columns.get(tag.id.toString()).index];
         box.textContent = "X";
       }
