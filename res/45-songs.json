@@ -1,0 +1,3644 @@
+{
+    "roomName": "Solo",
+    "startTime": "Sun Sep 07 2025 14:23:04 GMT-0400",
+    "songs": [
+        {
+            "songNumber": 1,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Megalobox",
+                    "romaji": "Megalobox"
+                },
+                "artist": "Michiyo Murase",
+                "composerInfo": {
+                    "artistId": 17998,
+                    "name": "Michael Kaneko"
+                },
+                "arrangerInfo": {
+                    "artistId": 17998,
+                    "name": "Michael Kaneko"
+                },
+                "songName": "We are Bangaichi",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 20565,
+                "highRisk": 0,
+                "animeScore": 7.7,
+                "animeType": "TV",
+                "vintage": "Spring 2018",
+                "animeDifficulty": 47.18054437577898,
+                "animeTags": [
+                    "Martial Arts",
+                    "Male Protagonist",
+                    "Primarily Male Cast",
+                    "Cyberpunk",
+                    "Primarily Adult Cast",
+                    "Boxing",
+                    "Yakuza",
+                    "Dystopian",
+                    "Revenge",
+                    "Athletics",
+                    "Artificial Intelligence",
+                    "Disability"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Drama",
+                    "Sci-Fi",
+                    "Sports"
+                ],
+                "altAnimeNames": [
+                    "Megalobox"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 20565,
+                    "malId": 36563,
+                    "kitsuId": 13949,
+                    "aniListId": 100298
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Megalobox",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 0,
+            "videoLength": 55.217,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 2,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Dropkick on My Devil!! Dash",
+                    "romaji": "Jashin-chan Dropkick'"
+                },
+                "artist": "halca",
+                "composerInfo": {
+                    "artistId": 10647,
+                    "name": "Kazuhiro Hara"
+                },
+                "arrangerInfo": {
+                    "artistId": 15599,
+                    "name": "Tomoya Kawasaki"
+                },
+                "songName": "Tokitoshite Violence",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 22563,
+                "highRisk": 0,
+                "animeScore": 7.4,
+                "animeType": "TV",
+                "vintage": "Spring 2020",
+                "animeDifficulty": 27.64659001572327,
+                "animeTags": [
+                    "Demons",
+                    "Magic",
+                    "Seinen",
+                    "Slapstick",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Gore",
+                    "Female Protagonist",
+                    "Idol",
+                    "Mahjong",
+                    "Meta",
+                    "Mythology",
+                    "Monster Girl",
+                    "Surreal Comedy",
+                    "Kuudere",
+                    "Angels"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Dropkick on My Devil!! Dash",
+                    "Jashin-chan Dropkick'"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 22563,
+                    "malId": 39049,
+                    "kitsuId": 42126,
+                    "aniListId": 107294
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 2"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Jashin-chan Dropkick&#39;",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 8,
+            "videoLength": 89.798,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 3,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Harukana Receive",
+                    "romaji": "Harukana Receive"
+                },
+                "artist": "Kana Yuuki & Saki Miyashita",
+                "composerInfo": {
+                    "artistId": 15765,
+                    "name": "Makoto Nishikawa"
+                },
+                "arrangerInfo": {
+                    "artistId": 15765,
+                    "name": "Makoto Nishikawa"
+                },
+                "songName": "FLY two BLUE",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 20318,
+                "highRisk": 0,
+                "animeScore": 6.4,
+                "animeType": "TV",
+                "vintage": "Summer 2018",
+                "animeDifficulty": 32.57990109156227,
+                "animeTags": [
+                    "Seinen",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Volleyball",
+                    "Outdoor",
+                    "Twins",
+                    "Coastal"
+                ],
+                "animeGenre": [
+                    "Ecchi",
+                    "Slice of Life",
+                    "Sports"
+                ],
+                "altAnimeNames": [
+                    "Harukana Receive"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 20318,
+                    "malId": 35983,
+                    "kitsuId": 13659,
+                    "aniListId": 99586
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Harukana Receive",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 2,
+            "videoLength": 89.061,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 4,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Lycoris Recoil",
+                    "romaji": "Lycoris Recoil"
+                },
+                "artist": "ClariS",
+                "composerInfo": {
+                    "artistId": 10411,
+                    "name": "Ryosuke Shigenaga"
+                },
+                "arrangerInfo": {
+                    "artistId": 10411,
+                    "name": "Ryosuke Shigenaga"
+                },
+                "songName": "ALIVE",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 25104,
+                "highRisk": 0,
+                "animeScore": 8.1,
+                "animeType": "TV",
+                "vintage": "Summer 2022",
+                "animeDifficulty": 64.87063373253493,
+                "animeTags": [
+                    "Yaoi",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Politics",
+                    "Ensemble Cast",
+                    "Work",
+                    "Guns",
+                    "Terrorism",
+                    "Espionage",
+                    "Assassins",
+                    "Conspiracy",
+                    "LGBTQ Issues",
+                    "Urban",
+                    "Crime",
+                    "Kuudere",
+                    "Found Family",
+                    "Orphan",
+                    "Parenthood",
+                    "Restaurant "
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Lycoris Recoil"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 25104,
+                    "malId": 50709,
+                    "kitsuId": 45705,
+                    "aniListId": 143270
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Lycoris Recoil",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 21,
+            "videoLength": 89.013,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 5,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Hitoribocchi no Marumaruseikatsu",
+                    "romaji": "Hitoribocchi no Marumaruseikatsu"
+                },
+                "artist": "Chisaki Morishita, Minami Tanaka, Akari Kitou, Yuuko Kurose",
+                "composerInfo": {
+                    "artistId": 15868,
+                    "name": "Mamoru Tanoue"
+                },
+                "arrangerInfo": {
+                    "artistId": 12206,
+                    "name": "Akito Matsuda"
+                },
+                "songName": "Hitoribocchi no Monologue",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 20806,
+                "highRisk": 0,
+                "animeScore": 7.3,
+                "animeType": "TV",
+                "vintage": "Spring 2019",
+                "animeDifficulty": 43.77173445767196,
+                "animeTags": [
+                    "School",
+                    "Slapstick",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Primarily Child Cast",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Hitoribocchi no Marumaruseikatsu",
+                    "Hitoribocchi no ○○ Seikatsu"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 20806,
+                    "malId": 37614,
+                    "kitsuId": 41124,
+                    "aniListId": 101386
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Hitoribocchi no ○○ Seikatsu",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 20,
+            "videoLength": 87.934,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 6,
+            "songInfo": {
+                "animeNames": {
+                    "english": "The Ancient Magus' Bride Season 2",
+                    "romaji": "Mahoutsukai no Yome Season 2"
+                },
+                "artist": "yuyu",
+                "composerInfo": {
+                    "artistId": 15692,
+                    "name": "kegani"
+                },
+                "arrangerInfo": {
+                    "groupId": 80024606,
+                    "name": "kegani & Rioka Iruma"
+                },
+                "songName": "fam",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 28732,
+                "highRisk": 0,
+                "animeScore": 7.9,
+                "animeType": "TV",
+                "vintage": "Fall 2023",
+                "animeDifficulty": 22.333117366556092,
+                "animeTags": [
+                    "Magic",
+                    "Tragedy",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Witch",
+                    "Mythology",
+                    "Gods",
+                    "Monster Girl",
+                    "Urban Fantasy",
+                    "College",
+                    "Animals",
+                    "Urban",
+                    "Kuudere",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Drama",
+                    "Fantasy",
+                    "Romance",
+                    "Slice of Life",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Mahoutsukai no Yome Season 2",
+                    "The Ancient Magus' Bride Season 2"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 28732,
+                    "malId": 55742,
+                    "kitsuId": 47649,
+                    "aniListId": 166452
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 3"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "The Ancient Magus&#39; Bride Season 2",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 19,
+            "videoLength": 89.269,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 7,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Aware! Meisaku-kun",
+                    "romaji": "Aware! Meisaku-kun"
+                },
+                "artist": "Taiiku Okazaki",
+                "composerInfo": {
+                    "artistId": 6885,
+                    "name": "Taiiku Okazaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 6885,
+                    "name": "Taiiku Okazaki"
+                },
+                "songName": "Mago no Dai made",
+                "type": 2,
+                "typeNumber": 2,
+                "annId": 24133,
+                "highRisk": 0,
+                "animeScore": 4.4,
+                "animeType": "TV",
+                "vintage": "Spring 2018",
+                "animeDifficulty": 21.447702766319942,
+                "animeTags": [
+                    "Kids",
+                    "Parody",
+                    "School",
+                    "Slapstick",
+                    "Educational",
+                    "Meta",
+                    "Mythology",
+                    "Fairy Tale",
+                    "Primarily Child Cast",
+                    "Cute Boys Doing Cute Things"
+                ],
+                "animeGenre": [
+                    "Comedy"
+                ],
+                "altAnimeNames": [
+                    "Aware! Meisaku-kun"
+                ],
+                "altAnimeNamesAnswers": [
+                    "Aware! Meisaku-kun"
+                ],
+                "siteIds": {
+                    "annId": 24133,
+                    "malId": 32956,
+                    "kitsuId": 12168,
+                    "aniListId": 21727
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 3"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Aware! Meisaku-kun",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 0,
+            "videoLength": 32.82322,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 8,
+            "songInfo": {
+                "animeNames": {
+                    "english": "The Honor at Magic High School",
+                    "romaji": "Mahouka Koukou no Yuutousei"
+                },
+                "artist": "Jennifer Skidmore",
+                "composerInfo": {
+                    "artistId": 440,
+                    "name": "Taku Iwasaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 440,
+                    "name": "Taku Iwasaki"
+                },
+                "songName": "Vespertine Bloom",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 23898,
+                "highRisk": 0,
+                "animeScore": 6.4,
+                "animeType": "TV",
+                "vintage": "Summer 2021",
+                "animeDifficulty": 29.491585926899592,
+                "animeTags": [
+                    "Magic",
+                    "School",
+                    "Female Protagonist",
+                    "Nudity",
+                    "War",
+                    "Terrorism",
+                    "Kuudere",
+                    "Heterosexual",
+                    "Criminal Organization"
+                ],
+                "animeGenre": [
+                    "Fantasy",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Mahouka Koukou no Yuutousei",
+                    "The Honor at Magic High School"
+                ],
+                "altAnimeNamesAnswers": [
+                    "Mahouka Koukou no Rettousei",
+                    "The Irregular at Magic High School"
+                ],
+                "siteIds": {
+                    "annId": 23898,
+                    "malId": 45572,
+                    "kitsuId": 43847,
+                    "aniListId": 127688
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 2021"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "The Irregular at Magic High School",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 18,
+            "videoLength": 105.612,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 9,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Dorohedoro",
+                    "romaji": "Dorohedoro"
+                },
+                "artist": "(K)NoW_NAME:Ayaka Tachibana",
+                "composerInfo": {
+                    "artistId": 21289,
+                    "name": "(K)NoW_NAME:Makoto Miyazaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 21289,
+                    "name": "(K)NoW_NAME:Makoto Miyazaki"
+                },
+                "songName": "Welcome to Chaos",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 22562,
+                "highRisk": 0,
+                "animeScore": 7.9,
+                "animeType": "TV",
+                "vintage": "Winter 2020",
+                "animeDifficulty": 55.88410080645161,
+                "animeTags": [
+                    "Demons",
+                    "Magic",
+                    "Seinen",
+                    "Male Protagonist",
+                    "Full CGI",
+                    "CGI",
+                    "Post-Apocalyptic",
+                    "Gore",
+                    "Female Protagonist",
+                    "Anti-Hero",
+                    "Ensemble Cast",
+                    "Primarily Adult Cast",
+                    "Food",
+                    "Body Swapping",
+                    "Dystopian",
+                    "Amnesia",
+                    "Revenge",
+                    "Surreal Comedy",
+                    "Urban Fantasy",
+                    "Body Horror",
+                    "Monster Boy",
+                    "Found Family",
+                    "Anthropomorphism",
+                    "Restaurant ",
+                    "Curses"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Comedy",
+                    "Fantasy",
+                    "Horror",
+                    "Mystery"
+                ],
+                "altAnimeNames": [
+                    "Dorohedoro"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 22562,
+                    "malId": 38668,
+                    "kitsuId": 42040,
+                    "aniListId": 105228
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Dorohedoro",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 15,
+            "videoLength": 89.978,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 10,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Grimms Notes the Animation",
+                    "romaji": "Grimms Notes the Animation"
+                },
+                "artist": "DAZBEE",
+                "composerInfo": {
+                    "artistId": 15945,
+                    "name": "Taketeru Sunamori"
+                },
+                "arrangerInfo": {
+                    "artistId": 15946,
+                    "name": "Miyako Matsuoka"
+                },
+                "songName": "Eiyuu no Shihen",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 21266,
+                "highRisk": 0,
+                "animeScore": 5.4,
+                "animeType": "TV",
+                "vintage": "Winter 2019",
+                "animeDifficulty": 24.42506167763158,
+                "animeTags": [
+                    "Magic",
+                    "Gender Bending",
+                    "Henshin",
+                    "Episodic",
+                    "Fairy Tale"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Fantasy"
+                ],
+                "altAnimeNames": [
+                    "Grimms Notes the Animation"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 21266,
+                    "malId": 37154,
+                    "kitsuId": 42004,
+                    "aniListId": 103735
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Grimms Notes the Animation",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 16,
+            "videoLength": 86.642,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 11,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Teekyuu",
+                    "romaji": "Teekyuu"
+                },
+                "artist": "Earth Star Dream",
+                "composerInfo": {
+                    "artistId": 14636,
+                    "name": "Yashikin"
+                },
+                "arrangerInfo": {
+                    "artistId": 14636,
+                    "name": "Yashikin"
+                },
+                "songName": "Tottemo Safari",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 17543,
+                "highRisk": 0,
+                "animeScore": 6.5,
+                "animeType": "TV",
+                "vintage": "Fall 2015",
+                "animeDifficulty": 73.04981704177699,
+                "animeTags": [
+                    "School",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Episodic",
+                    "Tennis",
+                    "Surreal Comedy"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Sports"
+                ],
+                "altAnimeNames": [
+                    "Teekyuu"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 17543,
+                    "malId": 31440,
+                    "kitsuId": 11334,
+                    "aniListId": 21301
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 6"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Teekyuu",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 0,
+            "videoLength": 30.002,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 12,
+            "songInfo": {
+                "animeNames": {
+                    "english": "New Game!!",
+                    "romaji": "New Game!!"
+                },
+                "artist": "fourfolium",
+                "composerInfo": {
+                    "groupId": 80023920,
+                    "name": "Hige Driver & Ayato Shinozaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 15349,
+                    "name": "Ayato Shinozaki"
+                },
+                "songName": "STEP by STEP UP↑↑↑↑",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 19593,
+                "highRisk": 0,
+                "animeScore": 7.6,
+                "animeType": "TV",
+                "vintage": "Summer 2017",
+                "animeDifficulty": 48.132980724704794,
+                "animeTags": [
+                    "Seinen",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Otaku Culture",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Primarily Adult Cast",
+                    "Drawing",
+                    "Work",
+                    "Video Games",
+                    "Development",
+                    "LGBTQ Issues",
+                    "Office Lady",
+                    "Tomboy",
+                    "Office"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "New Game!!"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 19593,
+                    "malId": 34914,
+                    "kitsuId": 13236,
+                    "aniListId": 98292
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 2"
+            },
+            "correctGuess": false,
+            "wrongGuess": true,
+            "answer": "Kin-iro Mosaic",
+            "correctCount": 0,
+            "wrongCount": 1,
+            "startPoint": 4,
+            "videoLength": 89.513,
+            "videoUrl": "",
+            "correctGuessPlayers": [],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 13,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Gosick",
+                    "romaji": "Gosick"
+                },
+                "artist": "Lisa Komine",
+                "composerInfo": {
+                    "artistId": 14596,
+                    "name": "Asu"
+                },
+                "arrangerInfo": {
+                    "artistId": 4538,
+                    "name": "Tomoki Hasegawa"
+                },
+                "songName": "unity",
+                "type": 2,
+                "typeNumber": 2,
+                "annId": 11759,
+                "highRisk": 0,
+                "animeScore": 7.7,
+                "animeType": "TV",
+                "vintage": "Winter 2011",
+                "animeDifficulty": 37.00110597826087,
+                "animeTags": [
+                    "Historical",
+                    "School",
+                    "Male Protagonist",
+                    "Tragedy",
+                    "Female Protagonist",
+                    "War",
+                    "Love Triangle",
+                    "Guns",
+                    "Tsundere",
+                    "Bullying",
+                    "Foreign",
+                    "Conspiracy",
+                    "Crime",
+                    "Detective",
+                    "Tomboy",
+                    "Heterosexual",
+                    "Alchemy",
+                    "Royal Affairs"
+                ],
+                "animeGenre": [
+                    "Drama",
+                    "Mystery",
+                    "Romance"
+                ],
+                "altAnimeNames": [
+                    "Gosick"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 11759,
+                    "malId": 8425,
+                    "kitsuId": 5330,
+                    "aniListId": 8425
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "gosick",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 19,
+            "videoLength": 89.346,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 14,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Artiswitch",
+                    "romaji": "Artiswitch"
+                },
+                "artist": "Yukichi Kasaku/men",
+                "composerInfo": {
+                    "artistId": 16433,
+                    "name": "Yukichi Kasaku/men"
+                },
+                "arrangerInfo": {
+                    "artistId": 16433,
+                    "name": "Yukichi Kasaku/men"
+                },
+                "songName": "Ede",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 24373,
+                "highRisk": 0,
+                "animeScore": 7,
+                "animeType": "ONA",
+                "vintage": "Spring 2021",
+                "animeDifficulty": 21.172555693069306,
+                "animeTags": [
+                    "CGI",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Witch",
+                    "Episodic",
+                    "Urban Fantasy",
+                    "Fashion",
+                    "LGBTQ Issues",
+                    "Denpa"
+                ],
+                "animeGenre": [
+                    "Drama",
+                    "Psychological"
+                ],
+                "altAnimeNames": [
+                    "Artiswitch"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 24373,
+                    "malId": 49066,
+                    "kitsuId": 44595,
+                    "aniListId": 134120
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Artiswitch",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 6,
+            "videoLength": 128.767,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 15,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Fullmetal Alchemist: Brotherhood",
+                    "romaji": "Hagane no Renkinjutsushi: Brotherhood"
+                },
+                "artist": "Shoko Nakagawa",
+                "composerInfo": {
+                    "groupId": 80023829,
+                    "name": "Atsushi Kimura & Kentarou Suzuki"
+                },
+                "arrangerInfo": {
+                    "artistId": 12076,
+                    "name": "Masanori Shimada"
+                },
+                "songName": "RAY OF LIGHT",
+                "type": 2,
+                "typeNumber": 5,
+                "annId": 10216,
+                "highRisk": 1,
+                "animeScore": 9,
+                "animeType": "TV",
+                "vintage": "Spring 2009",
+                "animeDifficulty": 29.419895913215747,
+                "animeTags": [
+                    "Demons",
+                    "Military",
+                    "Shounen",
+                    "Super Power",
+                    "Male Protagonist",
+                    "Slapstick",
+                    "Tragedy",
+                    "Primarily Male Cast",
+                    "Gore",
+                    "Steampunk",
+                    "Coming of Age",
+                    "Politics",
+                    "Ensemble Cast",
+                    "War",
+                    "Trains",
+                    "Guns",
+                    "Foreign",
+                    "Fugitive",
+                    "Revenge",
+                    "Gods",
+                    "Chibi",
+                    "Philosophy",
+                    "Conspiracy",
+                    "Lost Civilisation",
+                    "Anachronism",
+                    "Multiple Personalities",
+                    "Body Horror",
+                    "Shapeshifting",
+                    "Chimera",
+                    "Kuudere",
+                    "Cyborg",
+                    "Tomboy",
+                    "Religion",
+                    "Disability",
+                    "Necromancy",
+                    "Alchemy",
+                    "Travel"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Drama",
+                    "Fantasy"
+                ],
+                "altAnimeNames": [
+                    "Fullmetal Alchemist: Brotherhood",
+                    "Hagane no Renkinjutsushi: Brotherhood"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 10216,
+                    "malId": 5114,
+                    "kitsuId": 3936,
+                    "aniListId": 5114
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV 2"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Fullmetal Alchemist: Brotherhood",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 24,
+            "videoLength": 89.186,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 16,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Teekyuu",
+                    "romaji": "Teekyuu"
+                },
+                "artist": "Kyoko Narumi",
+                "composerInfo": {
+                    "artistId": 14636,
+                    "name": "Yashikin"
+                },
+                "arrangerInfo": {
+                    "artistId": 14636,
+                    "name": "Yashikin"
+                },
+                "songName": "Yuugure After",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 14613,
+                "highRisk": 0,
+                "animeScore": 6.3,
+                "animeType": "TV",
+                "vintage": "Fall 2012",
+                "animeDifficulty": 27.798954326923077,
+                "animeTags": [
+                    "Parody",
+                    "School",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Meta",
+                    "Episodic",
+                    "Tennis",
+                    "Surreal Comedy"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life",
+                    "Sports"
+                ],
+                "altAnimeNames": [
+                    "Teekyuu"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 14613,
+                    "malId": 15125,
+                    "kitsuId": 7217,
+                    "aniListId": 15125
+                },
+                "rebroadcast": 1,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Teekyuu",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 0,
+            "videoLength": 29.363,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 17,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Bleach the Movie 3: Fade to Black",
+                    "romaji": "Gekijouban Bleach: Fade to Black - Kimi no Na o Yobu"
+                },
+                "artist": "Porno Graffitti",
+                "composerInfo": {
+                    "artistId": 8245,
+                    "name": "Akihito Okano"
+                },
+                "arrangerInfo": {
+                    "groupId": 80027063,
+                    "name": "Porno Graffitti & Akimitsu Honma"
+                },
+                "songName": "Koyoi, Tsuki ga Miezu tomo",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 10055,
+                "highRisk": 1,
+                "animeScore": 7.1,
+                "animeType": "movie",
+                "vintage": "Fall 2008",
+                "animeDifficulty": 25.410851790378754,
+                "animeTags": [
+                    "Swordplay",
+                    "Shounen",
+                    "Super Power",
+                    "Male Protagonist",
+                    "Female Protagonist",
+                    "Afterlife",
+                    "Amnesia",
+                    "Memory Manipulation"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Drama",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Bleach the Movie 3: Fade to Black",
+                    "Gekijouban Bleach: Fade to Black - Kimi no Na o Yobu"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 10055,
+                    "malId": 4835,
+                    "kitsuId": 3817,
+                    "aniListId": 4835
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Movie 3"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Bleach the Movie 3: Fade to Black",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 108,
+            "videoLength": 247.922,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 18,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Cowboy Bebop",
+                    "romaji": "Cowboy Bebop"
+                },
+                "artist": "Gabriela Robin",
+                "composerInfo": {
+                    "artistId": 21,
+                    "name": "Yoko Kanno"
+                },
+                "arrangerInfo": {
+                    "artistId": 21,
+                    "name": "Yoko Kanno"
+                },
+                "songName": "Cats on Mars",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 13,
+                "highRisk": 0,
+                "animeScore": 8.6,
+                "animeType": "TV",
+                "vintage": "Spring 1998",
+                "animeDifficulty": 38.66501977670556,
+                "animeTags": [
+                    "Martial Arts",
+                    "Space",
+                    "Male Protagonist",
+                    "Tragedy",
+                    "Gambling",
+                    "Female Protagonist",
+                    "Anti-Hero",
+                    "Ensemble Cast",
+                    "Cyberpunk",
+                    "Primarily Adult Cast",
+                    "Guns",
+                    "Episodic",
+                    "Yakuza",
+                    "Amnesia",
+                    "Terrorism",
+                    "Noir",
+                    "Philosophy",
+                    "Crime",
+                    "Cyborg",
+                    "Tomboy",
+                    "Heterosexual",
+                    "Found Family",
+                    "Travel",
+                    "Cowboys"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Drama",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Cowboy Bebop"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 13,
+                    "malId": 1,
+                    "kitsuId": 1,
+                    "aniListId": 1
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Cowboy Bebop",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 0,
+            "videoLength": 42.883,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 19,
+            "songInfo": {
+                "animeNames": {
+                    "english": "How Not to Summon a Demon Lord",
+                    "romaji": "Isekai Maou to Shoukan Shoujo no Dorei Majutsu"
+                },
+                "artist": "Yuu Serizawa",
+                "composerInfo": {
+                    "groupId": 80023119,
+                    "name": "HoneyWorks"
+                },
+                "arrangerInfo": {
+                    "groupId": 80023119,
+                    "name": "HoneyWorks"
+                },
+                "songName": "Saiaku na Hi demo Anata ga Suki.",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 20582,
+                "highRisk": 1,
+                "animeScore": 6.6,
+                "animeType": "TV",
+                "vintage": "Summer 2018",
+                "animeDifficulty": 32.011385504943505,
+                "animeTags": [
+                    "Demons",
+                    "Harem",
+                    "Magic",
+                    "Super Power",
+                    "Male Protagonist",
+                    "Slapstick",
+                    "Primarily Female Cast",
+                    "Nudity",
+                    "Anti-Hero",
+                    "Virtual World",
+                    "Nekomimi",
+                    "Isekai",
+                    "Slavery",
+                    "Kemonomimi",
+                    "Monster Girl",
+                    "Elf",
+                    "Kuudere"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Ecchi",
+                    "Fantasy"
+                ],
+                "altAnimeNames": [
+                    "How Not to Summon a Demon Lord",
+                    "Isekai Maou to Shoukan Shoujo no Dorei Majutsu"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 20582,
+                    "malId": 37210,
+                    "kitsuId": 41133,
+                    "aniListId": 101004
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "How Not to Summon a Demon Lord",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 16,
+            "videoLength": 89.513,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 20,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Trinity Seven",
+                    "romaji": "Trinity Seven"
+                },
+                "artist": "Security Politti",
+                "composerInfo": {
+                    "groupId": 80023243,
+                    "name": "TECHNOBOYS PULCRAFT GREEN-FUND"
+                },
+                "arrangerInfo": {
+                    "groupId": 80023243,
+                    "name": "TECHNOBOYS PULCRAFT GREEN-FUND"
+                },
+                "songName": "TRINITY×SEVENTH+HEAVEN",
+                "type": 2,
+                "typeNumber": 3,
+                "annId": 16174,
+                "highRisk": 0,
+                "animeScore": 6.7,
+                "animeType": "TV",
+                "vintage": "Fall 2014",
+                "animeDifficulty": 40.11059379875195,
+                "animeTags": [
+                    "Harem",
+                    "Magic",
+                    "School",
+                    "Male Protagonist",
+                    "Primarily Female Cast",
+                    "Time Manipulation",
+                    "Henshin",
+                    "Nudity",
+                    "Alternate Universe",
+                    "Memory Manipulation"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Comedy",
+                    "Ecchi",
+                    "Fantasy",
+                    "Romance"
+                ],
+                "altAnimeNames": [
+                    "Trinity Seven"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 16174,
+                    "malId": 25157,
+                    "kitsuId": 8607,
+                    "aniListId": 20631
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Trinity Seven",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 23,
+            "videoLength": 90.014,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 21,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Lord El-Melloi II's Case Files {Rail Zeppelin} Grace Note Special",
+                    "romaji": "Lord El-Melloi II-sei no Jikenbo: Rail Zeppelin Grace Note - Tokubetsu-hen"
+                },
+                "artist": "ASCA",
+                "composerInfo": {
+                    "artistId": 3019,
+                    "name": "Yuki Kajiura"
+                },
+                "arrangerInfo": {
+                    "artistId": 3019,
+                    "name": "Yuki Kajiura"
+                },
+                "songName": "Kimi ga Mita Yume no Monogatari",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 24975,
+                "highRisk": 0,
+                "animeScore": 7.4,
+                "animeType": "special",
+                "vintage": "Fall 2021",
+                "animeDifficulty": 31.093695111241217,
+                "animeTags": [
+                    "Magic",
+                    "Male Protagonist",
+                    "Teacher",
+                    "Photography",
+                    "Foreign",
+                    "Urban Fantasy",
+                    "College",
+                    "Age Regression",
+                    "Urban",
+                    "Detective",
+                    "Curses"
+                ],
+                "animeGenre": [
+                    "Drama",
+                    "Fantasy",
+                    "Mystery"
+                ],
+                "altAnimeNames": [
+                    "Lord El-Melloi II's Case Files {Rail Zeppelin} Grace Note Special",
+                    "Lord El-Melloi II-sei no Jikenbo: Rail Zeppelin Grace Note - Tokubetsu-hen"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 24975,
+                    "malId": 49361,
+                    "kitsuId": 44868,
+                    "aniListId": 136344
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV Special 2021"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Lord El-Melloi II&#39;s Case Files {Rail Zeppelin} Grace Note Special",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 1,
+            "videoLength": 145.367,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 22,
+            "songInfo": {
+                "animeNames": {
+                    "english": "No Matter How I Look at It, It's You Guys' Fault I'm Not Popular!",
+                    "romaji": "Watashi ga Motenai no wa Dou Kangaete mo Omaera ga Warui!"
+                },
+                "artist": "Utsu-P & Toka Minatsuki feat. Hatsune Miku",
+                "composerInfo": {
+                    "artistId": 11632,
+                    "name": "Jinta Hashi"
+                },
+                "arrangerInfo": {
+                    "groupId": 80024667,
+                    "name": "Utsu-P & Toka Minatsuki"
+                },
+                "songName": "Natsumatsuri",
+                "type": 2,
+                "typeNumber": 4,
+                "annId": 15008,
+                "highRisk": 0,
+                "animeScore": 6.6,
+                "animeType": "TV",
+                "vintage": "Summer 2013",
+                "animeDifficulty": 39.34240745507301,
+                "animeTags": [
+                    "Parody",
+                    "School",
+                    "Shounen",
+                    "Satire",
+                    "Slapstick",
+                    "Otaku Culture",
+                    "Female Protagonist",
+                    "Meta",
+                    "Achronological Order",
+                    "Chuunibyou",
+                    "Hikikomori",
+                    "Bisexual",
+                    "Disability",
+                    "Psychosexual"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "No Matter How I Look at It, It's You Guys' Fault I'm Not Popular!",
+                    "Watamote",
+                    "Watashi ga Motenai no wa Dou Kangaete mo Omaera ga Warui!"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 15008,
+                    "malId": 16742,
+                    "kitsuId": 7504,
+                    "aniListId": 16742
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "watamote",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 14,
+            "videoLength": 89.902,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 5
+                }
+            ]
+        },
+        {
+            "songNumber": 23,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Hidamari Sketch × SP",
+                    "romaji": "Hidamari Sketch × SP"
+                },
+                "artist": "marble",
+                "composerInfo": {
+                    "artistId": 12800,
+                    "name": "Tatsuya Kikuchi"
+                },
+                "arrangerInfo": {
+                    "artistId": 12800,
+                    "name": "Tatsuya Kikuchi"
+                },
+                "songName": "nora",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 13353,
+                "highRisk": 0,
+                "animeScore": 7.7,
+                "animeType": "special",
+                "vintage": "Fall 2011",
+                "animeDifficulty": 23.891273852555482,
+                "animeTags": [
+                    "School",
+                    "Seinen",
+                    "Iyashikei",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Drawing",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Hidamari Sketch × SP",
+                    "Hidamari Sketch × Special"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 13353,
+                    "malId": 11237,
+                    "kitsuId": 6479,
+                    "aniListId": 11237
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV Special 4"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Hidamari Sketch × SP",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 3,
+            "videoLength": 89.846,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 24,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Wotakoi: Love is Hard for Otaku",
+                    "romaji": "Otaku ni Koi wa Muzukashii"
+                },
+                "artist": "sumika",
+                "composerInfo": {
+                    "artistId": 14117,
+                    "name": "Kenta Kataoka"
+                },
+                "arrangerInfo": {
+                    "groupId": 7339,
+                    "name": "sumika"
+                },
+                "songName": "Fiction",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 24089,
+                "highRisk": 0,
+                "animeScore": 7.9,
+                "animeType": "OVA",
+                "vintage": "Winter 2019",
+                "animeDifficulty": 78.63338303941909,
+                "animeTags": [
+                    "Josei",
+                    "School",
+                    "Male Protagonist",
+                    "Otaku Culture",
+                    "Female Protagonist",
+                    "Primarily Adult Cast",
+                    "Volleyball",
+                    "Work",
+                    "Tsundere",
+                    "Episodic",
+                    "Heterosexual"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Romance",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Otaku ni Koi wa Muzukashii",
+                    "Wotakoi: Love is Hard for Otaku",
+                    "Wotaku ni Koi wa Muzukashii"
+                ],
+                "altAnimeNamesAnswers": [
+                    "Otaku ni Koi wa Muzukashii",
+                    "Wotakoi: Love is Hard for Otaku",
+                    "Wotaku ni Koi wa Muzukashii"
+                ],
+                "siteIds": {
+                    "annId": 24089,
+                    "malId": 38349,
+                    "kitsuId": 42051,
+                    "aniListId": 104217
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Wotakoi: Love is Hard for Otaku",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 22,
+            "videoLength": 87.011,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 5,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 25,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Noragami",
+                    "romaji": "Noragami"
+                },
+                "artist": "Yutaka Fukuoka & Lotus Juice",
+                "composerInfo": {
+                    "artistId": 440,
+                    "name": "Taku Iwasaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 440,
+                    "name": "Taku Iwasaki"
+                },
+                "songName": "Noratan",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 15585,
+                "highRisk": 0,
+                "animeScore": 7.7,
+                "animeType": "TV",
+                "vintage": "Winter 2014",
+                "animeDifficulty": 42.656380106687486,
+                "animeTags": [
+                    "Swordplay",
+                    "Shounen",
+                    "Female Protagonist",
+                    "Anti-Hero",
+                    "Nekomimi",
+                    "Mythology",
+                    "Youkai",
+                    "Gods",
+                    "Urban Fantasy",
+                    "Memory Manipulation",
+                    "Miko",
+                    "Urban",
+                    "Shapeshifting",
+                    "Found Family"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Comedy",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Noragami"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 15585,
+                    "malId": 20507,
+                    "kitsuId": 7881,
+                    "aniListId": 20447
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "noragami",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 11,
+            "videoLength": 118.101,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 26,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Gunslinger Girl",
+                    "romaji": "Gunslinger Girl"
+                },
+                "artist": "op.",
+                "composerInfo": {
+                    "artistId": 470,
+                    "name": "Toshihiko Sahashi"
+                },
+                "arrangerInfo": {
+                    "groupId": 80024307,
+                    "name": "Nanae Mimura & Toshihiko Sahashi"
+                },
+                "songName": "DOPO IL SOGNO ~Yume no Ato ni~",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 2947,
+                "highRisk": 0,
+                "animeScore": 7.1,
+                "animeType": "TV",
+                "vintage": "Fall 2003",
+                "animeDifficulty": 27.869660399728996,
+                "animeTags": [
+                    "Military",
+                    "Seinen",
+                    "Tragedy",
+                    "Primarily Female Cast",
+                    "Gore",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Mafia",
+                    "Guns",
+                    "Foreign",
+                    "Terrorism",
+                    "Assassins",
+                    "Tanned Skin",
+                    "Memory Manipulation",
+                    "Urban",
+                    "Crime",
+                    "Cyborg",
+                    "Tomboy",
+                    "Suicide"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Drama",
+                    "Psychological",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Gunslinger Girl"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 2947,
+                    "malId": 134,
+                    "kitsuId": 113,
+                    "aniListId": 134
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Gunslinger Girl",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 7,
+            "videoLength": 68.743,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 27,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Flip Flappers",
+                    "romaji": "Flip Flappers"
+                },
+                "artist": "TO-MAS feat. Yumi Kawamura",
+                "composerInfo": {
+                    "artistId": 6633,
+                    "name": "Youhei Matsui"
+                },
+                "arrangerInfo": {
+                    "groupId": 80026609,
+                    "name": "TO-MAS"
+                },
+                "songName": "LET's FLIP FLAPING!",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 18177,
+                "highRisk": 0,
+                "animeScore": 7.5,
+                "animeType": "TV",
+                "vintage": "Fall 2016",
+                "animeDifficulty": 35.044596484218935,
+                "animeTags": [
+                    "Magic",
+                    "Swordplay",
+                    "School",
+                    "Super Power",
+                    "Yuri",
+                    "Tragedy",
+                    "Primarily Female Cast",
+                    "Time Manipulation",
+                    "Female Protagonist",
+                    "Henshin",
+                    "Coming of Age",
+                    "Meta",
+                    "Guns",
+                    "Robots",
+                    "Episodic",
+                    "Isekai",
+                    "Archery",
+                    "Kemonomimi",
+                    "Surreal Comedy",
+                    "Urban Fantasy",
+                    "Memory Manipulation",
+                    "LGBTQ Issues",
+                    "Age Regression",
+                    "Twins",
+                    "Multiple Personalities",
+                    "Cult",
+                    "Urban",
+                    "Surfing",
+                    "Desert"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Comedy",
+                    "Fantasy",
+                    "Mahou Shoujo",
+                    "Psychological",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Flip Flappers"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 18177,
+                    "malId": 32979,
+                    "kitsuId": 11997,
+                    "aniListId": 21714
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "flip flappers",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 8,
+            "videoLength": 87.149,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 28,
+            "songInfo": {
+                "animeNames": {
+                    "english": "A Playthrough of a Certain Dude's VRMMO Life",
+                    "romaji": "Toaru Ossan no VRMMO Katsudouki"
+                },
+                "artist": "saji",
+                "composerInfo": {
+                    "artistId": 5985,
+                    "name": "Takumi Yoshida"
+                },
+                "arrangerInfo": {
+                    "groupId": 80026586,
+                    "name": "saji & Eiji Kawai"
+                },
+                "songName": "Magic Writer",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 27118,
+                "highRisk": 0,
+                "animeScore": 6.2,
+                "animeType": "TV",
+                "vintage": "Fall 2023",
+                "animeDifficulty": 29.23501226535836,
+                "animeTags": [
+                    "Male Protagonist",
+                    "Virtual World",
+                    "Archery",
+                    "Kemonomimi",
+                    "Video Games",
+                    "Artificial Intelligence"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Comedy",
+                    "Fantasy"
+                ],
+                "altAnimeNames": [
+                    "A Playthrough of a Certain Dude's VRMMO Life",
+                    "Toaru Ossan no VRMMO Katsudouki"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 27118,
+                    "malId": 54431,
+                    "kitsuId": 47077,
+                    "aniListId": 161364
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": false,
+            "wrongGuess": true,
+            "answer": "tsumasho",
+            "correctCount": 0,
+            "wrongCount": 1,
+            "startPoint": 17,
+            "videoLength": 87.309,
+            "videoUrl": "",
+            "correctGuessPlayers": [],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 29,
+            "songInfo": {
+                "animeNames": {
+                    "english": "No Game No Life Zero",
+                    "romaji": "No Game No Life Zero"
+                },
+                "artist": "Konomi Suzuki",
+                "composerInfo": {
+                    "artistId": 14840,
+                    "name": "Hige Driver"
+                },
+                "arrangerInfo": {
+                    "artistId": 10372,
+                    "name": "Makoto Miyazaki"
+                },
+                "songName": "THERE IS A REASON",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 19405,
+                "highRisk": 0,
+                "animeScore": 8,
+                "animeType": "movie",
+                "vintage": "Summer 2017",
+                "animeDifficulty": 53.167631718528995,
+                "animeTags": [
+                    "Magic",
+                    "Super Power",
+                    "Male Protagonist",
+                    "Tragedy",
+                    "Post-Apocalyptic",
+                    "Female Protagonist",
+                    "War",
+                    "Survival",
+                    "Robots",
+                    "Dystopian",
+                    "Reincarnation",
+                    "Gods",
+                    "Espionage",
+                    "Artificial Intelligence",
+                    "Elf",
+                    "Kuudere",
+                    "Heterosexual",
+                    "Class Struggle",
+                    "Board Game"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Drama",
+                    "Fantasy",
+                    "Romance"
+                ],
+                "altAnimeNames": [
+                    "No Game No Life Zero"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 19405,
+                    "malId": 33674,
+                    "kitsuId": 12325,
+                    "aniListId": 21875
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Movie"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "no game no life zero",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 121,
+            "videoLength": 290.008,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 30,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Charlotte",
+                    "romaji": "Charlotte"
+                },
+                "artist": "How-Low-Hello",
+                "composerInfo": {
+                    "artistId": 6915,
+                    "name": "Jun Maeda"
+                },
+                "arrangerInfo": {
+                    "artistId": 10391,
+                    "name": "Tomohiro Takeshita"
+                },
+                "songName": "Hatsunetsu Days",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 16649,
+                "highRisk": 0,
+                "animeScore": 7.5,
+                "animeType": "TV",
+                "vintage": "Summer 2015",
+                "animeDifficulty": 32.16094106154347,
+                "animeTags": [
+                    "School",
+                    "Super Power",
+                    "Male Protagonist",
+                    "School Club",
+                    "Tragedy",
+                    "Primarily Female Cast",
+                    "Family Life",
+                    "Time Manipulation",
+                    "Female Protagonist",
+                    "Anti-Hero",
+                    "Mahjong",
+                    "Survival",
+                    "Body Swapping",
+                    "Tsundere",
+                    "Amnesia",
+                    "Urban Fantasy",
+                    "Memory Manipulation",
+                    "Multiple Personalities",
+                    "Urban",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Drama",
+                    "Romance",
+                    "Sci-Fi",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Charlotte"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 16649,
+                    "malId": 28999,
+                    "kitsuId": 10103,
+                    "aniListId": 20997
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV 2015"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Charlotte",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 27,
+            "videoLength": 105.856,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 10
+                }
+            ]
+        },
+        {
+            "songNumber": 31,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Undefeated Bahamut Chronicle",
+                    "romaji": "Saijaku Muhai no Bahamut"
+                },
+                "artist": "TRUE",
+                "composerInfo": {
+                    "artistId": 10451,
+                    "name": "Tsukasa Yatoki"
+                },
+                "arrangerInfo": {
+                    "artistId": 14930,
+                    "name": "Takuya Sakai"
+                },
+                "songName": "Hiryuu no Kishi",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 17064,
+                "highRisk": 0,
+                "animeScore": 6.2,
+                "animeType": "TV",
+                "vintage": "Winter 2016",
+                "animeDifficulty": 39.33265083577355,
+                "animeTags": [
+                    "Harem",
+                    "School",
+                    "Male Protagonist",
+                    "Primarily Female Cast",
+                    "Super Robot",
+                    "Tsundere"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Ecchi",
+                    "Fantasy",
+                    "Mecha",
+                    "Romance",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Saijaku Muhai no Bahamut",
+                    "Undefeated Bahamut Chronicle"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 17064,
+                    "malId": 30749,
+                    "kitsuId": 10913,
+                    "aniListId": 21188
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Undefeated Bahamut Chronicle",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 10,
+            "videoLength": 89.429,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 5
+                }
+            ]
+        },
+        {
+            "songNumber": 32,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Takopi's Original Sin",
+                    "romaji": "Takopii no Genzai"
+                },
+                "artist": "Kanako Kishi",
+                "composerInfo": {
+                    "artistId": 14299,
+                    "name": "Yoshiaki Fujisawa"
+                },
+                "arrangerInfo": {
+                    "artistId": 14299,
+                    "name": "Yoshiaki Fujisawa"
+                },
+                "songName": "Sagashimono",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 34142,
+                "highRisk": 0,
+                "animeScore": 8.7,
+                "animeType": "TV",
+                "vintage": "Summer 2025",
+                "animeDifficulty": 17.307692307692307,
+                "animeTags": [
+                    "Space",
+                    "Tragedy",
+                    "Gore",
+                    "Time Manipulation",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Time Skip",
+                    "Achronological Order",
+                    "Bullying",
+                    "Aliens",
+                    "POV",
+                    "Rural",
+                    "Revenge",
+                    "Memory Manipulation",
+                    "Philosophy",
+                    "Delinquents",
+                    "Primarily Child Cast",
+                    "Crime",
+                    "Denpa",
+                    "Shapeshifting",
+                    "Heterosexual",
+                    "Suicide",
+                    "Clone",
+                    "Estranged Family",
+                    "Parenthood"
+                ],
+                "animeGenre": [
+                    "Drama",
+                    "Psychological",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Takopi's Original Sin",
+                    "Takopii no Genzai"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 34142,
+                    "malId": 60489,
+                    "kitsuId": 49392,
+                    "aniListId": 185407
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": false,
+            "wrongGuess": true,
+            "answer": "",
+            "correctCount": 0,
+            "wrongCount": 1,
+            "startPoint": 19,
+            "videoLength": 150.208,
+            "videoUrl": "",
+            "correctGuessPlayers": [],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 33,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Evangelion: 1.11 You Are (Not) Alone",
+                    "romaji": "Evangelion Shin Gekijouban: Jo"
+                },
+                "artist": "Hikaru Utada",
+                "composerInfo": {
+                    "artistId": 4077,
+                    "name": "Hikaru Utada"
+                },
+                "arrangerInfo": {
+                    "artistId": 4077,
+                    "name": "Hikaru Utada"
+                },
+                "songName": "Beautiful World",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 8420,
+                "highRisk": 0,
+                "animeScore": 7.7,
+                "animeType": "movie",
+                "vintage": "Summer 2007",
+                "animeDifficulty": 37.535689022206306,
+                "animeTags": [
+                    "Military",
+                    "Male Protagonist",
+                    "CGI",
+                    "Post-Apocalyptic",
+                    "Nudity",
+                    "Coming of Age",
+                    "Super Robot",
+                    "Real Robot",
+                    "Aliens",
+                    "Dystopian",
+                    "Kaiju",
+                    "Urban",
+                    "Denpa",
+                    "Kuudere",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Drama",
+                    "Mecha",
+                    "Psychological",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Evangelion Shin Gekijouban: Jo",
+                    "Evangelion: 1.11 You Are (Not) Alone"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 8420,
+                    "malId": 2759,
+                    "kitsuId": 2519,
+                    "aniListId": 2759
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Movie 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Evangelion: 1.11 You Are (Not) Alone",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 227,
+            "videoLength": 296.72,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 34,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Ghost Stories",
+                    "romaji": "Gakkou no Kaidan"
+                },
+                "artist": "CASCADE",
+                "composerInfo": {
+                    "artistId": 12034,
+                    "name": "MASASHI"
+                },
+                "arrangerInfo": {
+                    "groupId": 80027417,
+                    "name": "CASCADE & Kubo Cozy"
+                },
+                "songName": "sexy sexy,",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 1736,
+                "highRisk": 0,
+                "animeScore": 7.4,
+                "animeType": "TV",
+                "vintage": "Fall 2000",
+                "animeDifficulty": 38.908048777231954,
+                "animeTags": [
+                    "Demons",
+                    "Parody",
+                    "School",
+                    "Male Protagonist",
+                    "Female Protagonist",
+                    "Ensemble Cast",
+                    "Afterlife",
+                    "Episodic",
+                    "Ghost",
+                    "Youkai",
+                    "Urban Fantasy",
+                    "Animals",
+                    "Primarily Child Cast",
+                    "Skeleton",
+                    "Curses"
+                ],
+                "animeGenre": [
+                    "Horror",
+                    "Mystery",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Gakkou no Kaidan",
+                    "Ghost Stories"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 1736,
+                    "malId": 1281,
+                    "kitsuId": 1156,
+                    "aniListId": 1281
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV 2000"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Ghost Stories",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 5,
+            "videoLength": 89.513,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 35,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Haganai",
+                    "romaji": "Boku wa Tomodachi ga Sukunai"
+                },
+                "artist": "Marina Inoue & Kanae Itou",
+                "composerInfo": {
+                    "artistId": 10458,
+                    "name": "yamazo"
+                },
+                "arrangerInfo": {
+                    "artistId": 10458,
+                    "name": "yamazo"
+                },
+                "songName": "Futari no Kisetsu",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 12983,
+                "highRisk": 0,
+                "animeScore": 6.8,
+                "animeType": "TV",
+                "vintage": "Fall 2011",
+                "animeDifficulty": 26.791319064551423,
+                "animeTags": [
+                    "Harem",
+                    "School",
+                    "Male Protagonist",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "Nudity",
+                    "Tsundere",
+                    "Video Games",
+                    "Heterosexual"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Ecchi",
+                    "Romance",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Boku wa Tomodachi ga Sukunai",
+                    "Haganai"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 12983,
+                    "malId": 10719,
+                    "kitsuId": 6316,
+                    "aniListId": 10719
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "haganai",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 5,
+            "videoLength": 76.006,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 0
+                }
+            ]
+        },
+        {
+            "songNumber": 36,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Cowboy Bebop: The Movie",
+                    "romaji": "Cowboy Bebop: Tengoku no Tobira"
+                },
+                "artist": "Seatbelts featuring Steve Conte",
+                "composerInfo": {
+                    "artistId": 21,
+                    "name": "Yoko Kanno"
+                },
+                "arrangerInfo": {
+                    "artistId": 21,
+                    "name": "Yoko Kanno"
+                },
+                "songName": "Diggin'",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 353,
+                "highRisk": 0,
+                "animeScore": 8.2,
+                "animeType": "movie",
+                "vintage": "Summer 2001",
+                "animeDifficulty": 26.693016925148587,
+                "animeTags": [
+                    "Martial Arts",
+                    "Military",
+                    "Space",
+                    "Male Protagonist",
+                    "Female Protagonist",
+                    "Anti-Hero",
+                    "Ensemble Cast",
+                    "Cyberpunk",
+                    "Primarily Adult Cast",
+                    "Work",
+                    "Guns",
+                    "Foreign",
+                    "Amnesia",
+                    "Terrorism",
+                    "Noir",
+                    "Philosophy",
+                    "Urban",
+                    "Crime",
+                    "Cyborg",
+                    "Tomboy"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Drama",
+                    "Mystery",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Cowboy Bebop: Knockin' on Heaven's Door",
+                    "Cowboy Bebop: Tengoku no Tobira",
+                    "Cowboy Bebop: The Movie"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 353,
+                    "malId": 5,
+                    "kitsuId": 2,
+                    "aniListId": 5
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Movie"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Cowboy Bebop: Knockin&#39; on Heaven&#39;s Door",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 2,
+            "videoLength": 69.841,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 37,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Recovery of an MMO Junkie",
+                    "romaji": "Net-juu no Susume"
+                },
+                "artist": "Yuuka Aisaka",
+                "composerInfo": {
+                    "artistId": 9962,
+                    "name": "Sekaikan Ozaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 9962,
+                    "name": "Sekaikan Ozaki"
+                },
+                "songName": "Hikari, Hikari",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 19980,
+                "highRisk": 0,
+                "animeScore": 7.3,
+                "animeType": "TV",
+                "vintage": "Fall 2017",
+                "animeDifficulty": 36.42659758607785,
+                "animeTags": [
+                    "Josei",
+                    "Parody",
+                    "Gender Bending",
+                    "Otaku Culture",
+                    "Female Protagonist",
+                    "Primarily Adult Cast",
+                    "Virtual World",
+                    "Hikikomori",
+                    "Video Games",
+                    "Heterosexual"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Fantasy",
+                    "Romance",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Net-juu no Susume",
+                    "Recommendation of the Wonderful Virtual Life",
+                    "Recovery of an MMO Junkie"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 19980,
+                    "malId": 36038,
+                    "kitsuId": 13703,
+                    "aniListId": 99726
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Recommendation of the Wonderful Virtual Life",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 8,
+            "videoLength": 89.013,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 38,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Gate",
+                    "romaji": "Gate: Jieitai Kanochi nite, Kaku Tatakaeri"
+                },
+                "artist": "Hisako Kanemoto & Nao Touyama & Risa Taneda",
+                "composerInfo": {
+                    "artistId": 12565,
+                    "name": "Takahiro Yamada"
+                },
+                "arrangerInfo": {
+                    "artistId": 12565,
+                    "name": "Takahiro Yamada"
+                },
+                "songName": "Prism Communicate",
+                "type": 2,
+                "typeNumber": 1,
+                "annId": 16679,
+                "highRisk": 0,
+                "animeScore": 7.4,
+                "animeType": "TV",
+                "vintage": "Summer 2015",
+                "animeDifficulty": 35.58593102376347,
+                "animeTags": [
+                    "Magic",
+                    "Military",
+                    "Male Protagonist",
+                    "Primarily Female Cast",
+                    "Otaku Culture",
+                    "Politics",
+                    "Primarily Adult Cast",
+                    "War",
+                    "Alternate Universe",
+                    "Tanks",
+                    "Dragons",
+                    "Isekai",
+                    "Anachronism",
+                    "Language Barrier",
+                    "Elf"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Fantasy"
+                ],
+                "altAnimeNames": [
+                    "Gate",
+                    "Gate: Jieitai Kanochi nite, Kaku Tatakaeri"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 16679,
+                    "malId": 28907,
+                    "kitsuId": 10085,
+                    "aniListId": 20994
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "gate",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 12,
+            "videoLength": 90.028,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 39,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Tsubasa RESERVoir CHRoNiCLE",
+                    "romaji": "Tsubasa Chronicle"
+                },
+                "artist": "Eri Itou",
+                "composerInfo": {
+                    "artistId": 3019,
+                    "name": "Yuki Kajiura"
+                },
+                "arrangerInfo": {
+                    "artistId": 3019,
+                    "name": "Yuki Kajiura"
+                },
+                "songName": "Requiem of the Evil",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 4591,
+                "highRisk": 0,
+                "animeScore": 7.1,
+                "animeType": "TV",
+                "vintage": "Spring 2005",
+                "animeDifficulty": 25.39659126243781,
+                "animeTags": [
+                    "Magic",
+                    "Shounen",
+                    "Alternate Universe",
+                    "Crossover",
+                    "Amnesia",
+                    "Isekai",
+                    "Heterosexual",
+                    "Curses"
+                ],
+                "animeGenre": [
+                    "Adventure",
+                    "Fantasy",
+                    "Romance"
+                ],
+                "altAnimeNames": [
+                    "Tsubasa Chronicle",
+                    "Tsubasa RESERVoir CHRoNiCLE"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 4591,
+                    "malId": 177,
+                    "kitsuId": 154,
+                    "aniListId": 177
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "TV 2005"
+            },
+            "correctGuess": false,
+            "wrongGuess": true,
+            "answer": "",
+            "correctCount": 0,
+            "wrongCount": 1,
+            "startPoint": 0,
+            "videoLength": 40.882167,
+            "videoUrl": "",
+            "correctGuessPlayers": [],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 7
+                }
+            ]
+        },
+        {
+            "songNumber": 40,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Mob Psycho 100",
+                    "romaji": "Mob Psycho 100"
+                },
+                "artist": "MOB CHOIR",
+                "composerInfo": {
+                    "artistId": 15426,
+                    "name": "Junichi Sasaki"
+                },
+                "arrangerInfo": {
+                    "artistId": 13346,
+                    "name": "Wataru Maeguchi"
+                },
+                "songName": "99",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 18064,
+                "highRisk": 0,
+                "animeScore": 8.4,
+                "animeType": "TV",
+                "vintage": "Summer 2016",
+                "animeDifficulty": 87.1804031717133,
+                "animeTags": [
+                    "Demons",
+                    "Parody",
+                    "School",
+                    "Shounen",
+                    "Super Power",
+                    "Satire",
+                    "Male Protagonist",
+                    "Slapstick",
+                    "School Club",
+                    "Family Life",
+                    "Primarily Male Cast",
+                    "Coming of Age",
+                    "Gangs",
+                    "Fitness",
+                    "Bullying",
+                    "Ghost",
+                    "Surreal Comedy",
+                    "Urban Fantasy",
+                    "Philosophy",
+                    "Delinquents",
+                    "Conspiracy",
+                    "Multiple Personalities",
+                    "Cult",
+                    "Urban",
+                    "Disability",
+                    "Primarily Teen Cast",
+                    "Exorcism"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Comedy",
+                    "Drama",
+                    "Psychological",
+                    "Slice of Life",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "Mob Psycho 100"
+                ],
+                "altAnimeNamesAnswers": [
+                    "Mob Psycho 100 Reigen The Miraculous Unknown Psychic",
+                    "Mob Psycho 100 Reigen: Shirarezaru Kiseki Reinouryokusha",
+                    "Mob Psycho 100 III"
+                ],
+                "siteIds": {
+                    "annId": 18064,
+                    "malId": 32182,
+                    "kitsuId": 11578,
+                    "aniListId": 21507
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Mob Psycho 100",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 1,
+            "videoLength": 89.013,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 41,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Eden of the East: The King of Eden",
+                    "romaji": "Higashi no Eden Gekijouban I: The King of Eden"
+                },
+                "artist": "LEAH",
+                "composerInfo": {
+                    "artistId": 829,
+                    "name": "Kenji Kawai"
+                },
+                "arrangerInfo": {
+                    "artistId": 829,
+                    "name": "Kenji Kawai"
+                },
+                "songName": "Invisible",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 10620,
+                "highRisk": 0,
+                "animeScore": 7.2,
+                "animeType": "movie",
+                "vintage": "Fall 2009",
+                "animeDifficulty": 23.426513775456087,
+                "animeTags": [
+                    "Police",
+                    "Battle Royale",
+                    "Primarily Adult Cast",
+                    "Foreign",
+                    "Amnesia",
+                    "Terrorism",
+                    "Memory Manipulation",
+                    "Conspiracy",
+                    "Artificial Intelligence",
+                    "Urban",
+                    "Crime",
+                    "Heterosexual"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Comedy",
+                    "Drama",
+                    "Mystery",
+                    "Romance",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Eden of the East: The King of Eden",
+                    "Higashi no Eden Gekijouban I: The King of Eden"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 10620,
+                    "malId": 6372,
+                    "kitsuId": 4534,
+                    "aniListId": 6372
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Movie 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Eden of the East: The King of Eden",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 1,
+            "videoLength": 118.535,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 42,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Nyaruko: Crawling with Love!",
+                    "romaji": "Haiyore! Nyaruko-san"
+                },
+                "artist": "Ushiro kara Haiyori-tai G",
+                "composerInfo": {
+                    "artistId": 14543,
+                    "name": "Hidekazu Tanaka"
+                },
+                "arrangerInfo": {
+                    "artistId": 14543,
+                    "name": "Hidekazu Tanaka"
+                },
+                "songName": "Taiyou Iwaku Moeyo Chaos",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 13719,
+                "highRisk": 0,
+                "animeScore": 6.6,
+                "animeType": "TV",
+                "vintage": "Spring 2012",
+                "animeDifficulty": 61.18658675098232,
+                "animeTags": [
+                    "Harem",
+                    "Parody",
+                    "School",
+                    "Male Protagonist",
+                    "Primarily Female Cast",
+                    "Henshin",
+                    "Love Triangle",
+                    "Meta",
+                    "Tsundere",
+                    "Aliens",
+                    "Mythology",
+                    "Monster Girl",
+                    "Surreal Comedy"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Romance",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "Haiyore! Nyaruko-san",
+                    "Nyarko-san: Another Crawling Chaos",
+                    "Nyaruko: Crawling with Love!"
+                ],
+                "altAnimeNamesAnswers": [
+                    "Haiyore! Nyaruko-san F",
+                    "Nyarko-san: Another Crawling Chaos F",
+                    "Nyaruko: Crawling with Love! F"
+                ],
+                "siteIds": {
+                    "annId": 13719,
+                    "malId": 11785,
+                    "kitsuId": 6599,
+                    "aniListId": 11785
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Nyaruko: Crawling with Love!",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 17,
+            "videoLength": 89.221,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 43,
+            "songInfo": {
+                "animeNames": {
+                    "english": "A Certain Scientific Railgun S",
+                    "romaji": "Toaru Kagaku no Railgun S"
+                },
+                "artist": "fripSide",
+                "composerInfo": {
+                    "artistId": 10382,
+                    "name": "Satoshi Yaginuma"
+                },
+                "arrangerInfo": {
+                    "artistId": 10382,
+                    "name": "Satoshi Yaginuma"
+                },
+                "songName": "eternal reality",
+                "type": 1,
+                "typeNumber": 2,
+                "annId": 14853,
+                "highRisk": 0,
+                "animeScore": 7.9,
+                "animeType": "TV",
+                "vintage": "Spring 2013",
+                "animeDifficulty": 51.51924422141119,
+                "animeTags": [
+                    "School",
+                    "Shounen",
+                    "Super Power",
+                    "Tragedy",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Gore",
+                    "Female Protagonist",
+                    "Tsundere",
+                    "Superhero",
+                    "Bisexual",
+                    "Urban Fantasy",
+                    "Artificial Intelligence",
+                    "Urban",
+                    "Medicine",
+                    "Ojou-sama",
+                    "Primarily Teen Cast",
+                    "Clone",
+                    "Boarding School"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Fantasy",
+                    "Sci-Fi"
+                ],
+                "altAnimeNames": [
+                    "A Certain Scientific Railgun S",
+                    "Toaru Kagaku no Railgun S"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 14853,
+                    "malId": 16049,
+                    "kitsuId": 7366,
+                    "aniListId": 16049
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 2"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Toaru Kagaku no Railgun S",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 17,
+            "videoLength": 88.477,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 44,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Chidori RSC",
+                    "romaji": "Rifle is Beautiful"
+                },
+                "artist": "Rifling 4",
+                "composerInfo": {
+                    "artistId": 10377,
+                    "name": "Masaki Iehara"
+                },
+                "arrangerInfo": {
+                    "artistId": 10377,
+                    "name": "Masaki Iehara"
+                },
+                "songName": "Shangri-la",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 22361,
+                "highRisk": 0,
+                "animeScore": 5.7,
+                "animeType": "TV",
+                "vintage": "Fall 2019",
+                "animeDifficulty": 24.860286458333334,
+                "animeTags": [
+                    "School",
+                    "Seinen",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "CGI",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Educational",
+                    "Meta",
+                    "Guns",
+                    "Airsoft"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life",
+                    "Sports"
+                ],
+                "altAnimeNames": [
+                    "Chidori RSC",
+                    "Rifle is Beautiful"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 22361,
+                    "malId": 38529,
+                    "kitsuId": 42292,
+                    "aniListId": 104679
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Chidori RSC",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 85,
+            "videoLength": 208.061,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        },
+        {
+            "songNumber": 45,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Hanayamata",
+                    "romaji": "Hanayamata"
+                },
+                "artist": "Team \"Hanayamata\"",
+                "composerInfo": {
+                    "artistId": 14543,
+                    "name": "Hidekazu Tanaka"
+                },
+                "arrangerInfo": {
+                    "artistId": 14543,
+                    "name": "Hidekazu Tanaka"
+                },
+                "songName": "Hana wa Odore ya Irohaniho",
+                "type": 1,
+                "typeNumber": 1,
+                "annId": 15775,
+                "highRisk": 0,
+                "animeScore": 7.1,
+                "animeType": "TV",
+                "vintage": "Summer 2014",
+                "animeDifficulty": 50.986241641901934,
+                "animeTags": [
+                    "School",
+                    "Seinen",
+                    "Iyashikei",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Band",
+                    "Dancing",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Comedy",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Hanayamata"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 15775,
+                    "malId": 21681,
+                    "kitsuId": 8138,
+                    "aniListId": 20575
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": null
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "Hanayamata",
+            "correctCount": 1,
+            "wrongCount": 0,
+            "startPoint": 8,
+            "videoLength": 89.847,
+            "videoUrl": "",
+            "correctGuessPlayers": [
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "linkviii",
+                    "status": 2,
+                    "score": 6
+                }
+            ]
+        }
+    ]
+}

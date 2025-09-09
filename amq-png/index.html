@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>AMQ JSON Renderer</title>
+    <!-- Unsure about using base, but it lets loading test data "just work"... -->
+    <base href="../" />
+    <link href="favicon.png" rel="shortcut icon" type="image/x-icon" id="favicon">
+    <link href="./res/root.css" rel="stylesheet" type="text/css">
+    <!-- <link href="./js/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link href="./js/lib/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="./js/lib/jquery-ui/jquery-ui.structure.min.css"> -->
+    <!-- <link rel="stylesheet" href="./js/lib/awesomplete/awesomplete.css" /> -->
+
+</head>
+
+<body>
+
+    <!-- Place for js to fill in messages to the user -->
+    <div id="feedback"> </div>
+
+     <form action="about:blank" id="form" target="💾">
+        Upload
+
+    </form>
+
+
+
+
+
+    <div id="test"></div>
+    <h1>Img:</h1>
+    <img id="canvasImg"  />
+
+
+    <!-- **************************************************** -->
+
+    <script type="module">
+        import * as main from "./js/amq-png.js";
+        window.main = main;
+        console.log("amq-png loaded", new Date().toLocaleTimeString());
+    </script>
+
+
+</body>
+
+</html>
