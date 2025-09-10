@@ -370,6 +370,11 @@ function htmlDecode(input) {
     var doc = new DOMParser().parseFromString(input, "text/html");
     return doc.documentElement.textContent;
 }
+export function mmss(seconds: number) {
+    const m = Math.floor(seconds / 60);
+    const fs = Math.floor(seconds - 60 * m);
+    return `${m.toString().padStart(2, "0")}:${fs.toString().padStart(2, "0")}`;
+}
 // ----------------------------------------------------------------------------
 
 interface ColumnLayout {
@@ -395,6 +400,7 @@ const layout = {
     song: nanColumn(),
     difficulty: nanColumn(),
     roomScore: nanColumn(),
+    sample: nanColumn(),
 
     headerHeight: NaN,
     margin: 1,
@@ -424,8 +430,8 @@ function drawRound(amqRound: AMQRound) {
     ] as const;
     type Column = typeof COLUMNS[number];
     const columns:
-        // Record<Column, true>
-        Partial<Record<Column, true>>
+        Record<Column, true>
+        // Partial<Record<Column, true>>
         = {
         "Song #": true,
         "Artist": true,
@@ -466,6 +472,7 @@ function drawRound(amqRound: AMQRound) {
     layout.artist.Width = pen.getTxtWidth("Asuka Nishi to Yukai na");
     layout.difficulty.Width = pen.getTxtWidth("00.0");
     layout.roomScore.Width = pen.getTxtWidth("000 /000");
+    layout.sample.Width = pen.getTxtWidth("00:00|00:00");
 
     if (stacked) {
         layout.type.Width = pen.getTxtWidth("000");
@@ -473,6 +480,8 @@ function drawRound(amqRound: AMQRound) {
         layout.artist.Width = Math.max(layout.artist.Width, layout.song.Width);
         layout.song.Width = layout.artist.Width;
         layout.roomScore.Width = pen.getTxtWidth("000");
+        layout.sample.Width = pen.getTxtWidth("00:00");
+
 
     }
 
@@ -565,6 +574,15 @@ function drawRound(amqRound: AMQRound) {
     /* Room Score */
     if (columns["Room Score"]) {
         const cl = layout.roomScore;
+        console.assert(!isNaN(cl.Width));
+        cl.X = x;
+        x += cl.Width;
+        x += layout.unitSpace;
+    }
+
+    /* Sample */
+    if (columns["Sample"]) {
+        const cl = layout.sample;
         console.assert(!isNaN(cl.Width));
         cl.X = x;
         x += cl.Width;
@@ -671,6 +689,20 @@ function drawRound(amqRound: AMQRound) {
             }
         }
 
+        if (columns["Sample"]) {
+            const cl = layout.sample;
+            pen.moveToPoint(cl.X, baseline1);
+            if (stacked) {
+                pen.fillText("Song", headerTextColor, cl.Width);
+                pen.moveToPoint(cl.X, baseline2);
+                pen.fillText("Sample", headerTextColor, cl.Width);
+            } else {
+                pen.fillText("Song Sample", headerTextColor, cl.Width);
+
+            }
+        }
+
+        /* --- */
 
         let half_header_line = layout.hRuleThickness;
         ctx.lineWidth = layout.hRuleThickness * 2;
@@ -784,6 +816,34 @@ function drawRound(amqRound: AMQRound) {
                 ctx.textAlign = "left";
                 pen.moveToPoint(cl.X, baseline);
                 txt = `${yesStr} /${countStr}`;
+                pen.fillText(txt, layout.textColor, cl.Width);
+            }
+        }
+
+        /* Sample */
+        if (columns["Sample"]) {
+            const cl = layout.sample;
+            const s = mmss(result.startPoint);
+            const f = mmss(result.videoLength);
+            if (stacked) {
+                ctx.lineWidth = layout.divisionThick;
+                ctx.strokeStyle = layout.divisionColor;
+                ctx.beginPath();
+                pen.moveToPoint(cl.X, baseline + layout.fontHeight - 0.5);
+                pen.lineOver(cl.Width, 0);
+                ctx.stroke();
+
+
+                ctx.textAlign = "left";
+                pen.moveToPoint(cl.X, baseline);
+                pen.fillText(s, layout.textColor, cl.Width);
+                pen.moveToPoint(cl.X, baselineMaybeStacked);
+                pen.fillText(f, layout.textColor, cl.Width);
+
+            } else {
+                ctx.textAlign = "left";
+                pen.moveToPoint(cl.X, baseline);
+                txt = `${s}|${f}`;
                 pen.fillText(txt, layout.textColor, cl.Width);
             }
         }
