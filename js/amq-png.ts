@@ -224,8 +224,8 @@ export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing
 export const loremIpsumWords = loremIpsumTxt.split(" ");
 // ----------------------------------------------------------------------------
 
-// const testUrl = "res/20-songs.json";
-const testUrl = "res/85-songs.json";
+const testUrl = "res/20-songs.json";
+// const testUrl = "res/85-songs.json";
 export const testData: AMQRound = await fetch(testUrl).then(response => response.json());
 console.log(testData.songs[8]);
 // ----------------------------------------------------------------------------
@@ -393,23 +393,57 @@ const layout = {
     songWidth: NaN,
     difficultyX: NaN,
     difficultyWidth: NaN,
+    roomScoreX: NaN,
+    roomScoreWidth: NaN,
+
+    headerHeight: NaN,
     margin: 1,
     textColor: "white",
     lineColor: "gray",
     correctColor: "green",
     wrongColor: "red",
+    divisionColor: "white",
+    divisionThick: 1,
 
 
 };
 function drawRound(amqRound: AMQRound) {
     /* TODO
      * Guess fraction 
-     * Difficulty
      * Sample
-     * 
      */
 
+    const stacked = true;
+    // const stacked = false;
+
     const SONG_TYPES = ["OP", "ED", "INS"] as const;
+    const COLUMNS = ["Song #", "Result", "Guess",
+        "Type", "Song", "Artist",
+        "Difficulty", "Room Score",
+        "Sample"
+    ] as const;
+    type Column = typeof COLUMNS[number];
+    const columns:
+        // Record<Column, true>
+        Partial<Record<Column, true>>
+        = {
+        "Song #": true,
+        "Artist": true,
+        Difficulty: true,
+        Guess: true,
+        Result: true,
+        Song: true,
+        Type: true,
+        "Room Score": true,
+        "Sample":true,
+
+    };
+
+    if (stacked) {
+        /* Bot = Top */
+        columns["Guess"] = columns["Result"];
+        columns["Artist"] = columns["Song"];
+    }
 
     const pen = page.pen;
     const ctx = pen.ctx;
@@ -426,52 +460,99 @@ function drawRound(amqRound: AMQRound) {
     layout.songWidth = pen.getTxtWidth("Aoarashi no Ato de");
     layout.artistWidth = pen.getTxtWidth("Asuka Nishi to Yukai na");
     layout.difficultyWidth = pen.getTxtWidth("00.0");
+    layout.roomScoreWidth = pen.getTxtWidth("000 /000");
+
+    if (stacked) {
+        layout.typeWidth = pen.getTxtWidth("000");
+
+        layout.artistWidth = Math.max(layout.artistWidth, layout.songWidth);
+        layout.songWidth = layout.artistWidth;
+        layout.roomScoreWidth = pen.getTxtWidth("000");
+
+    }
 
 
-    let imageHeight = nSongs * layout.fontHeight;
+    layout.headerHeight = 2 * layout.fontHeight + layout.hRuleThickness * 2;
+    let imageHeight = (nSongs) * (stacked ? 2 : 1) * layout.fontHeight;
     imageHeight += (nSongs - 1) * layout.hRuleVSpace;
     imageHeight += layout.margin * 2;
+    imageHeight += layout.headerHeight;
 
     // ---
 
+    /* Stacked pairs:
+     * ---
+     * Result / Guess
+     * Song / Artist
+     * Composer / Arranger
+     *  
+     */
     let x = 0;
     x += layout.margin;
 
     /* Index */
-    layout.indexX = x;
-    x += layout.indexWidth;
-    x += layout.unitSpace;
+    if (columns["Song #"]) {
+        layout.indexX = x;
+        x += layout.indexWidth;
+        x += layout.unitSpace;
+    }
 
     /* Result */
-    layout.resultX = x;
-    x += layout.animeWidth;
-    x += layout.unitSpace;
+    if (columns["Result"]) {
+        layout.resultX = x;
+        x += layout.animeWidth;
+        x += layout.unitSpace;
+    }
 
     /* Guess */
-    layout.guessX = x;
-    x += layout.animeWidth;
-    x += layout.unitSpace;
+    if (columns["Guess"]) {
+        if (stacked) {
+            layout.guessX = layout.resultX;
+        } else {
+            layout.guessX = x;
+            x += layout.animeWidth;
+            x += layout.unitSpace;
+        }
+    }
 
     /* Type */
-    layout.typeX = x;
-    x += layout.typeWidth;
-    x += layout.unitSpace;
-
-    /* Artist */
-    layout.artistX = x;
-    x += layout.artistWidth;
-    x += layout.unitSpace;
-
+    if (columns["Type"]) {
+        layout.typeX = x;
+        x += layout.typeWidth;
+        x += layout.unitSpace;
+    }
 
     /* Song */
-    layout.songX = x;
-    x += layout.songWidth;
-    x += layout.unitSpace;
+    if (columns["Song"]) {
+        layout.songX = x;
+        x += layout.songWidth;
+        x += layout.unitSpace;
+    }
+
+    /* Artist */
+    if (columns["Artist"]) {
+        if (stacked) {
+            layout.artistX = layout.songX;
+        } else {
+            layout.artistX = x;
+            x += layout.artistWidth;
+            x += layout.unitSpace;
+        }
+    }
 
     /* Difficulty */
-    layout.difficultyX = x;
-    x += layout.difficultyWidth;
-    x += layout.unitSpace;
+    if (columns["Difficulty"]) {
+        layout.difficultyX = x;
+        x += layout.difficultyWidth;
+        x += layout.unitSpace;
+    }
+
+    /* Room Score */
+    if (columns["Room Score"]) {
+        layout.roomScoreX = x;
+        x += layout.roomScoreWidth;
+        x += layout.unitSpace;
+    }
 
 
     /* END */
@@ -489,55 +570,200 @@ function drawRound(amqRound: AMQRound) {
     // ------------------------------------------------------------------------
 
     page.clearCanvas("black");
+    // ------------------------------------------------------------------------
+    {
+        /* Header */
+        ctx.fillStyle = "#d4c2c2ff";
+        ctx.fillRect(0, 0, imageWidth, layout.headerHeight);
+        let baseline1 = layout.margin;
+        let baseline2 = baseline1 + layout.fontHeight;
+        let baselineMaybeStacked = stacked ? baseline2 : baseline1;
 
-    pen.moveToPoint(layout.margin, layout.margin);
+
+        let headerTextColor = "black";
+
+        if (columns["Song #"]) {
+            pen.moveToPoint(layout.indexX, baseline1);
+            if (stacked) {
+                pen.fillText("Song", headerTextColor, layout.indexWidth);
+                pen.moveToPoint(layout.indexX, baseline2);
+                pen.fillText("   #", headerTextColor, layout.indexWidth);
+            } else {
+                pen.fillText("#", headerTextColor, layout.indexWidth);
+            }
+        }
+
+        if (columns["Result"]) {
+            pen.moveToPoint(layout.resultX, baseline1);
+            pen.fillText("Anime Result", headerTextColor, layout.animeWidth);
+        }
+
+        if (columns["Guess"]) {
+            pen.moveToPoint(layout.guessX, baselineMaybeStacked);
+            pen.fillText("Anime Guess", headerTextColor, layout.animeWidth);
+        }
+
+        if (columns["Type"]) {
+            pen.moveToPoint(layout.typeX, baseline1);
+            if (stacked) {
+                pen.fillText("Song", headerTextColor, layout.typeWidth);
+                pen.moveToPoint(layout.typeX, baseline2);
+                pen.fillText("Type", headerTextColor, layout.typeWidth);
+            } else {
+                pen.fillText("Type", headerTextColor, layout.typeWidth);
+            }
+        }
+        if (columns["Song"]) {
+            pen.moveToPoint(layout.songX, baseline1);
+            pen.fillText("Song", headerTextColor, layout.songWidth);
+        }
+
+        if (columns["Artist"]) {
+            pen.moveToPoint(layout.artistX, baselineMaybeStacked);
+            pen.fillText("Artist", headerTextColor, layout.artistWidth);
+        }
+
+        if (columns["Difficulty"]) {
+            pen.moveToPoint(layout.difficultyX, baseline1);
+            if (stacked) {
+                pen.fillText("%", headerTextColor, layout.difficultyWidth);
+                pen.moveToPoint(layout.difficultyX, baseline2);
+                pen.fillText("Easy", headerTextColor, layout.difficultyWidth);
+            } else {
+                pen.fillText("%Easy", headerTextColor, layout.difficultyWidth);
+            }
+        }
+
+        if (columns["Room Score"]) {
+            pen.moveToPoint(layout.roomScoreX, baseline1);
+            if (stacked) {
+                pen.fillText("Room", headerTextColor, layout.roomScoreWidth);
+                pen.moveToPoint(layout.roomScoreX, baseline2);
+                pen.fillText("Score", headerTextColor, layout.roomScoreWidth);
+            } else {
+                pen.fillText("Room Score", headerTextColor, layout.roomScoreWidth);
+
+            }
+        }
+
+
+        let half_header_line = layout.hRuleThickness;
+        ctx.lineWidth = layout.hRuleThickness * 2;
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        pen.moveToPoint(0, layout.margin + layout.headerHeight - half_header_line);
+        pen.lineOver(imageWidth, 0);
+        ctx.stroke();
+
+    }
+    // ------------------------------------------------------------------------
+
+    pen.moveToPoint(layout.margin, layout.margin + layout.headerHeight);
     for (let result of amqRound.songs) {
+        const baseline = pen.y;
+        const baselineMaybeStacked = stacked ? baseline + layout.fontHeight : baseline;
         let txt = "";
         /* Index */
-        ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
-        pen.moveToPoint(layout.indexX, null);
-        ctx.fillRect(layout.indexX, pen.y, layout.indexWidth, layout.fontHeight);
+        if (columns["Song #"]) {
+            ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
+            ctx.fillRect(layout.indexX, baseline, layout.indexWidth, layout.fontHeight);
 
-        ctx.textAlign = "right";
-        pen.moveToPoint(layout.indexX + layout.indexWidth, null);
-        pen.fillText(`${result.songNumber}`, layout.textColor);
+            ctx.textAlign = "right";
+            pen.moveToPoint(layout.indexX + layout.indexWidth, baseline);
+            pen.fillText(`${result.songNumber}`, layout.textColor);
+        }
 
         /* Expected Answer */
-        ctx.textAlign = "left";
-        pen.moveToPoint(layout.resultX, null);
-        pen.fillText(htmlDecode(result.songInfo.animeNames.english), layout.textColor, layout.animeWidth);
+        if (columns["Result"]) {
+            ctx.textAlign = "left";
+            pen.moveToPoint(layout.resultX, baseline);
+            txt = `🔍${htmlDecode(result.songInfo.animeNames.english)}`;
+            pen.fillText(txt, layout.textColor, layout.animeWidth);
+        }
 
         /* Given Answer */
-        ctx.textAlign = "left";
-        pen.moveToPoint(layout.guessX, null);
-        txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
-        pen.fillText(txt, layout.textColor, layout.animeWidth);
+        if (columns["Guess"]) {
+            ctx.textAlign = "left";
+            pen.moveToPoint(layout.guessX, baselineMaybeStacked);
+            txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+            pen.fillText(txt, layout.textColor, layout.animeWidth);
+        }
 
         /* Artist */
-        ctx.textAlign = "left";
-        pen.moveToPoint(layout.artistX, null);
-        pen.fillText(htmlDecode(result.songInfo.artist), layout.textColor, layout.artistWidth);
-
+        if (columns["Artist"]) {
+            ctx.textAlign = "left";
+            pen.moveToPoint(layout.artistX, baselineMaybeStacked);
+            pen.fillText(htmlDecode(result.songInfo.artist), layout.textColor, layout.artistWidth);
+        }
         /* Type */
-        ctx.textAlign = "left";
-        pen.moveToPoint(layout.typeX, null);
-        txt = `${SONG_TYPES[result.songInfo.type - 1]} ${result.songInfo.typeNumber || ""}`;
-        pen.fillText(txt, layout.textColor, layout.typeWidth);
+        if (columns["Type"]) {
+            ctx.textAlign = "left";
+            pen.moveToPoint(layout.typeX, baseline);
+            let songKind = SONG_TYPES[result.songInfo.type - 1];
+            let songOrdinal = `${result.songInfo.typeNumber || ""}`;
+            if (stacked) {
+                pen.fillText(songKind, layout.textColor, layout.typeWidth);
+                ctx.textAlign = "right";
+                pen.moveToPoint(layout.typeX + layout.typeWidth, baselineMaybeStacked);
+                pen.fillText(songOrdinal, layout.textColor, layout.typeWidth);
+            } else {
+                txt = `${songKind} ${songOrdinal}`;
+                pen.fillText(txt, layout.textColor, layout.typeWidth);
+            }
+        }
 
         /* Song */
-        ctx.textAlign = "left";
-        pen.moveToPoint(layout.songX, null);
-        pen.fillText(result.songInfo.songName, layout.textColor, layout.songWidth);
-
+        if (columns["Song"]) {
+            ctx.textAlign = "left";
+            pen.moveToPoint(layout.songX, baseline);
+            pen.fillText(result.songInfo.songName, layout.textColor, layout.songWidth);
+        }
 
         /* Difficulty */
-        ctx.textAlign = "right";
-        pen.moveToPoint(layout.difficultyX + layout.difficultyWidth, null);
-        txt = `${result.songInfo.animeDifficulty.toFixed(1)}`;
-        pen.fillText(txt, layout.textColor, layout.difficultyWidth);
+        if (columns["Difficulty"]) {
+            ctx.textAlign = "right";
+            pen.moveToPoint(layout.difficultyX + layout.difficultyWidth, baseline);
+            txt = `${result.songInfo.animeDifficulty.toFixed(1)}`;
+            pen.fillText(txt, layout.textColor, layout.difficultyWidth);
+        }
 
-        /* END LINE */
+        /* Room Score */
+        if (columns["Room Score"]) {
+            let count = result.correctCount + result.wrongCount;
+            let countStr = count.toString().padStart(3, " ");
+            let yesStr = result.correctCount.toString().padStart(3, " ");
+            if (stacked) {
+                ctx.lineWidth = layout.divisionThick;
+                ctx.strokeStyle = layout.divisionColor;
+                ctx.beginPath();
+                pen.moveToPoint(layout.roomScoreX, baseline + layout.fontHeight - 0.5);
+                pen.lineOver(layout.roomScoreWidth, 0);
+                ctx.stroke();
+
+
+                ctx.textAlign = "left";
+                pen.moveToPoint(layout.roomScoreX, baseline);
+                pen.fillText(countStr, layout.textColor, layout.roomScoreWidth);
+                pen.moveToPoint(layout.roomScoreX, baselineMaybeStacked);
+                pen.fillText(countStr, layout.textColor, layout.roomScoreWidth);
+
+            } else {
+                ctx.textAlign = "left";
+                pen.moveToPoint(layout.roomScoreX, baseline);
+                txt = `${yesStr} /${countStr}`;
+                pen.fillText(txt, layout.textColor, layout.roomScoreWidth);
+
+            }
+        }
+
+        /*
+         * 
+         * END LINE 
+         *
+         */
+        pen.moveToPoint(0, baseline);
         pen.carriageReturn(layout.fontHeight);
+        if (stacked) { pen.carriageReturn(layout.fontHeight); }
 
         ctx.beginPath();
         pen.moveToPoint(0, null);
