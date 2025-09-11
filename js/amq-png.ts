@@ -401,6 +401,8 @@ const layout = {
     difficulty: nanColumn(),
     roomScore: nanColumn(),
     sample: nanColumn(),
+    composer: nanColumn(),
+    arranger: nanColumn(),
 
     headerHeight: NaN,
     margin: 1,
@@ -415,8 +417,8 @@ const layout = {
 };
 function drawRound(amqRound: AMQRound) {
     /* TODO
-     * Guess fraction 
-     * Sample
+     * compser
+     * aranger
      */
 
     const stacked = true;
@@ -425,23 +427,26 @@ function drawRound(amqRound: AMQRound) {
     const SONG_TYPES = ["OP", "ED", "INS"] as const;
     const COLUMNS = ["Song #", "Result", "Guess",
         "Type", "Song", "Artist",
+        "Composer", "Arranger",
         "Difficulty", "Room Score",
         "Sample"
     ] as const;
     type Column = typeof COLUMNS[number];
     const columns:
-        Record<Column, true>
-        // Partial<Record<Column, true>>
+        // Record<Column, true>
+        Partial<Record<Column, true>>
         = {
         "Song #": true,
         "Artist": true,
         Difficulty: true,
         Guess: true,
         Result: true,
-        Song: true,
-        Type: true,
-        "Room Score": true,
-        "Sample": true,
+        // Song: true,
+        // Type: true,
+        // "Room Score": true,
+        // "Sample": true,
+        Composer: true,
+        Arranger: true,
 
     };
 
@@ -473,6 +478,8 @@ function drawRound(amqRound: AMQRound) {
     layout.difficulty.Width = pen.getTxtWidth("00.0");
     layout.roomScore.Width = pen.getTxtWidth("000 /000");
     layout.sample.Width = pen.getTxtWidth("00:00|00:00");
+    layout.arranger.Width = pen.getTxtWidth("Nobuhiko Okamoto");
+    layout.composer.Width = pen.getTxtWidth("Nobuhiko Okamoto");
 
     if (stacked) {
         layout.type.Width = pen.getTxtWidth("000");
@@ -504,91 +511,57 @@ function drawRound(amqRound: AMQRound) {
     let x = 0;
     x += layout.margin;
 
+
+    const insertColumn = (key: Column, cl: ColumnLayout) => {
+        if (columns[key]) {
+            console.assert(!isNaN(cl.Width));
+            cl.X = x;
+            x += cl.Width;
+            x += layout.unitSpace;
+        }
+    };
+    const insertColumnStacked = (key: Column, cl: ColumnLayout, top: ColumnLayout) => {
+        if (columns[key]) {
+            if (stacked) {
+                cl.X = top.X;
+            } else {
+                console.assert(!isNaN(cl.Width));
+                cl.X = x;
+                x += cl.Width;
+                x += layout.unitSpace;
+            }
+        }
+    };
+
     /* Index */
-    if (columns["Song #"]) {
-        const cl = layout.index;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Song #", layout.index);
 
     /* Result */
-    if (columns["Result"]) {
-        const cl = layout.result;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Result", layout.result);
 
     /* Guess */
-    if (columns["Guess"]) {
-        if (stacked) {
-            layout.guess.X = layout.result.X;
-        } else {
-            layout.guess.X = x;
-            x += layout.result.Width;
-            x += layout.unitSpace;
-        }
-    }
+    insertColumnStacked("Guess", layout.guess, layout.result);
 
     /* Type */
-    if (columns["Type"]) {
-        const cl = layout.type;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Type", layout.type);
 
     /* Song */
-    if (columns["Song"]) {
-        const cl = layout.song;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Song", layout.song);
 
     /* Artist */
-    if (columns["Artist"]) {
-        if (stacked) {
-            layout.artist.X = layout.song.X;
-        } else {
-            layout.artist.X = x;
-            x += layout.artist.Width;
-            x += layout.unitSpace;
-        }
-    }
+    insertColumnStacked("Artist", layout.artist, layout.song);
 
     /* Difficulty */
-    if (columns["Difficulty"]) {
-        const cl = layout.difficulty;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Difficulty", layout.difficulty);
 
     /* Room Score */
-    if (columns["Room Score"]) {
-        const cl = layout.roomScore;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Room Score", layout.roomScore);
 
     /* Sample */
-    if (columns["Sample"]) {
-        const cl = layout.sample;
-        console.assert(!isNaN(cl.Width));
-        cl.X = x;
-        x += cl.Width;
-        x += layout.unitSpace;
-    }
+    insertColumn("Sample", layout.sample);
 
+    insertColumn("Composer", layout.composer);
+    insertColumnStacked("Arranger", layout.arranger, layout.composer);
 
     /* END */
     x += layout.margin;
@@ -700,6 +673,18 @@ function drawRound(amqRound: AMQRound) {
                 pen.fillText("Song Sample", headerTextColor, cl.Width);
 
             }
+        }
+
+        if (columns["Arranger"]) {
+            const cl = layout.arranger;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.fillText("Arranger", headerTextColor, cl.Width);
+        }
+
+        if (columns["Composer"]) {
+            const cl = layout.composer;
+            pen.moveToPoint(cl.X, baseline1);
+            pen.fillText("Composer", headerTextColor, cl.Width);
         }
 
         /* --- */
@@ -846,6 +831,22 @@ function drawRound(amqRound: AMQRound) {
                 txt = `${s}|${f}`;
                 pen.fillText(txt, layout.textColor, cl.Width);
             }
+        }
+
+        /* Composer */
+        if (columns["Composer"]) {
+            ctx.textAlign = "left";
+            const cl = layout.composer;
+            pen.moveToPoint(cl.X, baseline);
+            pen.fillText(result.songInfo.composerInfo.name, layout.textColor, cl.Width);
+        }
+        /* Arranger */
+        if (columns["Arranger"]) {
+            ctx.textAlign = "left";
+            const cl = layout.arranger;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.fillText(result.songInfo.arrangerInfo.name, layout.textColor, cl.Width);
+
         }
 
         /*
