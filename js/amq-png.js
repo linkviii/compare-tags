@@ -247,6 +247,8 @@ const layout = {
     sample: nanColumn(),
     composer: nanColumn(),
     arranger: nanColumn(),
+    vintage: nanColumn(),
+    seasonInfo: nanColumn(),
     headerHeight: NaN,
     margin: 1,
     textColor: "white",
@@ -268,25 +270,32 @@ function drawRound(amqRound) {
         "Type", "Song", "Artist",
         "Composer", "Arranger",
         "Difficulty", "Room Score",
-        "Sample"
+        "Sample",
+        "Season Info", "Vintage",
     ];
-    const columns = {
+    const columns 
+    // Partial<Record<Column, true>>
+    = {
         "Song #": true,
         "Artist": true,
         Difficulty: true,
         Guess: true,
         Result: true,
-        // Song: true,
-        // Type: true,
-        // "Room Score": true,
-        // "Sample": true,
+        Song: true,
+        Type: true,
+        "Room Score": true,
+        "Sample": true,
         Composer: true,
         Arranger: true,
+        "Season Info": true,
+        Vintage: true,
     };
     if (stacked) {
         /* Bot = Top */
         columns["Guess"] = columns["Result"];
         columns["Artist"] = columns["Song"];
+        columns["Arranger"] = columns["Arranger"];
+        columns["Season Info"] = columns["Vintage"];
     }
     const pen = page.pen;
     const ctx = pen.ctx;
@@ -308,8 +317,16 @@ function drawRound(amqRound) {
     layout.sample.Width = pen.getTxtWidth("00:00|00:00");
     layout.arranger.Width = pen.getTxtWidth("Nobuhiko Okamoto");
     layout.composer.Width = pen.getTxtWidth("Nobuhiko Okamoto");
+    layout.vintage.Width = pen.getTxtWidth("Fall 0000");
+    layout.seasonInfo.Width = pen.getTxtWidth("Season 1");
+    const setToMax = (a, b) => {
+        a.Width = Math.max(a.Width, b.Width);
+        b.Width = a.Width;
+    };
     if (stacked) {
         layout.type.Width = pen.getTxtWidth("000");
+        setToMax(layout.artist, layout.song);
+        setToMax(layout.seasonInfo, layout.vintage);
         layout.artist.Width = Math.max(layout.artist.Width, layout.song.Width);
         layout.song.Width = layout.artist.Width;
         layout.roomScore.Width = pen.getTxtWidth("000");
@@ -371,6 +388,8 @@ function drawRound(amqRound) {
     insertColumn("Sample", layout.sample);
     insertColumn("Composer", layout.composer);
     insertColumnStacked("Arranger", layout.arranger, layout.composer);
+    insertColumn("Vintage", layout.vintage);
+    insertColumnStacked("Season Info", layout.seasonInfo, layout.vintage);
     /* END */
     x += layout.margin;
     const imageWidth = x;
@@ -478,6 +497,16 @@ function drawRound(amqRound) {
             const cl = layout.composer;
             pen.moveToPoint(cl.X, baseline1);
             pen.fillText("Composer", headerTextColor, cl.Width);
+        }
+        if (columns["Vintage"]) {
+            const cl = layout.vintage;
+            pen.moveToPoint(cl.X, baseline1);
+            pen.fillText("Vintage", headerTextColor, cl.Width);
+        }
+        if (columns["Season Info"]) {
+            const cl = layout.seasonInfo;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.fillText("Season", headerTextColor, cl.Width);
         }
         /* --- */
         let half_header_line = layout.hRuleThickness;
@@ -622,7 +651,26 @@ function drawRound(amqRound) {
             ctx.textAlign = "left";
             const cl = layout.arranger;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            pen.fillText(result.songInfo.arrangerInfo.name, layout.textColor, cl.Width);
+            txt = result.songInfo.arrangerInfo.name;
+            if (stacked && txt === result.songInfo.composerInfo.name) {
+                txt = "〃";
+            }
+            pen.fillText(txt, layout.textColor, cl.Width);
+        }
+        /* Vintage */
+        if (columns["Vintage"]) {
+            ctx.textAlign = "left";
+            const cl = layout.vintage;
+            pen.moveToPoint(cl.X, baseline);
+            pen.fillText(result.songInfo.vintage, layout.textColor, cl.Width);
+        }
+        /* Season */
+        if (columns["Season Info"]) {
+            ctx.textAlign = "left";
+            const cl = layout.seasonInfo;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            txt = result.songInfo.seasonInfo || result.songInfo.animeType;
+            pen.fillText(txt, layout.textColor, cl.Width);
         }
         /*
          *
