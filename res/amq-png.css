@@ -1,0 +1,22 @@
+  #enabledCol, #disabledCol {
+    border: 5px solid #5a5a5a;
+    width: 100%;
+    min-height: 30px;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0 0;
+    /* float: left; */
+    margin-right: 10px;
+  }
+  #enabledCol li, #disabledCol li {
+    margin: 0 5px 5px 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    /* width: 120px; */
+    display: inline-block;
+    white-space: pre-line;
+  }
+
+  .group {
+    background-color: #dadada;
+  }

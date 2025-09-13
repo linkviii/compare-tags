@@ -8,8 +8,9 @@
     <base href="../" />
     <link href="favicon.png" rel="shortcut icon" type="image/x-icon" id="favicon">
     <link href="./res/root.css" rel="stylesheet" type="text/css">
-    <!-- <link href="./js/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- <link href="./js/lib/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="./res/amq-png.css" rel="stylesheet" type="text/css">
+    <link href="./js/lib/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="./js/lib/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet" type="text/css">
     <!-- <link rel="stylesheet" type="text/css" href="./js/lib/jquery-ui/jquery-ui.structure.min.css"> -->
     <!-- <link rel="stylesheet" href="./js/lib/awesomplete/awesomplete.css" /> -->
 
@@ -20,8 +21,27 @@
     <!-- Place for js to fill in messages to the user -->
     <div id="feedback"> </div>
 
-     <form action="about:blank" id="form" target="💾">
-        Upload
+    <form action="about:blank" id="form" target="💾">
+
+        <p>Columns (drag to reorder)</p>        
+        <div class="group">
+            <label for="stackedCheck">Stack </label>
+            <input type="checkbox" id="stackedCheck" />
+
+            <p>Enabled:</p>
+            <ul id="enabledCol" class="connectedSortable">
+
+            </ul>
+
+            <p>Disabled</p>
+            <ul id="disabledCol" class="connectedSortable">
+            </ul>
+        </div>
+
+        <br />
+        <div>
+            Upload
+        </div>
 
     </form>
 
@@ -31,7 +51,7 @@
 
     <div id="test"></div>
     <h1>Img:</h1>
-    <img id="canvasImg"  />
+    <img id="canvasImg" />
 
 
     <!-- **************************************************** -->

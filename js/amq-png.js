@@ -2,7 +2,15 @@
  * MIT licensed
  */
 import "./jquery.js";
-// import "./lib/jquery-ui/jquery-ui.min.js";
+import "./lib/jquery-ui/jquery-ui.min.js";
+console.log("did it??");
+// ----------------------------------------------------------------------------
+$(function () {
+    $("#enabledCol, #disabledCol").sortable({
+        connectWith: ".connectedSortable"
+    }).disableSelection();
+    $("#enabledCol");
+});
 // ----------------------------------------------------------------------------
 const TAU = Math.PI * 2;
 /**
@@ -122,6 +130,9 @@ console.log(testData.songs[8]);
 class PngPage {
     constructor() {
         this.inputForm = $("#form");
+        this.enabledColUI = $("#enabledCol");
+        this.disabledColUI = $("#disabledCol");
+        this.stackedUI = $("#stackedCheck");
         /* Right clicking a <canvas> does not have a copy option.
          * Instead we draw to an offscreen canvas and draw it to the <img>.
          */
@@ -198,9 +209,80 @@ class PngPage {
         this.render();
     }
     init() {
+        const columns = {
+            "Song #": { startEnabled: true, },
+            Result: { startEnabled: true, myBot: "Guess" },
+            Guess: { startEnabled: true, isBot: true },
+            Type: { startEnabled: true, },
+            Song: { startEnabled: true, myBot: "Artist" },
+            "Artist": { startEnabled: true, isBot: true },
+            Difficulty: { startEnabled: true, },
+            "Room Score": { startEnabled: true, },
+            "Sample": { startEnabled: true, },
+            Composer: { startEnabled: true, },
+            Arranger: { startEnabled: true, },
+            Vintage: { startEnabled: true, myBot: "Season Info" },
+            "Season Info": { startEnabled: true, isBot: true },
+        };
+        for (const str in columns) {
+            const params = columns[str];
+            const li = document.createElement("li");
+            li.className = "ui-state-default";
+            li.textContent = str;
+            li.setAttribute("data-val", str);
+            if (params.myBot) {
+                li.setAttribute("data-my-bot", params.myBot);
+            }
+            if (params.isBot) {
+                li.setAttribute("data-bot", "true");
+            }
+            if (params.startEnabled) {
+                this.enabledColUI.append(li);
+            }
+            else {
+                this.disabledColUI.append(li);
+            }
+        }
+        // --------------------------------------------------------------------
+        const onUIChange = () => {
+            drawRound(testData, 1);
+        };
+        const onStack = () => {
+            const stacked = this.stackedUI[0].checked;
+            console.log(["Stacked", stacked]);
+            for (let it of $("[data-my-bot]")) {
+                if (stacked) {
+                    it.textContent = `${it.getAttribute("data-val")}\n${it.getAttribute("data-my-bot")}`;
+                }
+                else {
+                    it.textContent = `${it.getAttribute("data-val")}`;
+                }
+            }
+            if (stacked) {
+                $("[data-bot]").hide();
+            }
+            else {
+                $("[data-bot]").show();
+            }
+            onUIChange();
+        };
+        this.stackedUI.on("change", onStack);
+        onStack();
+        $([this.enabledColUI, this.disabledColUI]).sortable({
+            connectWith: ".connectedSortable"
+        }).disableSelection();
+        /* Probably some events that wouldn't require doing this on both */
+        this.enabledColUI.on("sortchange sortout", () => {
+            console.log("sort change");
+            onUIChange();
+        });
+        this.disabledColUI.on("sortchange sortout", () => {
+            console.log("sort change");
+            onUIChange();
+        });
         // this.firstDraw();
         // this.drawLoremIspum();
-        drawRound(testData);
+        drawRound(testData, 0);
         console.log(testData);
     }
 }
@@ -258,38 +340,23 @@ const layout = {
     divisionColor: "white",
     divisionThick: 1,
 };
-function drawRound(amqRound) {
-    /* TODO
-     * compser
-     * aranger
-     */
-    const stacked = true;
+const COLUMNS = ["Song #", "Result", "Guess",
+    "Type", "Song", "Artist",
+    "Composer", "Arranger",
+    "Difficulty", "Room Score",
+    "Sample",
+    "Season Info", "Vintage",
+];
+function drawRound(amqRound, foo) {
+    console.log(foo);
+    // const stacked = true;
     // const stacked = false;
+    const stacked = page.stackedUI[0].checked;
     const SONG_TYPES = ["OP", "ED", "INS"];
-    const COLUMNS = ["Song #", "Result", "Guess",
-        "Type", "Song", "Artist",
-        "Composer", "Arranger",
-        "Difficulty", "Room Score",
-        "Sample",
-        "Season Info", "Vintage",
-    ];
-    const columns 
-    // Partial<Record<Column, true>>
-    = {
-        "Song #": true,
-        "Artist": true,
-        Difficulty: true,
-        Guess: true,
-        Result: true,
-        Song: true,
-        Type: true,
-        "Room Score": true,
-        "Sample": true,
-        Composer: true,
-        Arranger: true,
-        "Season Info": true,
-        Vintage: true,
-    };
+    const columns = {};
+    for (const el of page.enabledColUI.children()) {
+        columns[el.getAttribute("data-val")] = true;
+    }
     if (stacked) {
         /* Bot = Top */
         columns["Guess"] = columns["Result"];
