@@ -366,10 +366,10 @@ class PngPage {
             Difficulty: { startEnabled: true, },
             "Room Score": { startEnabled: true, },
             "Sample": { startEnabled: true, },
-            Composer: { startEnabled: true, },
-            Arranger: { startEnabled: true, },
-            Vintage: { startEnabled: true, myBot: "Season Info" },
-            "Season Info": { startEnabled: true, isBot: true },
+            Composer: { startEnabled: false, },
+            Arranger: { startEnabled: false, },
+            Vintage: { startEnabled: false, myBot: "Season Info" },
+            "Season Info": { startEnabled: false, isBot: true },
         };
 
         for (const str in columns) {
@@ -534,7 +534,9 @@ function drawRound(amqRound: AMQRound, foo) {
 
     const columns: Partial<Record<Column, boolean>> = {};
     for (const el of page.enabledColUI.children()) {
-        columns[el.getAttribute("data-val")] = true;
+        const val = el.getAttribute("data-val");
+        if (val)
+            columns[val] = true;
     }
 
 
@@ -632,38 +634,40 @@ function drawRound(amqRound: AMQRound, foo) {
         }
     };
 
-    /* Index */
-    insertColumn("Song #", layout.index);
+    // console.log(columns);
+    const mapping: Record<Column, [ColumnLayout] | [ColumnLayout, ColumnLayout]> = {
 
-    /* Result */
-    insertColumn("Result", layout.result);
+        "Song #": [layout.index],
+        "Result": [layout.result],
+        "Guess": [layout.guess, layout.result],
+        "Type": [layout.type],
+        "Song": [layout.song],
+        "Artist": [layout.artist, layout.song],
+        "Difficulty": [layout.difficulty],
+        "Room Score": [layout.roomScore],
+        "Sample": [layout.sample],
+        "Composer": [layout.composer],
+        "Arranger": [layout.arranger, layout.composer],
+        "Vintage": [layout.vintage],
+        "Season Info": [layout.seasonInfo, layout.vintage],
+    };
+    const activeCols = [] as Column[];
+    for (let _col in columns) {
+        const col = _col as Column;
+        if (columns[col]) activeCols.push(col);
+    }
+    // console.log(activeCols);
 
-    /* Guess */
-    insertColumnStacked("Guess", layout.guess, layout.result);
-
-    /* Type */
-    insertColumn("Type", layout.type);
-
-    /* Song */
-    insertColumn("Song", layout.song);
-
-    /* Artist */
-    insertColumnStacked("Artist", layout.artist, layout.song);
-
-    /* Difficulty */
-    insertColumn("Difficulty", layout.difficulty);
-
-    /* Room Score */
-    insertColumn("Room Score", layout.roomScore);
-
-    /* Sample */
-    insertColumn("Sample", layout.sample);
-
-    insertColumn("Composer", layout.composer);
-    insertColumnStacked("Arranger", layout.arranger, layout.composer);
-
-    insertColumn("Vintage", layout.vintage);
-    insertColumnStacked("Season Info", layout.seasonInfo, layout.vintage);
+    for (let _col of activeCols) {
+        const col = _col as Column;
+        const cll = mapping[col];
+        // console.log([col, cll]);
+        if (cll.length === 1) {
+            insertColumn(col, ...cll);
+        } else {
+            insertColumnStacked(col, ...cll);
+        }
+    }
 
     /* END */
     x += layout.margin;
