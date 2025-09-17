@@ -126,6 +126,65 @@ const testUrl = "res/20-songs.json";
 // const testUrl = "res/85-songs.json";
 export const testData = await fetch(testUrl).then(response => response.json());
 console.log(testData.songs[8]);
+const COL_GET_TXT = {
+    "Arranger": (s) => s.songInfo.arrangerInfo.name,
+    "Artist": (s) => s.songInfo.artist,
+    "Composer": (s) => s.songInfo.composerInfo.name,
+    // "Difficulty": (s: Song) => s.songInfo.animeDifficulty.toFixed(1),
+    "Guess": (s) => s.answer,
+    "Result": (s) => s.songInfo.animeNames.english, // TODO
+    // "Room Score": (s: Song) => s.correctCount.toString(),
+    // "Sample": (s: Song) => s.startPoint.toString(),
+    "Season Info": (s) => s.songInfo.seasonInfo || s.songInfo.animeType,
+    "Song": (s) => s.songInfo.songName,
+    // "Song #": (s: Song) => s.songNumber.toString(),
+    "Type": (s) => s.songInfo.type.toString(),
+    "Vintage": (s) => s.songInfo.vintage,
+    // "": (s:Song) => s.  ,
+    // "": (s:Song) => s.  ,
+};
+function makeSorter_str(key) {
+    return (a, b) => COL_GET_TXT[key](a).localeCompare(COL_GET_TXT[key](b));
+}
+const COL_GET_NUM = {
+    "Difficulty": (s) => s.songInfo.animeDifficulty,
+    "Room Score": (s) => s.correctCount,
+    "Sample": (s) => s.startPoint,
+    "Song #": (s) => s.songNumber,
+    // "Type": (s: Song) => s.songInfo.type,
+};
+function makeSorter_num(key) {
+    return (a, b) => COL_GET_NUM[key](a) - (COL_GET_NUM[key](b));
+}
+const QUARTERS = {
+    "Winter": 1,
+    "Spring": 2,
+    "Summer": 3,
+    "Fall": 4
+};
+const SORTS = {
+    "Song #": makeSorter_num("Song #"),
+    "Arranger": makeSorter_str("Arranger"),
+    "Artist": makeSorter_str("Artist"),
+    "Composer": makeSorter_str("Composer"),
+    "Difficulty": makeSorter_num("Difficulty"),
+    "Guess": makeSorter_str("Guess"),
+    "Result": makeSorter_str("Result"),
+    "Room Score": makeSorter_num("Room Score"),
+    "Sample": makeSorter_num("Sample"),
+    "Season Info": makeSorter_str("Season Info"),
+    "Song": makeSorter_str("Song"),
+    "Type": makeSorter_str("Type"),
+    "Vintage": (a, b) => {
+        // "vintage": "Summer 2014",
+        const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
+        const [q_b, y_b] = COL_GET_TXT["Vintage"](b).split(" ");
+        return (Number(y_a) - Number(y_b)) || QUARTERS[q_a] - QUARTERS[q_b];
+    },
+};
+function mergeSorter(a, b) {
+    return (x, y) => a(x, y) || b(x, y);
+}
 // ----------------------------------------------------------------------------
 class PngPage {
     constructor() {
@@ -133,6 +192,8 @@ class PngPage {
         this.enabledColUI = $("#enabledCol");
         this.disabledColUI = $("#disabledCol");
         this.stackedUI = $("#stackedCheck");
+        this.sortUI = $("#sorting");
+        this.sortUI2 = $("#sorting-2");
         /* Right clicking a <canvas> does not have a copy option.
          * Instead we draw to an offscreen canvas and draw it to the <img>.
          */
@@ -219,8 +280,8 @@ class PngPage {
             Difficulty: { startEnabled: true, },
             "Room Score": { startEnabled: true, },
             "Sample": { startEnabled: true, },
-            Composer: { startEnabled: false, },
-            Arranger: { startEnabled: false, },
+            Composer: { startEnabled: false, myBot: "Arranger" },
+            Arranger: { startEnabled: false, isBot: true },
             Vintage: { startEnabled: false, myBot: "Season Info" },
             "Season Info": { startEnabled: false, isBot: true },
         };
@@ -243,10 +304,32 @@ class PngPage {
                 this.disabledColUI.append(li);
             }
         }
+        const initsortui = (ui) => {
+            for (let col in SORTS) {
+                let first = false;
+                if (col === "Song #") {
+                    first = true;
+                }
+                const opt = document.createElement("option");
+                if (first) {
+                    opt.selected = true;
+                }
+                opt.textContent = col;
+                ui.append(opt);
+            }
+        };
+        initsortui(this.sortUI);
+        initsortui(this.sortUI2);
         // --------------------------------------------------------------------
         const onUIChange = () => {
             drawRound(testData, 1);
         };
+        const onSort = () => {
+            console.log(["sort", this.sortUI.val(), this.sortUI2.val()]);
+            onUIChange();
+        };
+        this.sortUI.on("change", onSort);
+        this.sortUI2.on("change", onSort);
         const onStack = () => {
             const stacked = this.stackedUI[0].checked;
             console.log(["Stacked", stacked]);
@@ -310,7 +393,7 @@ export function mmss(seconds) {
     return `${m.toString().padStart(2, "0")}:${fs.toString().padStart(2, "0")}`;
 }
 function nanColumn() { return { X: NaN, Width: NaN }; }
-const layout = {
+export const layout = {
     font: { textAlign: "left", textBaseline: "top", font: "20px serif" },
     fontHeight: NaN,
     /** Horizontal Line thickness */
@@ -492,6 +575,7 @@ function drawRound(amqRound, foo) {
         if (columns["Song #"]) {
             const cl = layout.index;
             pen.moveToPoint(cl.X, baseline1);
+            ctx.textAlign = "left";
             if (stacked) {
                 pen.fillText("Song", headerTextColor, cl.Width);
                 pen.moveToPoint(cl.X, baseline2);
@@ -502,16 +586,19 @@ function drawRound(amqRound, foo) {
             }
         }
         if (columns["Result"]) {
+            ctx.textAlign = "left";
             const cl = layout.result;
             pen.moveToPoint(cl.X, baseline1);
             pen.fillText("Anime Result", headerTextColor, cl.Width);
         }
         if (columns["Guess"]) {
+            ctx.textAlign = "left";
             const cl = layout.guess;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             pen.fillText("Anime Guess", headerTextColor, cl.Width);
         }
         if (columns["Type"]) {
+            ctx.textAlign = "left";
             const cl = layout.type;
             pen.moveToPoint(cl.X, baseline1);
             if (stacked) {
@@ -524,16 +611,19 @@ function drawRound(amqRound, foo) {
             }
         }
         if (columns["Song"]) {
+            ctx.textAlign = "left";
             const cl = layout.song;
             pen.moveToPoint(cl.X, baseline1);
             pen.fillText("Song", headerTextColor, cl.Width);
         }
         if (columns["Artist"]) {
+            ctx.textAlign = "left";
             const cl = layout.artist;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             pen.fillText("Artist", headerTextColor, cl.Width);
         }
         if (columns["Difficulty"]) {
+            ctx.textAlign = "left";
             const cl = layout.difficulty;
             pen.moveToPoint(cl.X, baseline1);
             if (stacked) {
@@ -546,6 +636,7 @@ function drawRound(amqRound, foo) {
             }
         }
         if (columns["Room Score"]) {
+            ctx.textAlign = "left";
             const cl = layout.roomScore;
             pen.moveToPoint(cl.X, baseline1);
             if (stacked) {
@@ -558,6 +649,7 @@ function drawRound(amqRound, foo) {
             }
         }
         if (columns["Sample"]) {
+            ctx.textAlign = "left";
             const cl = layout.sample;
             pen.moveToPoint(cl.X, baseline1);
             if (stacked) {
@@ -570,21 +662,25 @@ function drawRound(amqRound, foo) {
             }
         }
         if (columns["Arranger"]) {
+            ctx.textAlign = "left";
             const cl = layout.arranger;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             pen.fillText("Arranger", headerTextColor, cl.Width);
         }
         if (columns["Composer"]) {
+            ctx.textAlign = "left";
             const cl = layout.composer;
             pen.moveToPoint(cl.X, baseline1);
             pen.fillText("Composer", headerTextColor, cl.Width);
         }
         if (columns["Vintage"]) {
+            ctx.textAlign = "left";
             const cl = layout.vintage;
             pen.moveToPoint(cl.X, baseline1);
             pen.fillText("Vintage", headerTextColor, cl.Width);
         }
         if (columns["Season Info"]) {
+            ctx.textAlign = "left";
             const cl = layout.seasonInfo;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             pen.fillText("Season", headerTextColor, cl.Width);
@@ -599,8 +695,10 @@ function drawRound(amqRound, foo) {
         ctx.stroke();
     }
     // ------------------------------------------------------------------------
+    const dispList = [...amqRound.songs];
+    dispList.sort(mergeSorter(SORTS[page.sortUI.val()], SORTS[page.sortUI2.val()]));
     pen.moveToPoint(layout.margin, layout.margin + layout.headerHeight);
-    for (let result of amqRound.songs) {
+    for (let result of dispList) {
         const baseline = pen.y;
         const baselineMaybeStacked = stacked ? baseline + layout.fontHeight : baseline;
         let txt = "";
