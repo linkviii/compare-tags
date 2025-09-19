@@ -182,6 +182,13 @@ const SORTS = {
         return (Number(y_a) - Number(y_b)) || QUARTERS[q_a] - QUARTERS[q_b];
     },
 };
+/**
+ *
+ * @param a Primary sorter for type T
+ * @param b Secondary sorter for type T
+ * @returns New sorter that prioritizes sorter `a` but then sorts by be if `a`
+ *          claims that its inputs are equal.
+ */
 function mergeSorter(a, b) {
     return (x, y) => a(x, y) || b(x, y);
 }
@@ -192,6 +199,7 @@ class PngPage {
         this.enabledColUI = $("#enabledCol");
         this.disabledColUI = $("#disabledCol");
         this.stackedUI = $("#stackedCheck");
+        this.footerUI = $("#footerCheck");
         this.sortUI = $("#sorting");
         this.sortUI2 = $("#sorting-2");
         /* Right clicking a <canvas> does not have a copy option.
@@ -351,6 +359,10 @@ class PngPage {
         };
         this.stackedUI.on("change", onStack);
         onStack();
+        this.footerUI.on("change", () => {
+            console.log(["footer", this.footerUI[0].checked]);
+            onUIChange();
+        });
         $([this.enabledColUI, this.disabledColUI]).sortable({
             connectWith: ".connectedSortable"
         }).disableSelection();
@@ -415,6 +427,7 @@ export const layout = {
     vintage: nanColumn(),
     seasonInfo: nanColumn(),
     headerHeight: NaN,
+    headerColor: "#d4c2c2ff",
     margin: 1,
     textColor: "white",
     lineColor: "gray",
@@ -435,6 +448,7 @@ function drawRound(amqRound, foo) {
     // const stacked = true;
     // const stacked = false;
     const stacked = page.stackedUI[0].checked;
+    const showFooter = page.footerUI[0].checked;
     const SONG_TYPES = ["OP", "ED", "INS"];
     const columns = {};
     for (const el of page.enabledColUI.children()) {
@@ -489,6 +503,9 @@ function drawRound(amqRound, foo) {
     imageHeight += (nSongs - 1) * layout.hRuleVSpace;
     imageHeight += layout.margin * 2;
     imageHeight += layout.headerHeight;
+    if (showFooter) {
+        imageHeight += layout.fontHeight + layout.hRuleThickness;
+    }
     // ---
     /* Stacked pairs:
      * ---
@@ -566,7 +583,7 @@ function drawRound(amqRound, foo) {
     // ------------------------------------------------------------------------
     {
         /* Header */
-        ctx.fillStyle = "#d4c2c2ff";
+        ctx.fillStyle = layout.headerColor;
         ctx.fillRect(0, 0, imageWidth, layout.headerHeight);
         let baseline1 = layout.margin;
         let baseline2 = baseline1 + layout.fontHeight;
@@ -871,6 +888,13 @@ function drawRound(amqRound, foo) {
         // ctx.closePath();
         ctx.stroke();
         pen.moveOver(null, half);
+    } // END for result
+    if (showFooter) {
+        ctx.fillStyle = layout.headerColor;
+        pen.moveToPoint(0, pen.y + layout.hRuleThickness / 2);
+        ctx.fillRect(0, pen.y, page.offscreenCanvas.width, layout.fontHeight);
+        pen.moveOver(layout.unitSpace, 0);
+        pen.fillText(`Made with ${window.location.href}`, "black");
     }
     page.render();
 }
