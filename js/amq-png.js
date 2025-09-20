@@ -5,6 +5,8 @@ import "./jquery.js";
 import "./lib/jquery-ui/jquery-ui.min.js";
 console.log("did it??");
 // ----------------------------------------------------------------------------
+export const usingTestData = false;
+// ----------------------------------------------------------------------------
 $(function () {
     $("#enabledCol, #disabledCol").sortable({
         connectWith: ".connectedSortable"
@@ -125,7 +127,7 @@ export const loremIpsumWords = loremIpsumTxt.split(" ");
 const testUrl = "res/20-songs.json";
 // const testUrl = "res/85-songs.json";
 export const testData = await fetch(testUrl).then(response => response.json());
-console.log(testData.songs[8]);
+export let activeData = null;
 const COL_GET_TXT = {
     "Arranger": (s) => s.songInfo.arrangerInfo.name,
     "Artist": (s) => s.songInfo.artist,
@@ -202,10 +204,12 @@ class PngPage {
         this.footerUI = $("#footerCheck");
         this.sortUI = $("#sorting");
         this.sortUI2 = $("#sorting-2");
+        this.uploadButton = document.getElementById("json-upload");
         /* Right clicking a <canvas> does not have a copy option.
          * Instead we draw to an offscreen canvas and draw it to the <img>.
          */
-        this.canvasImg = $("#canvasImg");
+        this.outputDiv = $("#outdiv");
+        this.placeholderDiv = $("#placeholder");
         // ------------------------------------------------------------------------
         this.offscreenCanvas = new OffscreenCanvas(100, 100);
         this.pen = new CanvasPen(this.offscreenCanvas.getContext("2d"));
@@ -218,7 +222,8 @@ class PngPage {
     /** Must be called to display anything to the screen. */
     async render() {
         let blob = await this.offscreenCanvas.convertToBlob();
-        this.canvasImg[0].src = URL.createObjectURL(blob);
+        const img = $("img", this.outputDiv)[0];
+        img.src = URL.createObjectURL(blob);
     }
     drawLoremIspum() {
         const pen = this.pen;
@@ -278,6 +283,13 @@ class PngPage {
         this.render();
     }
     init() {
+        const page = this;
+        this.outputDiv.hide();
+        if (usingTestData) {
+            activeData = testData;
+            this.placeholderDiv.hide();
+            this.outputDiv.show();
+        }
         const columns = {
             "Song #": { startEnabled: true, },
             Result: { startEnabled: true, myBot: "Guess" },
@@ -330,7 +342,18 @@ class PngPage {
         initsortui(this.sortUI2);
         // --------------------------------------------------------------------
         const onUIChange = () => {
-            drawRound(testData, 1);
+            drawRound(activeData, 1);
+        };
+        this.uploadButton.onchange = async () => {
+            console.log("upload: onchange");
+            const f = page.uploadButton.files[0];
+            const txt = await f.text();
+            const data = JSON.parse(txt);
+            activeData = data;
+            this.placeholderDiv.hide();
+            this.outputDiv.show();
+            //
+            onUIChange();
         };
         const onSort = () => {
             console.log(["sort", this.sortUI.val(), this.sortUI2.val()]);
@@ -377,8 +400,8 @@ class PngPage {
         });
         // this.firstDraw();
         // this.drawLoremIspum();
-        drawRound(testData, 0);
-        console.log(testData);
+        drawRound(activeData, 0);
+        console.log(activeData);
     }
 }
 export const page = new PngPage();

@@ -22,6 +22,11 @@
     <div id="feedback"> </div>
 
     <form action="about:blank" id="form" target="💾">
+        <div class="group">
+
+            <label for="json-upload" class="custom-file-upload">Load AMQ Round JSON</label>
+            <input type="file" id="json-upload" name="json-upload" accept=".json" />
+        </div>
 
         <div class="group">
             <label for="footerCheck">Show footer </label>
@@ -30,15 +35,17 @@
         </div>
 
         <div class="group">
-            <p>Columns (drag to reorder)</p>        
+            <p>Columns</p>
             <label for="stackedCheck">Stack </label>
             <input type="checkbox" id="stackedCheck" />
+
 
             <label for="sorting">Sort by</label>
             <select id="sorting"> <!-- Populated by js --> </select>
             <label for="sorting-2">then</label>
             <select id="sorting-2"> <!-- Populated by js --> </select>.
 
+            <p>Drag to reorder, enable, or disable columns.</p>
             <p>Enabled:</p>
             <ul id="enabledCol" class="connectedSortable">
 
@@ -49,20 +56,27 @@
             </ul>
         </div>
 
-        <br />
-        <div>
-            Upload
-        </div>
+
 
     </form>
 
 
+    <div id="placeholder">
+        Click the big red Load button above
+    </div>
+
+    <div id="outdiv">
+        Right click -> Copy image.
+        <img />
+        <img />
+        <img />
+        <img />
+    </div>
 
 
-
-    <div id="test"></div>
+    <!-- <div id="test"></div>
     <h1>Img:</h1>
-    <img id="canvasImg" />
+    <img id="canvasImg" /> -->
 
 
     <!-- **************************************************** -->

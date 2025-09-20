@@ -1,14 +1,20 @@
-  #enabledCol, #disabledCol {
+  p:has(+ #enabledCol, + #disabledCol) {
+    /* background-color: orange; */
+    margin-bottom: 0px;
+  }
+
+  #enabledCol,
+  #disabledCol {
     border: 5px solid #5a5a5a;
     width: 100%;
     min-height: 30px;
     list-style-type: none;
     margin: 0;
     padding: 5px 0 0 0;
-    /* float: left; */
-    margin-right: 10px;
   }
-  #enabledCol li, #disabledCol li {
+
+  #enabledCol li,
+  #disabledCol li {
     margin: 0 5px 5px 5px;
     padding: 5px;
     font-size: 1.2em;
@@ -19,4 +25,35 @@
 
   .group {
     background-color: #dadada;
+    margin: 2px;
+    /* padding: 1px; */
+  }
+
+  #json-upload {
+    display: none;
+  }
+
+  .custom-file-upload {
+    border: 1px solid black;
+    background: red;
+    color: #faf4f4;
+    display: block;
+    padding: 36px 12px;
+    cursor: pointer;
+    border-radius: 50px;
+    text-align: center;
+    font-size: larger;
+    max-width: 500px;
+  }
+
+  .custom-file-upload:hover {
+    background-color: rgb(128, 13, 13);
+  }
+
+  #placeholder {
+    background: black;
+    color: white;
+    text-align: center;
+    font-size: large;
+    padding: 40px;
   }

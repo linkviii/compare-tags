@@ -10,6 +10,9 @@ import "./lib/jquery-ui/jquery-ui.min.js";
 console.log("did it??");
 
 // ----------------------------------------------------------------------------
+export const usingTestData = false;
+// ----------------------------------------------------------------------------
+
 
 $(function () {
     ($("#enabledCol, #disabledCol") as any).sortable({
@@ -239,7 +242,7 @@ export const loremIpsumWords = loremIpsumTxt.split(" ");
 const testUrl = "res/20-songs.json";
 // const testUrl = "res/85-songs.json";
 export const testData: AMQRound = await fetch(testUrl).then(response => response.json());
-console.log(testData.songs[8]);
+export let activeData: AMQRound | null = null;
 // ----------------------------------------------------------------------------
 type AmqSongSort = (a: Song, b: Song) => number;
 const COL_GET_TXT = {
@@ -330,11 +333,15 @@ class PngPage {
     readonly sortUI = $("#sorting") as JQuery<HTMLSelectElement>;
     readonly sortUI2 = $("#sorting-2") as JQuery<HTMLSelectElement>;
 
+    readonly uploadButton = document.getElementById("json-upload") as HTMLInputElement;
+
+
 
     /* Right clicking a <canvas> does not have a copy option. 
      * Instead we draw to an offscreen canvas and draw it to the <img>.
      */
-    readonly canvasImg = $("#canvasImg") as JQuery<HTMLImageElement>;
+    readonly outputDiv = $("#outdiv") as JQuery<HTMLDivElement>;
+    readonly placeholderDiv = $("#placeholder") as JQuery<HTMLDivElement>;
 
     // ------------------------------------------------------------------------
     readonly offscreenCanvas = new OffscreenCanvas(100, 100);
@@ -350,8 +357,13 @@ class PngPage {
 
     /** Must be called to display anything to the screen. */
     async render() {
+
+
         let blob = await this.offscreenCanvas.convertToBlob();
-        this.canvasImg[0].src = URL.createObjectURL(blob);
+        const img = $("img", this.outputDiv)[0] as HTMLImageElement;
+        img.src = URL.createObjectURL(blob);
+
+
     }
 
     drawLoremIspum() {
@@ -434,6 +446,13 @@ class PngPage {
 
 
     init() {
+        const page = this;
+        this.outputDiv.hide();
+        if (usingTestData) {
+            activeData = testData;
+            this.placeholderDiv.hide();
+            this.outputDiv.show();
+        }
 
 
         const columns: Record<Column,
@@ -489,8 +508,27 @@ class PngPage {
 
         // --------------------------------------------------------------------
         const onUIChange = () => {
-            drawRound(testData, 1);
+            drawRound(activeData, 1);
         };
+
+        this.uploadButton.onchange = async () => {
+            console.log("upload: onchange");
+            const f = page.uploadButton.files[0];
+            const txt = await f.text();
+
+            const data = JSON.parse(txt);
+
+            activeData = data;
+
+            this.placeholderDiv.hide();
+            this.outputDiv.show();
+
+
+            //
+            onUIChange();
+        };
+
+
 
         const onSort = () => {
             console.log(["sort", this.sortUI.val(), this.sortUI2.val()]);
@@ -543,8 +581,8 @@ class PngPage {
         });
         // this.firstDraw();
         // this.drawLoremIspum();
-        drawRound(testData, 0);
-        console.log(testData);
+        drawRound(activeData, 0);
+        console.log(activeData);
 
     }
 
@@ -1141,7 +1179,7 @@ function drawRound(amqRound: AMQRound, foo) {
         ctx.fillStyle = layout.headerColor;
         pen.moveToPoint(0, pen.y + layout.hRuleThickness / 2);
         ctx.fillRect(0, pen.y, page.offscreenCanvas.width, layout.fontHeight);
-        pen.moveOver(layout.unitSpace,0);
+        pen.moveOver(layout.unitSpace, 0);
         pen.fillText(`Made with ${window.location.href}`, "black");
     }
 
