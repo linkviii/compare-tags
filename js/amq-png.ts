@@ -10,7 +10,8 @@ import "./lib/jquery-ui/jquery-ui.min.js";
 console.log("did it??");
 
 // ----------------------------------------------------------------------------
-export const usingTestData = false;
+// export const usingTestData = false;
+export const usingTestData = true;
 // ----------------------------------------------------------------------------
 
 
@@ -68,12 +69,15 @@ export class CanvasPen {
         this.pointerStack.push([this.x, this.y]);
     }
     popStack() {
-        [this.x, this.y] = this.pointerStack.pop();
+        if (this.pointerStack.length !== 0)
+            [this.x, this.y] = this.pointerStack.pop() || [0, 0];
     }
 
     applyFont(params: FontParams) {
+        // FontParams is a subset of ctx. 
+        // idk how to make strict mode happy about this.
         for (let key in params) {
-            this.ctx[key] = params[key];
+            (this.ctx as any)[key] = (params as any)[key] as any;
         }
     }
 
@@ -168,7 +172,8 @@ export interface Song {
     songInfo: SongInfo;
     correctGuess: boolean;
     wrongGuess: boolean;
-    answer: string;
+    /** The text the user put as their guess. `undefined` while spectating. */
+    answer?: string;
     correctCount: number;
     wrongCount: number;
     startPoint: number;
@@ -239,7 +244,8 @@ export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing
 export const loremIpsumWords = loremIpsumTxt.split(" ");
 // ----------------------------------------------------------------------------
 
-const testUrl = "res/20-songs.json";
+// const testUrl = "res/20-songs.json";
+const testUrl = "res/jam.json";
 // const testUrl = "res/85-songs.json";
 export const testData: AMQRound = await fetch(testUrl).then(response => response.json());
 export let activeData: AMQRound | null = null;
@@ -250,7 +256,7 @@ const COL_GET_TXT = {
     "Artist": (s: Song) => s.songInfo.artist,
     "Composer": (s: Song) => s.songInfo.composerInfo.name,
     // "Difficulty": (s: Song) => s.songInfo.animeDifficulty.toFixed(1),
-    "Guess": (s: Song) => s.answer,
+    "Guess": (s: Song) => s.answer ?? "",
     "Result": (s: Song) => s.songInfo.animeNames.english, // TODO
     // "Room Score": (s: Song) => s.correctCount.toString(),
     // "Sample": (s: Song) => s.startPoint.toString(),
@@ -280,6 +286,15 @@ function makeSorter_num(key: keyof typeof COL_GET_NUM) {
     return (a: Song, b: Song) => COL_GET_NUM[key](a) - (COL_GET_NUM[key](b));
 }
 
+/** 
+ * Same as `obj[key]`.
+ * Widens both `key` and `keyof obj` to `string` to make typescript happy when we know better.
+ * Maybe should have a version with a default val...
+ */
+function getUnchecked<T>(obj: Record<string, T>, key: string) {
+    return obj[key];
+}
+
 const QUARTERS = {
     "Winter": 1,
     "Spring": 2,
@@ -304,7 +319,7 @@ const SORTS: Record<Column, AmqSongSort> = {
         // "vintage": "Summer 2014",
         const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
         const [q_b, y_b] = COL_GET_TXT["Vintage"](b).split(" ");
-        return (Number(y_a) - Number(y_b)) || QUARTERS[q_a] - QUARTERS[q_b];
+        return (Number(y_a) - Number(y_b)) || getUnchecked(QUARTERS, q_a) - getUnchecked(QUARTERS, q_b);
 
     },
 };
@@ -345,7 +360,7 @@ class PngPage {
 
     // ------------------------------------------------------------------------
     readonly offscreenCanvas = new OffscreenCanvas(100, 100);
-    pen = new CanvasPen(this.offscreenCanvas.getContext("2d"));
+    pen = new CanvasPen(this.offscreenCanvas.getContext("2d")!);
     // ------------------------------------------------------------------------
 
 
@@ -422,7 +437,7 @@ class PngPage {
 
         ctx.font = "15px serif";
         const measure = ctx.measureText("H");
-        window["m"] = measure;
+        (window as any)["m"] = measure;
         console.log(measure);
         const lineHeight = measure.fontBoundingBoxAscent + measure.fontBoundingBoxDescent;
 
@@ -513,7 +528,7 @@ class PngPage {
 
         this.uploadButton.onchange = async () => {
             console.log("upload: onchange");
-            const f = page.uploadButton.files[0];
+            const f = page.uploadButton.files![0];
             const txt = await f.text();
 
             const data = JSON.parse(txt);
@@ -608,7 +623,7 @@ function init(): void {
 $(document).ready(init);
 
 // ----------------------------------------------------------------------------
-function htmlDecode(input) {
+function htmlDecode(input: string) {
     // https://stackoverflow.com/a/34064434/1993919
     var doc = new DOMParser().parseFromString(input, "text/html");
     return doc.documentElement.textContent;
@@ -670,7 +685,11 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Season Info", "Vintage",
 ] as const;
 type Column = typeof COLUMNS[number];
-function drawRound(amqRound: AMQRound, foo) {
+function drawRound(amqRound: AMQRound | null, foo: any) {
+
+    if (null == amqRound) {
+        return;
+    }
 
     console.log(foo);
     // const stacked = true;
@@ -684,7 +703,7 @@ function drawRound(amqRound: AMQRound, foo) {
     for (const el of page.enabledColUI.children()) {
         const val = el.getAttribute("data-val");
         if (val)
-            columns[val] = true;
+            columns[val as Column] = true;
     }
 
 
@@ -994,8 +1013,10 @@ function drawRound(amqRound: AMQRound, foo) {
         /* Index */
         if (columns["Song #"]) {
             const cl = layout.index;
-            ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
-            ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
+            if (undefined !== result.answer) {
+                ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
+                ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
+            }
 
             ctx.textAlign = "right";
             pen.moveToPoint(cl.X + cl.Width, baseline);
@@ -1016,7 +1037,11 @@ function drawRound(amqRound: AMQRound, foo) {
             const cl = layout.guess;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+            if (undefined === result.answer) {
+                txt = "";
+            } else {
+                txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+            }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 
@@ -1165,13 +1190,13 @@ function drawRound(amqRound: AMQRound, foo) {
         ctx.beginPath();
         pen.moveToPoint(0, null);
         const half = layout.hRuleVSpace / 2;
-        pen.moveOver(null, half);
+        pen.moveOver(0, half);
         ctx.lineWidth = layout.hRuleThickness;
         ctx.strokeStyle = layout.lineColor;
         pen.lineOver(imageWidth, 0);
         // ctx.closePath();
         ctx.stroke();
-        pen.moveOver(null, half);
+        pen.moveOver(0, half);
 
     } // END for result
     if (showFooter) {

@@ -5,7 +5,8 @@ import "./jquery.js";
 import "./lib/jquery-ui/jquery-ui.min.js";
 console.log("did it??");
 // ----------------------------------------------------------------------------
-export const usingTestData = false;
+// export const usingTestData = false;
+export const usingTestData = true;
 // ----------------------------------------------------------------------------
 $(function () {
     $("#enabledCol, #disabledCol").sortable({
@@ -22,20 +23,19 @@ const TAU = Math.PI * 2;
  * When using the lines, remember to call ctx.beginPath() and ctx.stroke()
  */
 export class CanvasPen {
+    ctx;
     constructor(ctx) {
         this.ctx = ctx;
-        /** Do not mutate directly. */
-        this.x = 0;
-        /** Do not mutate directly. */
-        this.y = 0;
-        this.pointerStack = [];
-        /** Reference point to return to */
-        this.orig = [0, 0];
     }
+    /** Do not mutate directly. */
+    x = 0;
+    /** Do not mutate directly. */
+    y = 0;
     set(x, y) {
         this.x = x;
         this.y = y;
     }
+    pointerStack = [];
     getFontHeight() {
         const tm = this.ctx.measureText("");
         const lineHeight = tm.fontBoundingBoxAscent + tm.fontBoundingBoxDescent;
@@ -49,13 +49,18 @@ export class CanvasPen {
         this.pointerStack.push([this.x, this.y]);
     }
     popStack() {
-        [this.x, this.y] = this.pointerStack.pop();
+        if (this.pointerStack.length !== 0)
+            [this.x, this.y] = this.pointerStack.pop() || [0, 0];
     }
     applyFont(params) {
+        // FontParams is a subset of ctx. 
+        // idk how to make strict mode happy about this.
         for (let key in params) {
             this.ctx[key] = params[key];
         }
     }
+    /** Reference point to return to */
+    orig = [0, 0];
     /** Return to x origin, and move down height in the y direction. */
     carriageReturn(height) {
         this.moveToPoint(this.orig[0], this.y + height);
@@ -67,8 +72,8 @@ export class CanvasPen {
      * Pass null to not move on an axis.
      */
     moveToPoint(x, y) {
-        x !== null && x !== void 0 ? x : (x = this.x);
-        y !== null && y !== void 0 ? y : (y = this.y);
+        x ??= this.x;
+        y ??= this.y;
         this.ctx.moveTo(x, y);
         this.set(x, y);
     }
@@ -124,7 +129,8 @@ export class CanvasPen {
 export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?";
 export const loremIpsumWords = loremIpsumTxt.split(" ");
 // ----------------------------------------------------------------------------
-const testUrl = "res/20-songs.json";
+// const testUrl = "res/20-songs.json";
+const testUrl = "res/jam.json";
 // const testUrl = "res/85-songs.json";
 export const testData = await fetch(testUrl).then(response => response.json());
 export let activeData = null;
@@ -133,7 +139,7 @@ const COL_GET_TXT = {
     "Artist": (s) => s.songInfo.artist,
     "Composer": (s) => s.songInfo.composerInfo.name,
     // "Difficulty": (s: Song) => s.songInfo.animeDifficulty.toFixed(1),
-    "Guess": (s) => s.answer,
+    "Guess": (s) => s.answer ?? "",
     "Result": (s) => s.songInfo.animeNames.english, // TODO
     // "Room Score": (s: Song) => s.correctCount.toString(),
     // "Sample": (s: Song) => s.startPoint.toString(),
@@ -158,6 +164,14 @@ const COL_GET_NUM = {
 function makeSorter_num(key) {
     return (a, b) => COL_GET_NUM[key](a) - (COL_GET_NUM[key](b));
 }
+/**
+ * Same as `obj[key]`.
+ * Widens both `key` and `keyof obj` to `string` to make typescript happy when we know better.
+ * Maybe should have a version with a default val...
+ */
+function getUnchecked(obj, key) {
+    return obj[key];
+}
 const QUARTERS = {
     "Winter": 1,
     "Spring": 2,
@@ -181,7 +195,7 @@ const SORTS = {
         // "vintage": "Summer 2014",
         const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
         const [q_b, y_b] = COL_GET_TXT["Vintage"](b).split(" ");
-        return (Number(y_a) - Number(y_b)) || QUARTERS[q_a] - QUARTERS[q_b];
+        return (Number(y_a) - Number(y_b)) || getUnchecked(QUARTERS, q_a) - getUnchecked(QUARTERS, q_b);
     },
 };
 /**
@@ -196,24 +210,22 @@ function mergeSorter(a, b) {
 }
 // ----------------------------------------------------------------------------
 class PngPage {
-    constructor() {
-        this.inputForm = $("#form");
-        this.enabledColUI = $("#enabledCol");
-        this.disabledColUI = $("#disabledCol");
-        this.stackedUI = $("#stackedCheck");
-        this.footerUI = $("#footerCheck");
-        this.sortUI = $("#sorting");
-        this.sortUI2 = $("#sorting-2");
-        this.uploadButton = document.getElementById("json-upload");
-        /* Right clicking a <canvas> does not have a copy option.
-         * Instead we draw to an offscreen canvas and draw it to the <img>.
-         */
-        this.outputDiv = $("#outdiv");
-        this.placeholderDiv = $("#placeholder");
-        // ------------------------------------------------------------------------
-        this.offscreenCanvas = new OffscreenCanvas(100, 100);
-        this.pen = new CanvasPen(this.offscreenCanvas.getContext("2d"));
-    }
+    inputForm = $("#form");
+    enabledColUI = $("#enabledCol");
+    disabledColUI = $("#disabledCol");
+    stackedUI = $("#stackedCheck");
+    footerUI = $("#footerCheck");
+    sortUI = $("#sorting");
+    sortUI2 = $("#sorting-2");
+    uploadButton = document.getElementById("json-upload");
+    /* Right clicking a <canvas> does not have a copy option.
+     * Instead we draw to an offscreen canvas and draw it to the <img>.
+     */
+    outputDiv = $("#outdiv");
+    placeholderDiv = $("#placeholder");
+    // ------------------------------------------------------------------------
+    offscreenCanvas = new OffscreenCanvas(100, 100);
+    pen = new CanvasPen(this.offscreenCanvas.getContext("2d"));
     // ------------------------------------------------------------------------
     clearCanvas(color) {
         this.pen.ctx.fillStyle = color;
@@ -467,6 +479,9 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Season Info", "Vintage",
 ];
 function drawRound(amqRound, foo) {
+    if (null == amqRound) {
+        return;
+    }
     console.log(foo);
     // const stacked = true;
     // const stacked = false;
@@ -745,8 +760,10 @@ function drawRound(amqRound, foo) {
         /* Index */
         if (columns["Song #"]) {
             const cl = layout.index;
-            ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
-            ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
+            if (undefined !== result.answer) {
+                ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
+                ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
+            }
             ctx.textAlign = "right";
             pen.moveToPoint(cl.X + cl.Width, baseline);
             pen.fillText(`${result.songNumber}`, layout.textColor);
@@ -764,7 +781,12 @@ function drawRound(amqRound, foo) {
             const cl = layout.guess;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+            if (undefined === result.answer) {
+                txt = "";
+            }
+            else {
+                txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+            }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Artist */
@@ -904,13 +926,13 @@ function drawRound(amqRound, foo) {
         ctx.beginPath();
         pen.moveToPoint(0, null);
         const half = layout.hRuleVSpace / 2;
-        pen.moveOver(null, half);
+        pen.moveOver(0, half);
         ctx.lineWidth = layout.hRuleThickness;
         ctx.strokeStyle = layout.lineColor;
         pen.lineOver(imageWidth, 0);
         // ctx.closePath();
         ctx.stroke();
-        pen.moveOver(null, half);
+        pen.moveOver(0, half);
     } // END for result
     if (showFooter) {
         ctx.fillStyle = layout.headerColor;

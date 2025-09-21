@@ -58,14 +58,14 @@ function init() {
           giveFeedback("Invalid anime id or url");
 
         } else {
-          giveFeedback(`${someName(anime)} is already in the tables.`);
+          giveFeedback(`${someName(anime as any)} is already in the tables.`);
         }
         return;
       }
 
       let anime = await getAniAnime(id);
       if (anime instanceof Error) {
-        anime = null as Anime;
+        anime = null as any as Anime;
         giveFeedback("Invalid anime id or url");
       }
       animeDb.set(id.toString(), anime);
@@ -326,7 +326,7 @@ class HTable {
   constructor(parentId: string) {
 
     //
-    this.parent = document.getElementById(parentId);
+    this.parent = document.getElementById(parentId)!;
 
     this.table = document.createElement("table");
 
@@ -451,7 +451,7 @@ class TimeLayout {
 
   constructor(parentId: string) {
 
-    const parent = document.getElementById(parentId);
+    const parent = document.getElementById(parentId)!;
 
     this.top = document.createElement("div");
     parent.append(this.top);
@@ -538,7 +538,7 @@ function someName(title: Title | Anime): string {
   return title.english || title.romaji || title.romaji;
 }
 
-const SeasonSet = ["WINTER", "SPRING", "SUMMER", "FALL"];
+const SeasonSet = ["WINTER", "SPRING", "SUMMER", "FALL"] as const;
 
 const tagThreshold = 50;
 
@@ -582,11 +582,11 @@ function fillAnimeRows(anime: Anime) {
 
   // Tags
   {
-    const row = tagTable.rows.get(anime.id.toString());
+    const row = tagTable.rows.get(anime.id.toString())!;
     const tr = tagTable.body.children[row.index];
     for (let tag of anime.tags) {
       if (tag.rank >= tagThreshold) {
-        const box = tr.children[tagTable.columns.get(tag.id.toString()).index];
+        const box = tr.children[tagTable.columns.get(tag.id.toString())!.index];
         box.textContent = "X";
       }
     }
@@ -594,11 +594,11 @@ function fillAnimeRows(anime: Anime) {
 
   // Genres
   {
-    const row = genreTable.rows.get(anime.id.toString());
+    const row = genreTable.rows.get(anime.id.toString())!;
 
     const tr = genreTable.body.children[row.index];
     for (let genre of anime.genres) {
-      const box = tr.children[genreTable.columns.get(genre).index];
+      const box = tr.children[genreTable.columns.get(genre)!.index];
       box.textContent = "X";
     }
   }
@@ -609,7 +609,7 @@ function fillTables() {
   const genreTable = app.genres;
 
   for (let row of tagTable.rows.values()) {
-    let anime = animeDb.get(row.id);
+    let anime = animeDb.get(row.id)!;
     fillAnimeRows(anime);
   }
 
@@ -660,7 +660,7 @@ export function test0() {
     const tr = tagTable.body.children[row.index];
     for (let tag of anime.tags) {
       if (tag.rank > tagThreshold) {
-        const box = tr.children[tagTable.columns.get(tag.id.toString()).index];
+        const box = tr.children[tagTable.columns.get(tag.id.toString())!.index];
         box.textContent = "X";
       }
     }
@@ -671,7 +671,7 @@ export function test0() {
     let anime = testData[row.id] as Anime;
     const tr = genreTable.body.children[row.index];
     for (let genre of anime.genres) {
-      const box = tr.children[genreTable.columns.get(genre).index];
+      const box = tr.children[genreTable.columns.get(genre)!.index];
       box.textContent = "X";
     }
 

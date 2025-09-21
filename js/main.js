@@ -10,13 +10,11 @@ const animeDb = new Map();
 export let app; // Don't construct until page ready
 /*  */
 class App {
-    constructor() {
-        this.tags = new HTable("tags");
-        this.genres = new HTable("genres");
-        this.years = new TimeLayout("years");
-        this.idInput = document.getElementById("anime-id");
-        this.addButton = document.getElementById("add-anime");
-    }
+    tags = new HTable("tags");
+    genres = new HTable("genres");
+    years = new TimeLayout("years");
+    idInput = document.getElementById("anime-id");
+    addButton = document.getElementById("add-anime");
 }
 /* INIT */
 function init() {
@@ -229,11 +227,15 @@ function giveFeedback(str, sec = 5) {
     }, time);
 }
 class HTable {
+    parent;
+    table;
+    headRow;
+    body;
+    //
+    columns = new Map();
+    rows = new Map();
     //
     constructor(parentId) {
-        //
-        this.columns = new Map();
-        this.rows = new Map();
         //
         this.parent = document.getElementById(parentId);
         this.table = document.createElement("table");
@@ -315,8 +317,9 @@ function newYear(year) {
     return data;
 }
 class TimeLayout {
+    top;
+    yearList = [];
     constructor(parentId) {
-        this.yearList = [];
         const parent = document.getElementById(parentId);
         this.top = document.createElement("div");
         parent.append(this.top);
