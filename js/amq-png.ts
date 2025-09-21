@@ -12,6 +12,10 @@ console.log("did it??");
 // ----------------------------------------------------------------------------
 // export const usingTestData = false;
 export const usingTestData = true;
+
+const testUrl = "res/20-songs.json";
+// const testUrl = "res/jam.json";
+// const testUrl = "res/85-songs.json";
 // ----------------------------------------------------------------------------
 
 
@@ -244,9 +248,7 @@ export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing
 export const loremIpsumWords = loremIpsumTxt.split(" ");
 // ----------------------------------------------------------------------------
 
-// const testUrl = "res/20-songs.json";
-const testUrl = "res/jam.json";
-// const testUrl = "res/85-songs.json";
+
 export const testData: AMQRound = await fetch(testUrl).then(response => response.json());
 export let activeData: AMQRound | null = null;
 // ----------------------------------------------------------------------------
@@ -280,6 +282,10 @@ const COL_GET_NUM = {
     "Sample": (s: Song) => s.startPoint,
     "Song #": (s: Song) => s.songNumber,
     // "Type": (s: Song) => s.songInfo.type,
+    "Correct Guess": (s: Song) => {
+        if (s.answer === undefined) return -1;
+        return s.correctGuess ? 1 : 2;
+    }
 
 } satisfies Record<string, (s: Song) => number>;
 function makeSorter_num(key: keyof typeof COL_GET_NUM) {
@@ -302,19 +308,27 @@ const QUARTERS = {
     "Fall": 4
 };
 
-const SORTS: Record<Column, AmqSongSort> = {
+const SORTS: Record<string, AmqSongSort> = {
     "Song #": makeSorter_num("Song #"),
-    "Arranger": makeSorter_str("Arranger"),
+    "Was Correct": makeSorter_num("Correct Guess"),
+    
+    "Result": makeSorter_str("Result"),
+    "Guess": makeSorter_str("Guess"),
+
+    "Difficulty": makeSorter_num("Difficulty"),
+    "Room Score": makeSorter_num("Room Score"),
+
+    "Type": makeSorter_str("Type"),
+    
+    "Song": makeSorter_str("Song"),
     "Artist": makeSorter_str("Artist"),
     "Composer": makeSorter_str("Composer"),
-    "Difficulty": makeSorter_num("Difficulty"),
-    "Guess": makeSorter_str("Guess"),
-    "Result": makeSorter_str("Result"),
-    "Room Score": makeSorter_num("Room Score"),
+    "Arranger": makeSorter_str("Arranger"),
+    
     "Sample": makeSorter_num("Sample"),
+    
     "Season Info": makeSorter_str("Season Info"),
-    "Song": makeSorter_str("Song"),
-    "Type": makeSorter_str("Type"),
+    
     "Vintage": (a: Song, b: Song) => {
         // "vintage": "Summer 2014",
         const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
