@@ -27,6 +27,8 @@ $(function () {
     $("#enabledCol");
 });
 // ----------------------------------------------------------------------------
+const DITTO = "〃";
+
 const TAU = Math.PI * 2;
 export type Point = [number, number];
 
@@ -259,7 +261,7 @@ const COL_GET_TXT = {
     "Composer": (s: Song) => s.songInfo.composerInfo.name,
     // "Difficulty": (s: Song) => s.songInfo.animeDifficulty.toFixed(1),
     "Guess": (s: Song) => s.answer ?? "",
-    "Result": (s: Song) => s.songInfo.animeNames.english, // TODO
+    "Result": (s: Song) => getSongAnimeName(s),
     // "Room Score": (s: Song) => s.correctCount.toString(),
     // "Sample": (s: Song) => s.startPoint.toString(),
     "Season Info": (s: Song) => s.songInfo.seasonInfo || s.songInfo.animeType,
@@ -311,7 +313,7 @@ const QUARTERS = {
 const SORTS: Record<string, AmqSongSort> = {
     "Song #": makeSorter_num("Song #"),
     "Was Correct": makeSorter_num("Correct Guess"),
-    
+
     "Result": makeSorter_str("Result"),
     "Guess": makeSorter_str("Guess"),
 
@@ -319,16 +321,16 @@ const SORTS: Record<string, AmqSongSort> = {
     "Room Score": makeSorter_num("Room Score"),
 
     "Type": makeSorter_str("Type"),
-    
+
     "Song": makeSorter_str("Song"),
     "Artist": makeSorter_str("Artist"),
     "Composer": makeSorter_str("Composer"),
     "Arranger": makeSorter_str("Arranger"),
-    
+
     "Sample": makeSorter_num("Sample"),
-    
+
     "Season Info": makeSorter_str("Season Info"),
-    
+
     "Vintage": (a: Song, b: Song) => {
         // "vintage": "Summer 2014",
         const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
@@ -361,6 +363,7 @@ class PngPage {
     readonly footerUI = $("#footerCheck") as JQuery<HTMLInputElement>;
     readonly sortUI = $("#sorting") as JQuery<HTMLSelectElement>;
     readonly sortUI2 = $("#sorting-2") as JQuery<HTMLSelectElement>;
+    readonly languageUI = $("#language") as JQuery<HTMLSelectElement>;
 
     readonly uploadButton = document.getElementById("json-upload") as HTMLInputElement;
 
@@ -557,7 +560,11 @@ class PngPage {
             onUIChange();
         };
 
-
+        this.languageUI.on("change", () => {
+            language = page.languageUI.val() as any;
+            console.log(["Set lang", language]);
+            onUIChange();
+        });
 
         const onSort = () => {
             console.log(["sort", this.sortUI.val(), this.sortUI2.val()]);
@@ -618,7 +625,11 @@ class PngPage {
 }
 
 export const page = new PngPage();
+export let language: "english" | "romaji" = "english";
 
+function getSongAnimeName(song: Song) {
+    return song.songInfo.animeNames[language];
+}
 
 function init(): void {
     page.init();
@@ -1013,7 +1024,9 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
         ctx.stroke();
 
     }
+
     // ------------------------------------------------------------------------
+
     const dispList: Song[] = [...amqRound.songs];
     dispList.sort(
         mergeSorter(SORTS[page.sortUI.val() as keyof typeof SORTS], SORTS[page.sortUI2.val() as keyof typeof SORTS])
@@ -1042,7 +1055,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
             const cl = layout.result;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baseline);
-            txt = `🔍${htmlDecode(result.songInfo.animeNames.english)}`;
+            txt = `🔍${htmlDecode(getSongAnimeName(result))}`;
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 
@@ -1054,7 +1067,11 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
             if (undefined === result.answer) {
                 txt = "";
             } else {
-                txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+                let tmp = htmlDecode(result.answer);
+                if (stacked && tmp === getSongAnimeName(result)) {
+                    tmp = DITTO;
+                }
+                txt = `${result.correctGuess ? "✅" : "❌"}${tmp}`;
             }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
@@ -1172,7 +1189,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             txt = result.songInfo.arrangerInfo.name;
             if (stacked && txt === result.songInfo.composerInfo.name) {
-                txt = "〃";
+                txt = DITTO;
             }
             pen.fillText(txt, layout.textColor, cl.Width);
         }

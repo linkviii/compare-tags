@@ -7,6 +7,9 @@ console.log("did it??");
 // ----------------------------------------------------------------------------
 // export const usingTestData = false;
 export const usingTestData = true;
+const testUrl = "res/20-songs.json";
+// const testUrl = "res/jam.json";
+// const testUrl = "res/85-songs.json";
 // ----------------------------------------------------------------------------
 $(function () {
     $("#enabledCol, #disabledCol").sortable({
@@ -15,6 +18,7 @@ $(function () {
     $("#enabledCol");
 });
 // ----------------------------------------------------------------------------
+const DITTO = "〃";
 const TAU = Math.PI * 2;
 /**
  * "ToPoint" goes to an absolute canvas coordinate.
@@ -129,9 +133,6 @@ export class CanvasPen {
 export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?";
 export const loremIpsumWords = loremIpsumTxt.split(" ");
 // ----------------------------------------------------------------------------
-const testUrl = "res/20-songs.json";
-// const testUrl = "res/jam.json";
-// const testUrl = "res/85-songs.json";
 export const testData = await fetch(testUrl).then(response => response.json());
 export let activeData = null;
 const COL_GET_TXT = {
@@ -140,7 +141,7 @@ const COL_GET_TXT = {
     "Composer": (s) => s.songInfo.composerInfo.name,
     // "Difficulty": (s: Song) => s.songInfo.animeDifficulty.toFixed(1),
     "Guess": (s) => s.answer ?? "",
-    "Result": (s) => s.songInfo.animeNames.english, // TODO
+    "Result": (s) => getSongAnimeName(s),
     // "Room Score": (s: Song) => s.correctCount.toString(),
     // "Sample": (s: Song) => s.startPoint.toString(),
     "Season Info": (s) => s.songInfo.seasonInfo || s.songInfo.animeType,
@@ -185,18 +186,18 @@ const QUARTERS = {
 };
 const SORTS = {
     "Song #": makeSorter_num("Song #"),
-    "Correct Guess": makeSorter_num("Correct Guess"),
-    "Arranger": makeSorter_str("Arranger"),
+    "Was Correct": makeSorter_num("Correct Guess"),
+    "Result": makeSorter_str("Result"),
+    "Guess": makeSorter_str("Guess"),
+    "Difficulty": makeSorter_num("Difficulty"),
+    "Room Score": makeSorter_num("Room Score"),
+    "Type": makeSorter_str("Type"),
+    "Song": makeSorter_str("Song"),
     "Artist": makeSorter_str("Artist"),
     "Composer": makeSorter_str("Composer"),
-    "Difficulty": makeSorter_num("Difficulty"),
-    "Guess": makeSorter_str("Guess"),
-    "Result": makeSorter_str("Result"),
-    "Room Score": makeSorter_num("Room Score"),
+    "Arranger": makeSorter_str("Arranger"),
     "Sample": makeSorter_num("Sample"),
     "Season Info": makeSorter_str("Season Info"),
-    "Song": makeSorter_str("Song"),
-    "Type": makeSorter_str("Type"),
     "Vintage": (a, b) => {
         // "vintage": "Summer 2014",
         const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
@@ -223,6 +224,7 @@ class PngPage {
     footerUI = $("#footerCheck");
     sortUI = $("#sorting");
     sortUI2 = $("#sorting-2");
+    languageUI = $("#language");
     uploadButton = document.getElementById("json-upload");
     /* Right clicking a <canvas> does not have a copy option.
      * Instead we draw to an offscreen canvas and draw it to the <img>.
@@ -373,6 +375,11 @@ class PngPage {
             //
             onUIChange();
         };
+        this.languageUI.on("change", () => {
+            language = page.languageUI.val();
+            console.log(["Set lang", language]);
+            onUIChange();
+        });
         const onSort = () => {
             console.log(["sort", this.sortUI.val(), this.sortUI2.val()]);
             onUIChange();
@@ -423,6 +430,10 @@ class PngPage {
     }
 }
 export const page = new PngPage();
+export let language = "english";
+function getSongAnimeName(song) {
+    return song.songInfo.animeNames[language];
+}
 function init() {
     page.init();
     if (location.hostname === "127.0.0.1") {
@@ -779,7 +790,7 @@ function drawRound(amqRound, foo) {
             const cl = layout.result;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baseline);
-            txt = `🔍${htmlDecode(result.songInfo.animeNames.english)}`;
+            txt = `🔍${htmlDecode(getSongAnimeName(result))}`;
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Given Answer */
@@ -791,7 +802,11 @@ function drawRound(amqRound, foo) {
                 txt = "";
             }
             else {
-                txt = `${result.correctGuess ? "✅" : "❌"}${htmlDecode(result.answer)}`;
+                let tmp = htmlDecode(result.answer);
+                if (stacked && tmp === getSongAnimeName(result)) {
+                    tmp = DITTO;
+                }
+                txt = `${result.correctGuess ? "✅" : "❌"}${tmp}`;
             }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
@@ -900,7 +915,7 @@ function drawRound(amqRound, foo) {
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             txt = result.songInfo.arrangerInfo.name;
             if (stacked && txt === result.songInfo.composerInfo.name) {
-                txt = "〃";
+                txt = DITTO;
             }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
