@@ -128,6 +128,13 @@ export class CanvasPen {
         return [this.x, this.y];
     }
 }
+const STATE_NUM_TO_STR = {
+    1: "Watching",
+    2: "Completed",
+    3: "Hold",
+    4: "Dropped",
+    5: "Planning"
+};
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?";
@@ -225,6 +232,9 @@ class PngPage {
     sortUI = $("#sorting");
     sortUI2 = $("#sorting-2");
     languageUI = $("#language");
+    userUI = $("#username");
+    userFoundUI = $("#username-found");
+    userFound = false;
     uploadButton = document.getElementById("json-upload");
     /* Right clicking a <canvas> does not have a copy option.
      * Instead we draw to an offscreen canvas and draw it to the <img>.
@@ -324,6 +334,7 @@ class PngPage {
             Arranger: { startEnabled: false, isBot: true },
             Vintage: { startEnabled: false, myBot: "Season Info" },
             "Season Info": { startEnabled: false, isBot: true },
+            "My Status": { startEnabled: false },
         };
         for (const str in columns) {
             const params = columns[str];
@@ -364,12 +375,39 @@ class PngPage {
         const onUIChange = () => {
             drawRound(activeData, 1);
         };
+        const foundUser = () => {
+            if (null === activeData || undefined === activeData.songs[0].listStates) {
+                page.userFound = false;
+                page.userFoundUI[0].innerText = "⬛";
+                return;
+            }
+            const username = page.userUI.val().toLowerCase();
+            let found = false;
+            for (let result of activeData.songs) {
+                if (result.listStates)
+                    for (let status of result.listStates) {
+                        if (username === status.name.toLowerCase()) {
+                            found = true;
+                            break;
+                        }
+                    }
+            }
+            page.userFoundUI[0].innerText = found ? "✅" : "❌";
+            page.userFound = found;
+        };
+        foundUser();
+        this.userUI.on("change", () => {
+            console.log(["username", this.userUI.val()]);
+            foundUser();
+            onUIChange();
+        });
         this.uploadButton.onchange = async () => {
             console.log("upload: onchange");
             const f = page.uploadButton.files[0];
             const txt = await f.text();
             const data = JSON.parse(txt);
             activeData = data;
+            console.log(activeData);
             this.placeholderDiv.hide();
             this.outputDiv.show();
             //
@@ -446,9 +484,10 @@ function init() {
 }
 $(document).ready(init);
 // ----------------------------------------------------------------------------
+/** Unescape HTML encoded symbols in text. */
 function htmlDecode(input) {
     // https://stackoverflow.com/a/34064434/1993919
-    var doc = new DOMParser().parseFromString(input, "text/html");
+    const doc = new DOMParser().parseFromString(input, "text/html");
     return doc.documentElement.textContent;
 }
 export function mmss(seconds) {
@@ -456,6 +495,22 @@ export function mmss(seconds) {
     const fs = Math.floor(seconds - 60 * m);
     return `${m.toString().padStart(2, "0")}:${fs.toString().padStart(2, "0")}`;
 }
+// ----------------------------------------------------------------------------
+function findStatus(song) {
+    if (!page.userFound || undefined === song.listStates) {
+        return null;
+    }
+    const username = page.userUI.val().toLowerCase();
+    let it = song.listStates.find((state) => state.name.toLowerCase() === username) ?? null;
+    return it;
+}
+const STATE_NUM_TO_COLOR = {
+    1: "#03530eff",
+    2: "#00116eff",
+    3: "#835900ff",
+    4: "#6b0000ff",
+    5: "#5f0068ff"
+};
 function nanColumn() { return { X: NaN, Width: NaN }; }
 export const layout = {
     font: { textAlign: "left", textBaseline: "top", font: "20px serif" },
@@ -478,6 +533,7 @@ export const layout = {
     arranger: nanColumn(),
     vintage: nanColumn(),
     seasonInfo: nanColumn(),
+    myStatus: nanColumn(),
     headerHeight: NaN,
     headerColor: "#d4c2c2ff",
     margin: 1,
@@ -494,6 +550,7 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Difficulty", "Room Score",
     "Sample",
     "Season Info", "Vintage",
+    "My Status"
 ];
 function drawRound(amqRound, foo) {
     if (null == amqRound) {
@@ -540,6 +597,7 @@ function drawRound(amqRound, foo) {
     layout.composer.Width = pen.getTxtWidth("Nobuhiko Okamoto");
     layout.vintage.Width = pen.getTxtWidth("Fall 0000");
     layout.seasonInfo.Width = pen.getTxtWidth("Season 1");
+    layout.myStatus.Width = pen.getTxtWidth("W");
     const setToMax = (a, b) => {
         a.Width = Math.max(a.Width, b.Width);
         b.Width = a.Width;
@@ -607,6 +665,7 @@ function drawRound(amqRound, foo) {
         "Arranger": [layout.arranger, layout.composer],
         "Vintage": [layout.vintage],
         "Season Info": [layout.seasonInfo, layout.vintage],
+        "My Status": [layout.myStatus],
     };
     const activeCols = [];
     for (let _col in columns) {
@@ -667,7 +726,7 @@ function drawRound(amqRound, foo) {
             ctx.textAlign = "left";
             const cl = layout.guess;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            pen.fillText("Anime Guess", headerTextColor, cl.Width);
+            pen.fillText("My Guess", headerTextColor, cl.Width);
         }
         if (columns["Type"]) {
             ctx.textAlign = "left";
@@ -757,6 +816,14 @@ function drawRound(amqRound, foo) {
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             pen.fillText("Season", headerTextColor, cl.Width);
         }
+        if (columns["My Status"]) {
+            ctx.textAlign = "left";
+            const cl = layout.myStatus;
+            pen.moveToPoint(cl.X, baseline1);
+            pen.fillText("My", headerTextColor, cl.Width);
+            pen.moveToPoint(cl.X, baseline2);
+            pen.fillText("List", headerTextColor, cl.Width);
+        }
         /* --- */
         let half_header_line = layout.hRuleThickness;
         ctx.lineWidth = layout.hRuleThickness * 2;
@@ -781,9 +848,10 @@ function drawRound(amqRound, foo) {
                 ctx.fillStyle = result.correctGuess ? layout.correctColor : layout.wrongColor;
                 ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
             }
+            pen.moveToPoint(cl.X + layout.unitSpace / 2, baseline);
             ctx.textAlign = "right";
-            pen.moveToPoint(cl.X + cl.Width, baseline);
-            pen.fillText(`${result.songNumber}`, layout.textColor);
+            ctx.textAlign = "left";
+            pen.fillText(`${result.songNumber}`.padStart(3, " "), layout.textColor);
         }
         /* Expected Answer */
         if (columns["Result"]) {
@@ -865,7 +933,7 @@ function drawRound(amqRound, foo) {
                 ctx.stroke();
                 ctx.textAlign = "left";
                 pen.moveToPoint(cl.X, baseline);
-                pen.fillText(countStr, layout.textColor, cl.Width);
+                pen.fillText(yesStr, layout.textColor, cl.Width);
                 pen.moveToPoint(cl.X, baselineMaybeStacked);
                 pen.fillText(countStr, layout.textColor, cl.Width);
             }
@@ -933,6 +1001,21 @@ function drawRound(amqRound, foo) {
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             txt = result.songInfo.seasonInfo || result.songInfo.animeType;
             pen.fillText(txt, layout.textColor, cl.Width);
+        }
+        /* My List */
+        if (columns["My Status"] && page.userFound) {
+            const status = findStatus(result);
+            if (status) {
+                const cl = layout.myStatus;
+                ctx.fillStyle = STATE_NUM_TO_COLOR[status.status];
+                ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
+                ctx.textAlign = "left";
+                pen.moveToPoint(cl.X, baseline);
+                txt = status.score !== 0 ?
+                    `${status.score}`
+                    : `${STATE_NUM_TO_STR[status.status][0]}`;
+                pen.fillText(txt, layout.textColor, cl.Width);
+            }
         }
         /*
          *

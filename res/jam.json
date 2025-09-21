@@ -1,1 +1,202 @@
-{"roomName":"Jam Quiz","startTime":"Thu Sep 11 2025 00:18:02 GMT-0400","songs":[{"songNumber":2,"songInfo":{"animeNames":{"english":"Love Live! School Idol Project","romaji":"Love Live! School Idol Project"},"artist":"μ's","composerInfo":{"artistId":12565,"name":"Takahiro Yamada"},"arrangerInfo":{"artistId":12961,"name":"Yoichi Sakai"},"songName":"Aishiteru Banzai! (Piano Mix)","type":3,"typeNumber":0,"annId":15812,"highRisk":0,"animeScore":7.6,"animeType":"TV","vintage":"Spring 2014","animeDifficulty":61.27128889823381,"animeTags":["School","School Club","Primarily Female Cast","CGI","Cute Girls Doing Cute Things","Female Protagonist","Coming of Age","Ensemble Cast","Idol","Dancing","Miko","Tomboy","Primarily Teen Cast"],"animeGenre":["Music","Slice of Life"],"altAnimeNames":["Love Live! School Idol Project"],"altAnimeNamesAnswers":[],"siteIds":{"annId":15812,"malId":19111,"kitsuId":7871,"aniListId":19111},"rebroadcast":0,"dub":0,"seasonInfo":"Season 2"},"correctGuess":false,"wrongGuess":true,"correctCount":6,"wrongCount":3,"startPoint":50,"videoLength":90.674,"videoUrl":"https://naedist.animemusicquiz.com/h296au.webm","correctGuessPlayers":["siriluk","Gea00GodWorld","pitro","BurningKarma","she_demon","K_kozik"],"listStates":[{"name":"pitro","status":2,"score":0},{"name":"BurningKarma","status":2,"score":7},{"name":"tungu22","status":2,"score":8}]},{"songNumber":3,"songInfo":{"animeNames":{"english":"JoJo's Bizarre Adventure","romaji":"JoJo no Kimyou na Bouken"},"artist":"Coda","composerInfo":{"artistId":100,"name":"Toshiyuki Omori"},"arrangerInfo":{"artistId":100,"name":"Toshiyuki Omori"},"songName":"BLOODY STREAM","type":1,"typeNumber":2,"annId":14445,"highRisk":0,"animeScore":7.7,"animeType":"TV","vintage":"Fall 2012","animeDifficulty":80.66723573314378,"animeTags":["Historical","Shounen","Super Power","Vampire","Male Protagonist","Tragedy","Primarily Male Cast","Gore","Nudity","Primarily Adult Cast","Zombie","Time Skip","Crossdressing","Foreign","Revenge","Urban Fantasy","Cultivation","Philosophy","Body Horror","Heterosexual","Travel"],"animeGenre":["Action","Adventure","Supernatural"],"altAnimeNames":["JoJo no Kimyou na Bouken","JoJo's Bizarre Adventure"],"altAnimeNamesAnswers":[],"siteIds":{"annId":14445,"malId":14719,"kitsuId":7158,"aniListId":14719},"rebroadcast":0,"dub":0,"seasonInfo":"Season 1"},"correctGuess":true,"wrongGuess":false,"answer":"JoJo&#39;s Bizarre Adventure","correctCount":9,"wrongCount":0,"startPoint":8,"videoLength":89.978,"videoUrl":"https://naedist.animemusicquiz.com/kki0fz.webm","correctGuessPlayers":["siriluk","Gea00GodWorld","pitro","BurningKarma","tungu22","she_demon","gllitAru","K_kozik","linkviii"],"listStates":[{"name":"pitro","status":2,"score":0},{"name":"BurningKarma","status":2,"score":5},{"name":"gllitAru","status":2,"score":10}]}]}
+{
+    "roomName": "Jam Quiz",
+    "startTime": "Thu Sep 11 2025 00:18:02 GMT-0400",
+    "songs": [
+        {
+            "songNumber": 2,
+            "songInfo": {
+                "animeNames": {
+                    "english": "Love Live! School Idol Project",
+                    "romaji": "Love Live! School Idol Project"
+                },
+                "artist": "μ's",
+                "composerInfo": {
+                    "artistId": 12565,
+                    "name": "Takahiro Yamada"
+                },
+                "arrangerInfo": {
+                    "artistId": 12961,
+                    "name": "Yoichi Sakai"
+                },
+                "songName": "Aishiteru Banzai! (Piano Mix)",
+                "type": 3,
+                "typeNumber": 0,
+                "annId": 15812,
+                "highRisk": 0,
+                "animeScore": 7.6,
+                "animeType": "TV",
+                "vintage": "Spring 2014",
+                "animeDifficulty": 61.27128889823381,
+                "animeTags": [
+                    "School",
+                    "School Club",
+                    "Primarily Female Cast",
+                    "CGI",
+                    "Cute Girls Doing Cute Things",
+                    "Female Protagonist",
+                    "Coming of Age",
+                    "Ensemble Cast",
+                    "Idol",
+                    "Dancing",
+                    "Miko",
+                    "Tomboy",
+                    "Primarily Teen Cast"
+                ],
+                "animeGenre": [
+                    "Music",
+                    "Slice of Life"
+                ],
+                "altAnimeNames": [
+                    "Love Live! School Idol Project"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 15812,
+                    "malId": 19111,
+                    "kitsuId": 7871,
+                    "aniListId": 19111
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 2"
+            },
+            "correctGuess": false,
+            "wrongGuess": true,
+            "correctCount": 6,
+            "wrongCount": 3,
+            "startPoint": 50,
+            "videoLength": 90.674,
+            "videoUrl": "https://naedist.animemusicquiz.com/h296au.webm",
+            "correctGuessPlayers": [
+                "siriluk",
+                "Gea00GodWorld",
+                "pitro",
+                "BurningKarma",
+                "she_demon",
+                "K_kozik"
+            ],
+            "listStates": [
+                {
+                    "name": "pitro",
+                    "status": 2,
+                    "score": 0
+                },
+                {
+                    "name": "BurningKarma",
+                    "status": 2,
+                    "score": 7
+                },
+                {
+                    "name": "tungu22",
+                    "status": 2,
+                    "score": 8
+                }
+            ]
+        },
+        {
+            "songNumber": 3,
+            "songInfo": {
+                "animeNames": {
+                    "english": "JoJo's Bizarre Adventure",
+                    "romaji": "JoJo no Kimyou na Bouken"
+                },
+                "artist": "Coda",
+                "composerInfo": {
+                    "artistId": 100,
+                    "name": "Toshiyuki Omori"
+                },
+                "arrangerInfo": {
+                    "artistId": 100,
+                    "name": "Toshiyuki Omori"
+                },
+                "songName": "BLOODY STREAM",
+                "type": 1,
+                "typeNumber": 2,
+                "annId": 14445,
+                "highRisk": 0,
+                "animeScore": 7.7,
+                "animeType": "TV",
+                "vintage": "Fall 2012",
+                "animeDifficulty": 80.66723573314378,
+                "animeTags": [
+                    "Historical",
+                    "Shounen",
+                    "Super Power",
+                    "Vampire",
+                    "Male Protagonist",
+                    "Tragedy",
+                    "Primarily Male Cast",
+                    "Gore",
+                    "Nudity",
+                    "Primarily Adult Cast",
+                    "Zombie",
+                    "Time Skip",
+                    "Crossdressing",
+                    "Foreign",
+                    "Revenge",
+                    "Urban Fantasy",
+                    "Cultivation",
+                    "Philosophy",
+                    "Body Horror",
+                    "Heterosexual",
+                    "Travel"
+                ],
+                "animeGenre": [
+                    "Action",
+                    "Adventure",
+                    "Supernatural"
+                ],
+                "altAnimeNames": [
+                    "JoJo no Kimyou na Bouken",
+                    "JoJo's Bizarre Adventure"
+                ],
+                "altAnimeNamesAnswers": [],
+                "siteIds": {
+                    "annId": 14445,
+                    "malId": 14719,
+                    "kitsuId": 7158,
+                    "aniListId": 14719
+                },
+                "rebroadcast": 0,
+                "dub": 0,
+                "seasonInfo": "Season 1"
+            },
+            "correctGuess": true,
+            "wrongGuess": false,
+            "answer": "JoJo&#39;s Bizarre Adventure",
+            "correctCount": 9,
+            "wrongCount": 0,
+            "startPoint": 8,
+            "videoLength": 89.978,
+            "videoUrl": "https://naedist.animemusicquiz.com/kki0fz.webm",
+            "correctGuessPlayers": [
+                "siriluk",
+                "Gea00GodWorld",
+                "pitro",
+                "BurningKarma",
+                "tungu22",
+                "she_demon",
+                "gllitAru",
+                "K_kozik",
+                "linkviii"
+            ],
+            "listStates": [
+                {
+                    "name": "pitro",
+                    "status": 2,
+                    "score": 0
+                },
+                {
+                    "name": "BurningKarma",
+                    "status": 2,
+                    "score": 5
+                },
+                {
+                    "name": "gllitAru",
+                    "status": 2,
+                    "score": 10
+                }
+            ]
+        }
+    ]
+}

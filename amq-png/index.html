@@ -22,6 +22,9 @@
     <div id="feedback"> </div>
 
     <form action="about:blank" id="form" target="💾">
+        <!-- Prevent implicit submission of the form -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
         <div class="group">
 
             <label for="json-upload" class="custom-file-upload">Load AMQ Round JSON</label>
@@ -38,11 +41,15 @@
                 <option value="romaji">Romaji</option>
             </select>
 
+            <label for="username" class="before" title="Needed for list status">Username</label>
+            <input id="username" />
+            <span id="username-found"></span>
+
         </div>
 
         <div class="group">
             <p>Columns</p>
-            <label for="stackedCheck">Stack </label>
+            <label for="stackedCheck" class="before">Stack </label>
             <input type="checkbox" id="stackedCheck" />
 
 
@@ -72,7 +79,7 @@
     </div>
 
     <div id="outdiv">
-        <p>Right click -> Copy image.</p>
+        <p>Right click -> Copy Image.</p>
         <img />
         <img />
         <img />

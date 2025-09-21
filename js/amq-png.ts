@@ -186,7 +186,7 @@ export interface Song {
     videoLength: number;
     videoUrl: string;
     correctGuessPlayers: string[];
-    listStates: ListState[];
+    listStates?: ListState[];
 }
 
 export interface SongInfo {
@@ -237,11 +237,23 @@ export interface SiteIds {
     aniListId: number;
 }
 
+const STATE_NUM_TO_STR = {
+    1: "Watching",
+    2: "Completed",
+    3: "Hold",
+    4: "Dropped",
+    5: "Planning"
+} as const;
+
+type StateNums = keyof typeof STATE_NUM_TO_STR;
+
 export interface ListState {
     name: string;
-    status: number;
+    status: StateNums;
     score: number;
 }
+
+
 
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
@@ -364,6 +376,9 @@ class PngPage {
     readonly sortUI = $("#sorting") as JQuery<HTMLSelectElement>;
     readonly sortUI2 = $("#sorting-2") as JQuery<HTMLSelectElement>;
     readonly languageUI = $("#language") as JQuery<HTMLSelectElement>;
+    readonly userUI = $("#username") as JQuery<HTMLInputElement>;
+    readonly userFoundUI = $("#username-found") as JQuery<HTMLSpanElement>;
+    userFound = false;
 
     readonly uploadButton = document.getElementById("json-upload") as HTMLInputElement;
 
@@ -503,6 +518,7 @@ class PngPage {
             Arranger: { startEnabled: false, isBot: true },
             Vintage: { startEnabled: false, myBot: "Season Info" },
             "Season Info": { startEnabled: false, isBot: true },
+            "My Status": { startEnabled: false },
         };
 
         for (const str in columns) {
@@ -543,6 +559,34 @@ class PngPage {
             drawRound(activeData, 1);
         };
 
+        const foundUser = () => {
+            if (null === activeData || undefined === activeData.songs[0].listStates) {
+                page.userFound = false;
+                page.userFoundUI[0].innerText = "⬛";
+                return;
+            }
+            const username = (page.userUI.val() as string).toLowerCase();
+            let found = false;
+            for (let result of activeData.songs) {
+                if (result.listStates) for (let status of result.listStates) {
+                    if (username === status.name.toLowerCase()) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            page.userFoundUI[0].innerText = found ? "✅" : "❌";
+            page.userFound = found;
+        };
+        foundUser();
+
+        this.userUI.on("change", () => {
+            console.log(["username", this.userUI.val()]);
+            foundUser();
+
+            onUIChange();
+        });
+
         this.uploadButton.onchange = async () => {
             console.log("upload: onchange");
             const f = page.uploadButton.files![0];
@@ -551,6 +595,7 @@ class PngPage {
             const data = JSON.parse(txt);
 
             activeData = data;
+            console.log(activeData);
 
             this.placeholderDiv.hide();
             this.outputDiv.show();
@@ -648,9 +693,10 @@ function init(): void {
 $(document).ready(init);
 
 // ----------------------------------------------------------------------------
+/** Unescape HTML encoded symbols in text. */
 function htmlDecode(input: string) {
     // https://stackoverflow.com/a/34064434/1993919
-    var doc = new DOMParser().parseFromString(input, "text/html");
+    const doc = new DOMParser().parseFromString(input, "text/html");
     return doc.documentElement.textContent;
 }
 export function mmss(seconds: number) {
@@ -659,6 +705,25 @@ export function mmss(seconds: number) {
     return `${m.toString().padStart(2, "0")}:${fs.toString().padStart(2, "0")}`;
 }
 // ----------------------------------------------------------------------------
+
+function findStatus(song: Song): ListState | null {
+    if (!page.userFound || undefined === song.listStates) {
+        return null;
+    }
+    const username = (page.userUI.val() as string).toLowerCase();
+    let it = song.listStates.find((state: ListState) => state.name.toLowerCase() === username) ?? null;
+    return it;
+
+}
+
+const STATE_NUM_TO_COLOR: Record<StateNums, string> = {
+    1: "#03530eff",
+    2: "#00116eff",
+    3: "#835900ff",
+    4: "#6b0000ff",
+    5: "#5f0068ff"
+};
+
 
 interface ColumnLayout {
     X: number;
@@ -688,6 +753,7 @@ export const layout = {
     arranger: nanColumn(),
     vintage: nanColumn(),
     seasonInfo: nanColumn(),
+    myStatus: nanColumn(),
 
 
     headerHeight: NaN,
@@ -708,6 +774,7 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Difficulty", "Room Score",
     "Sample",
     "Season Info", "Vintage",
+    "My Status"
 ] as const;
 type Column = typeof COLUMNS[number];
 function drawRound(amqRound: AMQRound | null, foo: any) {
@@ -766,6 +833,8 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
     layout.composer.Width = pen.getTxtWidth("Nobuhiko Okamoto");
     layout.vintage.Width = pen.getTxtWidth("Fall 0000");
     layout.seasonInfo.Width = pen.getTxtWidth("Season 1");
+    layout.myStatus.Width = pen.getTxtWidth("W");
+
 
 
     const setToMax = (a: ColumnLayout, b: ColumnLayout) => {
@@ -845,6 +914,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
         "Arranger": [layout.arranger, layout.composer],
         "Vintage": [layout.vintage],
         "Season Info": [layout.seasonInfo, layout.vintage],
+        "My Status": [layout.myStatus],
     };
     const activeCols = [] as Column[];
     for (let _col in columns) {
@@ -915,7 +985,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
             ctx.textAlign = "left";
             const cl = layout.guess;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            pen.fillText("Anime Guess", headerTextColor, cl.Width);
+            pen.fillText("My Guess", headerTextColor, cl.Width);
         }
 
         if (columns["Type"]) {
@@ -1013,6 +1083,16 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
             pen.fillText("Season", headerTextColor, cl.Width);
         }
 
+        if (columns["My Status"]) {
+            ctx.textAlign = "left";
+            const cl = layout.myStatus;
+            pen.moveToPoint(cl.X, baseline1);
+            pen.fillText("My", headerTextColor, cl.Width);
+
+            pen.moveToPoint(cl.X, baseline2);
+            pen.fillText("List", headerTextColor, cl.Width);
+        }
+
         /* --- */
 
         let half_header_line = layout.hRuleThickness;
@@ -1045,9 +1125,12 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
                 ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
             }
 
+            pen.moveToPoint(cl.X + layout.unitSpace / 2, baseline);
+
             ctx.textAlign = "right";
-            pen.moveToPoint(cl.X + cl.Width, baseline);
-            pen.fillText(`${result.songNumber}`, layout.textColor);
+            ctx.textAlign = "left";
+
+            pen.fillText(`${result.songNumber}`.padStart(3, " "), layout.textColor);
         }
 
         /* Expected Answer */
@@ -1135,7 +1218,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
 
                 ctx.textAlign = "left";
                 pen.moveToPoint(cl.X, baseline);
-                pen.fillText(countStr, layout.textColor, cl.Width);
+                pen.fillText(yesStr, layout.textColor, cl.Width);
                 pen.moveToPoint(cl.X, baselineMaybeStacked);
                 pen.fillText(countStr, layout.textColor, cl.Width);
 
@@ -1207,6 +1290,28 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
             pen.moveToPoint(cl.X, baselineMaybeStacked);
             txt = result.songInfo.seasonInfo || result.songInfo.animeType;
             pen.fillText(txt, layout.textColor, cl.Width);
+        }
+
+        /* My List */
+        if (columns["My Status"] && page.userFound) {
+            const status = findStatus(result);
+
+            if (status) {
+                const cl = layout.myStatus;
+
+                ctx.fillStyle = STATE_NUM_TO_COLOR[status.status];
+                ctx.fillRect(cl.X, baseline, cl.Width, layout.fontHeight * (Number(stacked) + 1));
+
+
+                ctx.textAlign = "left";
+                pen.moveToPoint(cl.X, baseline);
+
+                txt = status.score !== 0 ?
+                    `${status.score}`
+                    : `${STATE_NUM_TO_STR[status.status][0]}`;
+                pen.fillText(txt, layout.textColor, cl.Width);
+
+            }
         }
 
         /*
