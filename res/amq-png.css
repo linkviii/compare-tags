@@ -61,3 +61,14 @@ p:has(+ #enabledCol, + #disabledCol) {
 label.before::after {
   content: ":";
 }
+
+.check-grid>div {
+    display: inline-block;
+    padding-right: 10px;
+    text-align: center;
+
+}
+
+.check-grid label {
+    display: block;
+}

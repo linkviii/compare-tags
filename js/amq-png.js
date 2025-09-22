@@ -235,6 +235,8 @@ class PngPage {
     userUI = $("#username");
     userFoundUI = $("#username-found");
     userFound = false;
+    filterSet = $("#filters");
+    filterUI = $("#filter-text");
     uploadButton = document.getElementById("json-upload");
     /* Right clicking a <canvas> does not have a copy option.
      * Instead we draw to an offscreen canvas and draw it to the <img>.
@@ -260,6 +262,7 @@ class PngPage {
         this.outputDiv.hide();
         if (usingTestData) {
             activeData = testData;
+            fixupData(activeData);
             this.placeholderDiv.hide();
             this.outputDiv.show();
         }
@@ -318,6 +321,12 @@ class PngPage {
         const onUIChange = () => {
             drawRound(activeData, 1);
         };
+        $("input", page.filterSet).on("change", () => {
+            console.log("Filter");
+            onUIChange();
+        });
+        page.filterUI.off("change");
+        page.filterUI[0].onkeyup = onUIChange;
         const foundUser = () => {
             if (null === activeData || undefined === activeData.songs[0].listStates) {
                 page.userFound = false;
@@ -349,6 +358,7 @@ class PngPage {
             const f = page.uploadButton.files[0];
             const txt = await f.text();
             const data = JSON.parse(txt);
+            fixupData(data);
             activeData = data;
             console.log(activeData);
             this.placeholderDiv.hide();
@@ -427,6 +437,15 @@ function init() {
     // onSubmit();
 }
 $(document).ready(init);
+// ----------------------------------------------------------------------------
+function fixupData(data) {
+    for (let song of data.songs) {
+        if (song.answer)
+            song.answer = htmlDecode(song.answer);
+        song.songInfo.animeNames.english = htmlDecode(song.songInfo.animeNames.english);
+        song.songInfo.animeNames.romaji = htmlDecode(song.songInfo.animeNames.romaji);
+    }
+}
 // ----------------------------------------------------------------------------
 /** Unescape HTML encoded symbols in text. */
 function htmlDecode(input) {
@@ -518,7 +537,47 @@ function drawRound(amqRound, foo) {
         return;
     }
     console.log(foo);
-    const dispList = [...amqRound.songs];
+    let dispList = [];
+    const filterStr = page.filterUI.val().toLowerCase();
+    if (filterStr) {
+        console.log(["filter", filterStr]);
+        const getVal = function (id) {
+            const el = $(`#filter-${id}`)[0];
+            return el.checked;
+        };
+        const activeFilters = {
+            en: getVal("en"),
+            jp: getVal("jp"),
+            guess: getVal("guess"),
+            song: getVal("song"),
+            artist: getVal("artist"),
+            arranger: getVal("arranger"),
+            composer: getVal("composer")
+        };
+        const filters = {
+            en: (song) => song.songInfo.animeNames.english.toLowerCase().includes(filterStr),
+            jp: (song) => song.songInfo.animeNames.romaji.toLowerCase().includes(filterStr),
+            composer: (song) => song.songInfo.composerInfo.name.toLowerCase().includes(filterStr),
+            arranger: (song) => song.songInfo.arrangerInfo.name.toLowerCase().includes(filterStr),
+            artist: (song) => song.songInfo.artist.toLowerCase().includes(filterStr),
+            guess: (song) => (song.answer || "").toLowerCase().includes(filterStr),
+            song: (song) => song.songInfo.songName.toLowerCase().includes(filterStr),
+        };
+        for (let song of amqRound.songs) {
+            let include = false;
+            let f;
+            for (f in filters) {
+                if (activeFilters[f])
+                    include ||= filters[f](song);
+            }
+            if (include) {
+                dispList.push(song);
+            }
+        }
+    }
+    else {
+        dispList = [...amqRound.songs];
+    }
     dispList.sort(mergeSorter(SORTS[page.sortUI.val()], SORTS[page.sortUI2.val()]));
     const partitionLengths = partition(30, dispList.length);
     let start = 0;
@@ -836,7 +895,7 @@ function drawRound_sub(resultList) {
             const cl = layout.result;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baseline);
-            txt = `🔍${htmlDecode(getSongAnimeName(result))}`;
+            txt = `🔍${(getSongAnimeName(result))}`;
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Given Answer */
@@ -848,7 +907,7 @@ function drawRound_sub(resultList) {
                 txt = "";
             }
             else {
-                let tmp = htmlDecode(result.answer);
+                let tmp = (result.answer);
                 if (stacked && tmp === getSongAnimeName(result)) {
                     tmp = DITTO;
                 }
@@ -861,7 +920,7 @@ function drawRound_sub(resultList) {
             const cl = layout.artist;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            pen.fillText(htmlDecode(result.songInfo.artist), layout.textColor, cl.Width);
+            pen.fillText((result.songInfo.artist), layout.textColor, cl.Width);
         }
         /* Type */
         if (columns["Type"]) {

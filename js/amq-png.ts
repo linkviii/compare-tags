@@ -380,6 +380,9 @@ class PngPage {
     readonly userFoundUI = $("#username-found") as JQuery<HTMLSpanElement>;
     userFound = false;
 
+    readonly filterSet = $("#filters");
+    readonly filterUI = $("#filter-text") as JQuery<HTMLInputElement>;
+
     readonly uploadButton = document.getElementById("json-upload") as HTMLInputElement;
 
 
@@ -417,6 +420,7 @@ class PngPage {
         this.outputDiv.hide();
         if (usingTestData) {
             activeData = testData;
+            fixupData(activeData);
             this.placeholderDiv.hide();
             this.outputDiv.show();
         }
@@ -479,6 +483,13 @@ class PngPage {
             drawRound(activeData, 1);
         };
 
+        $("input", page.filterSet).on("change", () => {
+            console.log("Filter");
+            onUIChange();
+        });
+        page.filterUI.off("change")
+        page.filterUI[0].onkeyup = onUIChange;
+
         const foundUser = () => {
             if (null === activeData || undefined === activeData.songs[0].listStates) {
                 page.userFound = false;
@@ -512,7 +523,8 @@ class PngPage {
             const f = page.uploadButton.files![0];
             const txt = await f.text();
 
-            const data = JSON.parse(txt);
+            const data = JSON.parse(txt) as AMQRound;
+            fixupData(data);
 
             activeData = data;
             console.log(activeData);
@@ -613,6 +625,15 @@ function init(): void {
 
 $(document).ready(init);
 
+// ----------------------------------------------------------------------------
+function fixupData(data: AMQRound) {
+    for (let song of data.songs) {
+        if (song.answer) song.answer = htmlDecode(song.answer);
+        song.songInfo.animeNames.english = htmlDecode(song.songInfo.animeNames.english);
+        song.songInfo.animeNames.romaji = htmlDecode(song.songInfo.animeNames.romaji);
+
+    }
+}
 // ----------------------------------------------------------------------------
 /** Unescape HTML encoded symbols in text. */
 function htmlDecode(input: string) {
@@ -729,7 +750,50 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
 
     console.log(foo);
 
-    const dispList: Song[] = [...amqRound.songs];
+    let dispList: Song[] = [];
+
+
+    const filterStr = (page.filterUI.val() as string).toLowerCase();
+
+    if (filterStr) {
+        console.log(["filter", filterStr])
+        const getVal = function (id: string): boolean {
+            const el = $(`#filter-${id}`)[0] as HTMLInputElement;
+            return el.checked;
+        };
+        const activeFilters = {
+            en: getVal("en"),
+            jp: getVal("jp"),
+            guess: getVal("guess"),
+            song: getVal("song"),
+            artist: getVal("artist"),
+            arranger: getVal("arranger"),
+            composer: getVal("composer")
+        } as const;
+
+        const filters: Record<keyof typeof activeFilters, (song: Song) => boolean> = {
+            en: (song: Song) => song.songInfo.animeNames.english.toLowerCase().includes(filterStr),
+            jp: (song: Song) => song.songInfo.animeNames.romaji.toLowerCase().includes(filterStr),
+            composer: (song: Song) => song.songInfo.composerInfo.name.toLowerCase().includes(filterStr),
+            arranger: (song: Song) => song.songInfo.arrangerInfo.name.toLowerCase().includes(filterStr),
+            artist: (song: Song) => song.songInfo.artist.toLowerCase().includes(filterStr),
+            guess: (song: Song) => (song.answer || "").toLowerCase().includes(filterStr),
+            song: (song: Song) => song.songInfo.songName.toLowerCase().includes(filterStr),
+        };
+
+        for (let song of amqRound.songs) {
+            let include = false;
+            let f: keyof typeof filters;
+            for (f in filters) {
+                if (activeFilters[f]) include ||= filters[f](song);
+            }
+            if (include) {
+                dispList.push(song);
+            }
+        }
+    } else {
+        dispList = [...amqRound.songs];
+    }
     dispList.sort(
         mergeSorter(SORTS[page.sortUI.val() as keyof typeof SORTS], SORTS[page.sortUI2.val() as keyof typeof SORTS])
     );
@@ -1109,7 +1173,7 @@ function drawRound_sub(resultList: Song[]) {
             const cl = layout.result;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baseline);
-            txt = `🔍${htmlDecode(getSongAnimeName(result))}`;
+            txt = `🔍${(getSongAnimeName(result))}`;
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 
@@ -1121,7 +1185,7 @@ function drawRound_sub(resultList: Song[]) {
             if (undefined === result.answer) {
                 txt = "";
             } else {
-                let tmp = htmlDecode(result.answer);
+                let tmp = (result.answer);
                 if (stacked && tmp === getSongAnimeName(result)) {
                     tmp = DITTO;
                 }
@@ -1135,7 +1199,7 @@ function drawRound_sub(resultList: Song[]) {
             const cl = layout.artist;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            pen.fillText(htmlDecode(result.songInfo.artist), layout.textColor, cl.Width);
+            pen.fillText((result.songInfo.artist), layout.textColor, cl.Width);
         }
         /* Type */
         if (columns["Type"]) {
