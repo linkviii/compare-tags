@@ -13,9 +13,9 @@ console.log("did it??");
 // export const usingTestData = false;
 export const usingTestData = true;
 
-const testUrl = "res/20-songs.json";
+// const testUrl = "res/20-songs.json";
 // const testUrl = "res/jam.json";
-// const testUrl = "res/85-songs.json";
+const testUrl = "res/85-songs.json";
 // ----------------------------------------------------------------------------
 
 
@@ -403,94 +403,14 @@ class PngPage {
 
 
     /** Must be called to display anything to the screen. */
-    async render() {
+    async render(imageIndex: number) {
 
 
         let blob = await this.offscreenCanvas.convertToBlob();
-        const img = $("img", this.outputDiv)[0] as HTMLImageElement;
+        const img = $("img", this.outputDiv)[imageIndex] as HTMLImageElement;
         img.src = URL.createObjectURL(blob);
 
-
     }
-
-    drawLoremIspum() {
-        const pen = this.pen;
-        const ctx = this.pen.ctx;
-
-        const font: FontParams = {
-            font: "20px serif",
-            textAlign: "left",
-            textBaseline: "top"
-        };
-
-        pen.applyFont(font);
-        const tm = ctx.measureText("");
-
-        const lineHeight = tm.fontBoundingBoxAscent + tm.fontBoundingBoxDescent;
-
-        /* !!! Changing height resets ctx state !!! */
-        this.offscreenCanvas.height = lineHeight * 85.5;
-        pen.applyFont(font);
-
-        // ---------------
-        this.clearCanvas("black");
-        pen.moveToPoint(0, 0);
-
-        pen.orig = pen.loc();
-        let i = 0;
-        while (pen.y < this.offscreenCanvas.height) {
-            const word = loremIpsumWords[i];
-            const txt = `${i}: ${word} ${word} ${word}`;
-            const bgcolor = i % 2 ? "green" : "blue";
-
-            {
-                pen.pushStack();
-                pen.moveToPoint(200, i * lineHeight);
-                ctx.fillStyle = bgcolor;
-                ctx.fillRect(...pen.loc(), 100, lineHeight);
-
-                pen.fillText(`${i}`, "pink");
-                console.log([i, bgcolor]);
-
-                pen.popStack();
-            }
-
-            pen.fillTextBG(txt, "white", bgcolor);
-            pen.carriageReturn(lineHeight);
-
-            ++i;
-        }
-        this.render();
-    }
-
-    firstDraw() {
-        const pen = this.pen;
-        const ctx = this.pen.ctx;
-
-        ctx.font = "15px serif";
-        const measure = ctx.measureText("H");
-        (window as any)["m"] = measure;
-        console.log(measure);
-        const lineHeight = measure.fontBoundingBoxAscent + measure.fontBoundingBoxDescent;
-
-        ctx.textBaseline = "top";
-
-        ctx.fillStyle = "black";
-        page.clearCanvas("black");
-
-        pen.moveToPoint(10, 10);
-        pen.orig = pen.loc();
-
-        pen.fillTextBG("hello", "white", "green");
-        pen.carriageReturn(lineHeight);
-        pen.fillTextBG("world", "white", "blue");
-
-        // --
-
-
-        this.render();
-    }
-
 
     init() {
         const page = this;
@@ -601,6 +521,7 @@ class PngPage {
             this.outputDiv.show();
 
 
+            foundUser();
             //
             onUIChange();
         };
@@ -765,9 +686,9 @@ export const layout = {
     wrongColor: "red",
     divisionColor: "white",
     divisionThick: 1,
-
-
 };
+
+
 const COLUMNS = ["Song #", "Result", "Guess",
     "Type", "Song", "Artist",
     "Composer", "Arranger",
@@ -777,6 +698,29 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "My Status"
 ] as const;
 type Column = typeof COLUMNS[number];
+
+
+export function partition(maxPer: number, total: number) {
+    const nParts = Math.ceil(total / maxPer);
+    const len = Math.floor(total / nParts);
+    let remainder = total % len;
+
+    const parts = [];
+    for (let i = 0; i < nParts; ++i) {
+        parts.push(len);
+    }
+
+    // There must be a smarter way than this but here we are
+    let i = 0;
+    while (remainder) {
+        parts[i]++;
+        i = (i + 1) % nParts;
+        remainder--;
+    }
+    return parts;
+
+}
+
 function drawRound(amqRound: AMQRound | null, foo: any) {
 
     if (null == amqRound) {
@@ -784,6 +728,33 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
     }
 
     console.log(foo);
+
+    const dispList: Song[] = [...amqRound.songs];
+    dispList.sort(
+        mergeSorter(SORTS[page.sortUI.val() as keyof typeof SORTS], SORTS[page.sortUI2.val() as keyof typeof SORTS])
+    );
+
+
+    const partitionLengths = partition(30, dispList.length);
+
+    let start = 0;
+    let i = 0;
+    for (let len of partitionLengths) {
+        let list = dispList.slice(start, start + len);
+
+        drawRound_sub(list);
+        page.render(i);
+
+        start += len;
+        i++;
+    }
+    const images = $("img", page.outputDiv);
+    images.slice(0, partitionLengths.length).show();
+    images.slice(partitionLengths.length).hide();
+
+}
+
+function drawRound_sub(resultList: Song[]) {
     // const stacked = true;
     // const stacked = false;
     const stacked = page.stackedUI[0].checked;
@@ -810,7 +781,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
     const pen = page.pen;
     const ctx = pen.ctx;
 
-    const nSongs = amqRound.songs.length;
+    const nSongs = resultList.length;
 
     pen.applyFont(layout.font);
 
@@ -1107,7 +1078,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
 
     // ------------------------------------------------------------------------
 
-    const dispList: Song[] = [...amqRound.songs];
+    const dispList: Song[] = [...resultList];
     dispList.sort(
         mergeSorter(SORTS[page.sortUI.val() as keyof typeof SORTS], SORTS[page.sortUI2.val() as keyof typeof SORTS])
     );
@@ -1344,6 +1315,5 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
         pen.fillText(`Made with ${window.location.href}`, "black");
     }
 
-    page.render();
 
 }
