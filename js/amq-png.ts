@@ -10,8 +10,8 @@ import "./lib/jquery-ui/jquery-ui.min.js";
 console.log("did it??");
 
 // ----------------------------------------------------------------------------
-// export const usingTestData = false;
-export const usingTestData = true;
+export const usingTestData = false;
+// export const usingTestData = true;
 
 // const testUrl = "res/20-songs.json";
 // const testUrl = "res/jam.json";
