@@ -163,7 +163,7 @@ function makeSorter_str(key) {
     return (a, b) => COL_GET_TXT[key](a).localeCompare(COL_GET_TXT[key](b));
 }
 const COL_GET_NUM = {
-    "Difficulty": (s) => s.songInfo.animeDifficulty,
+    "Difficulty": (s) => s.songInfo.animeDifficulty || 0,
     "Room Score": (s) => s.correctCount,
     "Sample": (s) => s.startPoint,
     "Song #": (s) => s.songNumber,
@@ -950,9 +950,17 @@ function drawRound_sub(resultList) {
         /* Difficulty */
         if (columns["Difficulty"]) {
             const cl = layout.difficulty;
-            ctx.textAlign = "right";
-            pen.moveToPoint(cl.X + cl.Width, baseline);
-            txt = `${result.songInfo.animeDifficulty.toFixed(1)}`;
+            const diff = result.songInfo.animeDifficulty;
+            if (null === diff) {
+                ctx.textAlign = "left";
+                pen.moveToPoint(cl.X, baseline);
+                txt = "N/A";
+            }
+            else {
+                ctx.textAlign = "right";
+                pen.moveToPoint(cl.X + cl.Width, baseline);
+                txt = `${diff.toFixed(1)}`;
+            }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Room Score */

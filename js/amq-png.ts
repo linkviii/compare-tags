@@ -202,7 +202,7 @@ export interface SongInfo {
     animeScore: number;
     animeType: string;
     vintage: string;
-    animeDifficulty: number;
+    animeDifficulty: number | null;
     animeTags: string[];
     animeGenre: string[];
     altAnimeNames: string[];
@@ -291,7 +291,7 @@ function makeSorter_str(key: keyof typeof COL_GET_TXT) {
 }
 
 const COL_GET_NUM = {
-    "Difficulty": (s: Song) => s.songInfo.animeDifficulty,
+    "Difficulty": (s: Song) => s.songInfo.animeDifficulty || 0,
     "Room Score": (s: Song) => s.correctCount,
     "Sample": (s: Song) => s.startPoint,
     "Song #": (s: Song) => s.songNumber,
@@ -487,7 +487,7 @@ class PngPage {
             console.log("Filter");
             onUIChange();
         });
-        page.filterUI.off("change")
+        page.filterUI.off("change");
         page.filterUI[0].onkeyup = onUIChange;
 
         const foundUser = () => {
@@ -756,7 +756,7 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
     const filterStr = (page.filterUI.val() as string).toLowerCase();
 
     if (filterStr) {
-        console.log(["filter", filterStr])
+        console.log(["filter", filterStr]);
         const getVal = function (id: string): boolean {
             const el = $(`#filter-${id}`)[0] as HTMLInputElement;
             return el.checked;
@@ -1230,9 +1230,17 @@ function drawRound_sub(resultList: Song[]) {
         /* Difficulty */
         if (columns["Difficulty"]) {
             const cl = layout.difficulty;
-            ctx.textAlign = "right";
-            pen.moveToPoint(cl.X + cl.Width, baseline);
-            txt = `${result.songInfo.animeDifficulty.toFixed(1)}`;
+            const diff = result.songInfo.animeDifficulty;
+
+            if (null === diff) {
+                ctx.textAlign = "left";
+                pen.moveToPoint(cl.X, baseline);
+                txt = "N/A";
+            } else {
+                ctx.textAlign = "right";
+                pen.moveToPoint(cl.X + cl.Width, baseline);
+                txt = `${diff.toFixed(1)}`;
+            }
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 
