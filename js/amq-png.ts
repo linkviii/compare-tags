@@ -192,8 +192,8 @@ export interface Song {
 export interface SongInfo {
     animeNames: AnimeNames;
     artist: string;
-    composerInfo: ComposerInfo;
-    arrangerInfo: ArrangerInfo;
+    composerInfo: ComposerInfo | null;
+    arrangerInfo: ArrangerInfo | null;
     songName: string;
     type: number;
     typeNumber: number;
@@ -268,9 +268,9 @@ export let activeData: AMQRound | null = null;
 // ----------------------------------------------------------------------------
 type AmqSongSort = (a: Song, b: Song) => number;
 const COL_GET_TXT = {
-    "Arranger": (s: Song) => s.songInfo.arrangerInfo.name,
+    "Arranger": (s: Song) => s.songInfo.arrangerInfo?.name ?? "",
     "Artist": (s: Song) => s.songInfo.artist,
-    "Composer": (s: Song) => s.songInfo.composerInfo.name,
+    "Composer": (s: Song) => s.songInfo.composerInfo?.name ?? "",
     // "Difficulty": (s: Song) => s.songInfo.animeDifficulty.toFixed(1),
     "Guess": (s: Song) => s.answer ?? "",
     "Result": (s: Song) => getSongAnimeName(s),
@@ -774,8 +774,8 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
         const filters: Record<keyof typeof activeFilters, (song: Song) => boolean> = {
             en: (song: Song) => song.songInfo.animeNames.english.toLowerCase().includes(filterStr),
             jp: (song: Song) => song.songInfo.animeNames.romaji.toLowerCase().includes(filterStr),
-            composer: (song: Song) => song.songInfo.composerInfo.name.toLowerCase().includes(filterStr),
-            arranger: (song: Song) => song.songInfo.arrangerInfo.name.toLowerCase().includes(filterStr),
+            composer: (song: Song) => song.songInfo.composerInfo?.name.toLowerCase().includes(filterStr) || false,
+            arranger: (song: Song) => song.songInfo.arrangerInfo?.name.toLowerCase().includes(filterStr) || false,
             artist: (song: Song) => song.songInfo.artist.toLowerCase().includes(filterStr),
             guess: (song: Song) => (song.answer || "").toLowerCase().includes(filterStr),
             song: (song: Song) => song.songInfo.songName.toLowerCase().includes(filterStr),
@@ -835,10 +835,13 @@ function drawRound_sub(resultList: Song[]) {
 
 
     if (stacked) {
-        /* Bot = Top */
+        /* When in stacked mode the existence of the bottom column is implied by the top column.
+         * [The bottom column is removed from the selector and can't be moved itself.] 
+         * Bot = Top 
+         */
         columns["Guess"] = columns["Result"];
         columns["Artist"] = columns["Song"];
-        columns["Arranger"] = columns["Arranger"];
+        columns["Arranger"] = columns["Composer"];
         columns["Season Info"] = columns["Vintage"];
     }
 
@@ -923,6 +926,7 @@ function drawRound_sub(resultList: Song[]) {
     const insertColumnStacked = (key: Column, cl: ColumnLayout, top: ColumnLayout) => {
         if (columns[key]) {
             if (stacked) {
+                console.assert(!isNaN(top.X));
                 cl.X = top.X;
             } else {
                 console.assert(!isNaN(cl.Width));
@@ -934,6 +938,7 @@ function drawRound_sub(resultList: Song[]) {
     };
 
     // console.log(columns);
+    /* Column : Layout. Optional 2nd layout is a dependent parent column to align to. */
     const mapping: Record<Column, [ColumnLayout] | [ColumnLayout, ColumnLayout]> = {
 
         "Song #": [layout.index],
@@ -991,6 +996,7 @@ function drawRound_sub(resultList: Song[]) {
         ctx.fillRect(0, 0, imageWidth, layout.headerHeight);
         let baseline1 = layout.margin;
         let baseline2 = baseline1 + layout.fontHeight;
+        /* Baseline2 when stacked. Otherwise baseline 1. */
         let baselineMaybeStacked = stacked ? baseline2 : baseline1;
 
 
@@ -1306,15 +1312,15 @@ function drawRound_sub(resultList: Song[]) {
             ctx.textAlign = "left";
             const cl = layout.composer;
             pen.moveToPoint(cl.X, baseline);
-            pen.fillText(result.songInfo.composerInfo.name, layout.textColor, cl.Width);
+            pen.fillText(result.songInfo.composerInfo?.name ?? "", layout.textColor, cl.Width);
         }
         /* Arranger */
         if (columns["Arranger"]) {
             ctx.textAlign = "left";
             const cl = layout.arranger;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            txt = result.songInfo.arrangerInfo.name;
-            if (stacked && txt === result.songInfo.composerInfo.name) {
+            txt = result.songInfo.arrangerInfo?.name ?? "";
+            if (stacked && txt === result.songInfo.composerInfo?.name) {
                 txt = DITTO;
             }
             pen.fillText(txt, layout.textColor, cl.Width);
