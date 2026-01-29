@@ -202,7 +202,7 @@ export interface SongInfo {
     animeScore: number;
     animeType: string;
     vintage: string;
-    animeDifficulty: number | null;
+    animeDifficulty: number | null | "Unrated";
     animeTags: string[];
     animeGenre: string[];
     altAnimeNames: string[];
@@ -291,7 +291,7 @@ function makeSorter_str(key: keyof typeof COL_GET_TXT) {
 }
 
 const COL_GET_NUM = {
-    "Difficulty": (s: Song) => s.songInfo.animeDifficulty || 0,
+    "Difficulty": (s: Song) => { let d = s.songInfo.animeDifficulty; if (d === "Unrated") return 0; return d || 0; },
     "Room Score": (s: Song) => s.correctCount,
     "Sample": (s: Song) => s.startPoint,
     "Song #": (s: Song) => s.songNumber,
@@ -675,6 +675,7 @@ function nanColumn(): ColumnLayout { return { X: NaN, Width: NaN }; }
 
 export const layout = {
     font: { textAlign: "left", textBaseline: "top", font: "20px serif" } as FontParams,
+    fontMono: { textAlign: "left", textBaseline: "top", font: "20px serif" } as FontParams,
     fontHeight: NaN,
     /** Horizontal Line thickness */
     hRuleThickness: 3,
@@ -1238,10 +1239,10 @@ function drawRound_sub(resultList: Song[]) {
             const cl = layout.difficulty;
             const diff = result.songInfo.animeDifficulty;
 
-            if (null === diff) {
+            if (null === diff || "Unrated" === diff) {
                 ctx.textAlign = "left";
                 pen.moveToPoint(cl.X, baseline);
-                txt = "N/A";
+                txt = "Unrated";
             } else {
                 ctx.textAlign = "right";
                 pen.moveToPoint(cl.X + cl.Width, baseline);

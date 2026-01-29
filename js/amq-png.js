@@ -163,7 +163,8 @@ function makeSorter_str(key) {
     return (a, b) => COL_GET_TXT[key](a).localeCompare(COL_GET_TXT[key](b));
 }
 const COL_GET_NUM = {
-    "Difficulty": (s) => s.songInfo.animeDifficulty || 0,
+    "Difficulty": (s) => { let d = s.songInfo.animeDifficulty; if (d === "Unrated")
+        return 0; return d || 0; },
     "Room Score": (s) => s.correctCount,
     "Sample": (s) => s.startPoint,
     "Song #": (s) => s.songNumber,
@@ -477,6 +478,7 @@ const STATE_NUM_TO_COLOR = {
 function nanColumn() { return { X: NaN, Width: NaN }; }
 export const layout = {
     font: { textAlign: "left", textBaseline: "top", font: "20px serif" },
+    fontMono: { textAlign: "left", textBaseline: "top", font: "20px serif" },
     fontHeight: NaN,
     /** Horizontal Line thickness */
     hRuleThickness: 3,
@@ -606,7 +608,10 @@ function drawRound_sub(resultList) {
             columns[val] = true;
     }
     if (stacked) {
-        /* Bot = Top */
+        /* When in stacked mode the existence of the bottom column is implied by the top column.
+         * [The bottom column is removed from the selector and can't be moved itself.]
+         * Bot = Top
+         */
         columns["Guess"] = columns["Result"];
         columns["Artist"] = columns["Song"];
         columns["Arranger"] = columns["Composer"];
@@ -954,10 +959,10 @@ function drawRound_sub(resultList) {
         if (columns["Difficulty"]) {
             const cl = layout.difficulty;
             const diff = result.songInfo.animeDifficulty;
-            if (null === diff) {
+            if (null === diff || "Unrated" === diff) {
                 ctx.textAlign = "left";
                 pen.moveToPoint(cl.X, baseline);
-                txt = "N/A";
+                txt = "Unrated";
             }
             else {
                 ctx.textAlign = "right";
