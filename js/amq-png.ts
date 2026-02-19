@@ -210,7 +210,10 @@ export interface SongInfo {
     siteIds: SiteIds;
     rebroadcast: number;
     dub: number;
-    seasonInfo?: string;
+    seasonInfo?: string | {
+        name: string;
+        number: string | null;
+    };
 }
 
 export interface AnimeNames {
@@ -276,7 +279,14 @@ const COL_GET_TXT = {
     "Result": (s: Song) => getSongAnimeName(s),
     // "Room Score": (s: Song) => s.correctCount.toString(),
     // "Sample": (s: Song) => s.startPoint.toString(),
-    "Season Info": (s: Song) => s.songInfo.seasonInfo || s.songInfo.animeType,
+    "Season Info": (s: Song) => {
+
+        if (!s.songInfo.seasonInfo) {
+            return s.songInfo.animeType;
+        }
+        if (typeof s.songInfo.seasonInfo === "string") return s.songInfo.seasonInfo;
+        return `${s.songInfo.seasonInfo.name} ${s.songInfo.seasonInfo.number ?? ""}`;
+    },
     "Song": (s: Song) => s.songInfo.songName,
     // "Song #": (s: Song) => s.songNumber.toString(),
     "Type": (s: Song) => s.songInfo.type.toString(),
@@ -1338,7 +1348,7 @@ function drawRound_sub(resultList: Song[]) {
             ctx.textAlign = "left";
             const cl = layout.seasonInfo;
             pen.moveToPoint(cl.X, baselineMaybeStacked);
-            txt = result.songInfo.seasonInfo || result.songInfo.animeType;
+            txt = COL_GET_TXT["Season Info"](result);
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 
