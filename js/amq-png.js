@@ -137,12 +137,14 @@ const STATE_NUM_TO_STR = {
 };
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
+/* cspell:disable-next-line */
 export const loremIpsumTxt = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?";
 export const loremIpsumWords = loremIpsumTxt.split(" ");
 // ----------------------------------------------------------------------------
 export const testData = await fetch(testUrl).then(response => response.json());
 export let activeData = null;
-const COL_GET_TXT = {
+const SONG_TYPES = ["OP", "ED", "INS"];
+export const COL_GET_TXT = {
     "Arranger": (s) => s.songInfo.arrangerInfo?.name ?? "",
     "Artist": (s) => s.songInfo.artist,
     "Composer": (s) => s.songInfo.composerInfo?.name ?? "",
@@ -161,7 +163,7 @@ const COL_GET_TXT = {
     },
     "Song": (s) => s.songInfo.songName,
     // "Song #": (s: Song) => s.songNumber.toString(),
-    "Type": (s) => s.songInfo.type.toString(),
+    "Type": (s) => SONG_TYPES[s.songInfo.type - 1] ?? s.songInfo.type.toString(),
     "Vintage": (s) => s.songInfo.vintage,
     // "": (s:Song) => s.  ,
     // "": (s:Song) => s.  ,
@@ -169,9 +171,13 @@ const COL_GET_TXT = {
 function makeSorter_str(key) {
     return (a, b) => COL_GET_TXT[key](a).localeCompare(COL_GET_TXT[key](b));
 }
-const COL_GET_NUM = {
-    "Difficulty": (s) => { let d = s.songInfo.animeDifficulty; if (d === "Unrated")
-        return 0; return d || 0; },
+export const COL_GET_NUM = {
+    "Difficulty": (s) => {
+        let d = s.songInfo.animeDifficulty;
+        if (d === "Unrated")
+            return 0;
+        return d || 0;
+    },
     "Room Score": (s) => s.correctCount,
     "Sample": (s) => s.startPoint,
     "Song #": (s) => s.songNumber,
@@ -309,7 +315,7 @@ class PngPage {
                 this.disabledColUI.append(li);
             }
         }
-        const initsortui = (ui) => {
+        const initSortUi = (ui) => {
             for (let col in SORTS) {
                 let first = false;
                 if (col === "Song #") {
@@ -323,8 +329,8 @@ class PngPage {
                 ui.append(opt);
             }
         };
-        initsortui(this.sortUI);
-        initsortui(this.sortUI2);
+        initSortUi(this.sortUI);
+        initSortUi(this.sortUI2);
         // --------------------------------------------------------------------
         const onUIChange = () => {
             drawRound(activeData, 1);
@@ -601,13 +607,57 @@ function drawRound(amqRound, foo) {
     const images = $("img", page.outputDiv);
     images.slice(0, partitionLengths.length).show();
     images.slice(partitionLengths.length).hide();
+    // ------------------------------------------------------------------------
+    dispList.sort(SORTS["Difficulty"]);
+    const BINS = [20, 35, 50, 100];
+    const bins = BINS.toReversed();
+    const binned = {};
+    let current = bins.pop();
+    binned[current] = 0;
+    let total = 0;
+    for (let song of dispList) {
+        const d = COL_GET_NUM["Difficulty"](song);
+        total += d;
+        if (d > current) {
+            current = bins.pop();
+            binned[current] = 0;
+        }
+        binned[current] += 1;
+    }
+    console.log(binned);
+    const difDiv = document.getElementById("difficulty");
+    difDiv.replaceChildren();
+    {
+        const h = document.createElement("h3");
+        h.textContent = "Difficulty Distribution";
+        difDiv.append(h);
+    }
+    {
+        const average = total / dispList.length;
+        const avg = document.createElement("p");
+        avg.textContent = `Average Difficulty: ${average}`;
+        difDiv.append(avg);
+    }
+    let prev = 0;
+    for (let b of BINS) {
+        const elm = document.createElement('p');
+        elm.textContent = `${prev}-${b}: ${binned[b]}`;
+        difDiv.append(elm);
+        prev = b;
+    }
+    const typeGroups = Object.groupBy(dispList, COL_GET_TXT["Type"]);
+    for (let _t in typeGroups) {
+        const t = _t;
+        const elm = document.createElement('p');
+        elm.textContent = `${t}: ${typeGroups[t]?.length}`;
+        difDiv.append(elm);
+    }
 }
 function drawRound_sub(resultList) {
     // const stacked = true;
     // const stacked = false;
     const stacked = page.stackedUI[0].checked;
     const showFooter = page.footerUI[0].checked;
-    const SONG_TYPES = ["OP", "ED", "INS"];
     const columns = {};
     for (const el of page.enabledColUI.children()) {
         const val = el.getAttribute("data-val");
@@ -634,6 +684,7 @@ function drawRound_sub(resultList) {
         layout.guess.Width = animeWidth;
         layout.result.Width = animeWidth;
     }
+    /* spell-checker: disable */
     layout.fontHeight = pen.getFontHeight();
     layout.index.Width = pen.getTxtWidth("0000");
     layout.type.Width = pen.getTxtWidth("Op 10");
@@ -647,6 +698,7 @@ function drawRound_sub(resultList) {
     layout.vintage.Width = pen.getTxtWidth("Fall 0000");
     layout.seasonInfo.Width = pen.getTxtWidth("Season 1");
     layout.myStatus.Width = pen.getTxtWidth("W");
+    /* spell-checker: enable */
     const setToMax = (a, b) => {
         a.Width = Math.max(a.Width, b.Width);
         b.Width = a.Width;
