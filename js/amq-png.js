@@ -609,7 +609,13 @@ function drawRound(amqRound, foo) {
     images.slice(partitionLengths.length).hide();
     // ------------------------------------------------------------------------
     dispList.sort(SORTS["Difficulty"]);
-    const BINS = [20, 35, 50, 100];
+    const BINS = [
+        15,
+        25,
+        50,
+        70,
+        100,
+    ];
     const bins = BINS.toReversed();
     const binned = {};
     let current = bins.pop();

@@ -270,7 +270,7 @@ export const testData: AMQRound = await fetch(testUrl).then(response => response
 export let activeData: AMQRound | null = null;
 // ----------------------------------------------------------------------------
 type AmqSongSort = (a: Song, b: Song) => number;
-    const SONG_TYPES = ["OP", "ED", "INS"] as const;
+const SONG_TYPES = ["OP", "ED", "INS"] as const;
 
 export const COL_GET_TXT = {
     "Arranger": (s: Song) => s.songInfo.arrangerInfo?.name ?? "",
@@ -291,7 +291,7 @@ export const COL_GET_TXT = {
     },
     "Song": (s: Song) => s.songInfo.songName,
     // "Song #": (s: Song) => s.songNumber.toString(),
-    "Type": (s: Song) => SONG_TYPES[s.songInfo.type-1] ?? s.songInfo.type.toString(),
+    "Type": (s: Song) => SONG_TYPES[s.songInfo.type - 1] ?? s.songInfo.type.toString(),
     "Vintage": (s: Song) => s.songInfo.vintage,
     // "": (s:Song) => s.  ,
     // "": (s:Song) => s.  ,
@@ -836,7 +836,13 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
     // ------------------------------------------------------------------------
 
     dispList.sort(SORTS["Difficulty"]);
-    const BINS = [20, 35, 50, 100] as const;
+    const BINS = [
+        15,
+        25,
+        50,
+        70,
+        100,
+    ] as const;
     const bins = BINS.toReversed();
 
     const binned: Record<number, number> = {};
@@ -876,12 +882,12 @@ function drawRound(amqRound: AMQRound | null, foo: any) {
         prev = b;
     }
 
-    const typeGroups = Object.groupBy(dispList, COL_GET_TXT["Type"])
-    for (let _t  in typeGroups){
+    const typeGroups = Object.groupBy(dispList, COL_GET_TXT["Type"]);
+    for (let _t in typeGroups) {
         const t = _t as keyof typeof typeGroups;
         const elm = document.createElement('p');
-        elm.textContent = `${t}: ${typeGroups[t]?.length}`
-        difDiv.append(elm)
+        elm.textContent = `${t}: ${typeGroups[t]?.length}`;
+        difDiv.append(elm);
     }
 
 
