@@ -210,6 +210,8 @@ export interface SongInfo {
     siteIds: SiteIds;
     rebroadcast: number;
     dub: number;
+    /** Most watched show is #1 */
+    popularityRank?: number;
     seasonInfo?: string | {
         name: string;
         number: string | null;
@@ -302,6 +304,8 @@ function makeSorter_str(key: keyof typeof COL_GET_TXT) {
     return (a: Song, b: Song) => COL_GET_TXT[key](a).localeCompare(COL_GET_TXT[key](b));
 }
 
+const UNKNOWN_POPULARITY = 10_000;
+
 export const COL_GET_NUM = {
     "Difficulty": (s: Song) => {
         let d = s.songInfo.animeDifficulty;
@@ -310,6 +314,7 @@ export const COL_GET_NUM = {
     },
     "Room Score": (s: Song) => s.correctCount,
     "Sample": (s: Song) => s.startPoint,
+    "Popularity": (s: Song) => s.songInfo.popularityRank ?? UNKNOWN_POPULARITY,
     "Song #": (s: Song) => s.songNumber,
     // "Type": (s: Song) => s.songInfo.type,
     "Correct Guess": (s: Song) => {
@@ -356,6 +361,7 @@ const SORTS: Record<string, AmqSongSort> = {
     "Arranger": makeSorter_str("Arranger"),
 
     "Sample": makeSorter_num("Sample"),
+    "Popularity": makeSorter_num("Popularity"),
 
     "Season Info": makeSorter_str("Season Info"),
 
@@ -459,6 +465,7 @@ class PngPage {
             Vintage: { startEnabled: false, myBot: "Season Info" },
             "Season Info": { startEnabled: false, isBot: true },
             "My Status": { startEnabled: false },
+            "Popularity": { startEnabled: false }
         };
 
         for (const str in columns) {
@@ -713,7 +720,7 @@ export const layout = {
     vintage: nanColumn(),
     seasonInfo: nanColumn(),
     myStatus: nanColumn(),
-
+    popularity: nanColumn(),
 
     headerHeight: NaN,
     headerColor: "#d4c2c2ff",
@@ -733,7 +740,8 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Difficulty", "Room Score",
     "Sample",
     "Season Info", "Vintage",
-    "My Status"
+    "My Status",
+    "Popularity"
 ] as const;
 type Column = typeof COLUMNS[number];
 
@@ -937,6 +945,7 @@ function drawRound_sub(resultList: Song[]) {
     /* spell-checker: disable */
     layout.fontHeight = pen.getFontHeight();
     layout.index.Width = pen.getTxtWidth("0000");
+    layout.popularity.Width = pen.getTxtWidth("0000");
     layout.type.Width = pen.getTxtWidth("Op 10");
     layout.song.Width = pen.getTxtWidth("Aoarashi no Ato de");
     layout.artist.Width = pen.getTxtWidth("Asuka Nishi to Yukai na");
@@ -1031,6 +1040,7 @@ function drawRound_sub(resultList: Song[]) {
         "Vintage": [layout.vintage],
         "Season Info": [layout.seasonInfo, layout.vintage],
         "My Status": [layout.myStatus],
+        "Popularity": [layout.popularity],
     };
     const activeCols = [] as Column[];
     for (let _col in columns) {
@@ -1142,6 +1152,13 @@ function drawRound_sub(resultList: Song[]) {
             } else {
                 pen.fillText("%Easy", headerTextColor, cl.Width);
             }
+        }
+
+        if (columns["Popularity"]) {
+            ctx.textAlign = "left";
+            const cl = layout.popularity;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.fillText("Rank", headerTextColor, cl.Width);
         }
 
         if (columns["Room Score"]) {
@@ -1259,6 +1276,7 @@ function drawRound_sub(resultList: Song[]) {
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 
+
         /* Given Answer */
         if (columns["Guess"]) {
             const cl = layout.guess;
@@ -1273,6 +1291,15 @@ function drawRound_sub(resultList: Song[]) {
                 }
                 txt = `${result.correctGuess ? "✅" : "❌"}${tmp}`;
             }
+            pen.fillText(txt, layout.textColor, cl.Width);
+        }
+
+        /* Popularity Rank */
+        if (columns["Result"]) {
+            const cl = layout.popularity;
+            ctx.textAlign = "left";
+            pen.moveToPoint(cl.X, baseline);
+            txt = `${result.songInfo.popularityRank ?? '????'}`.padStart(4, "0");
             pen.fillText(txt, layout.textColor, cl.Width);
         }
 

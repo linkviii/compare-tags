@@ -171,6 +171,7 @@ export const COL_GET_TXT = {
 function makeSorter_str(key) {
     return (a, b) => COL_GET_TXT[key](a).localeCompare(COL_GET_TXT[key](b));
 }
+const UNKNOWN_POPULARITY = 10_000;
 export const COL_GET_NUM = {
     "Difficulty": (s) => {
         let d = s.songInfo.animeDifficulty;
@@ -180,6 +181,7 @@ export const COL_GET_NUM = {
     },
     "Room Score": (s) => s.correctCount,
     "Sample": (s) => s.startPoint,
+    "Popularity": (s) => s.songInfo.popularityRank ?? UNKNOWN_POPULARITY,
     "Song #": (s) => s.songNumber,
     // "Type": (s: Song) => s.songInfo.type,
     "Correct Guess": (s) => {
@@ -218,6 +220,7 @@ const SORTS = {
     "Composer": makeSorter_str("Composer"),
     "Arranger": makeSorter_str("Arranger"),
     "Sample": makeSorter_num("Sample"),
+    "Popularity": makeSorter_num("Popularity"),
     "Season Info": makeSorter_str("Season Info"),
     "Vintage": (a, b) => {
         // "vintage": "Summer 2014",
@@ -295,6 +298,7 @@ class PngPage {
             Vintage: { startEnabled: false, myBot: "Season Info" },
             "Season Info": { startEnabled: false, isBot: true },
             "My Status": { startEnabled: false },
+            "Popularity": { startEnabled: false }
         };
         for (const str in columns) {
             const params = columns[str];
@@ -512,6 +516,7 @@ export const layout = {
     vintage: nanColumn(),
     seasonInfo: nanColumn(),
     myStatus: nanColumn(),
+    popularity: nanColumn(),
     headerHeight: NaN,
     headerColor: "#d4c2c2ff",
     margin: 1,
@@ -528,7 +533,8 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Difficulty", "Room Score",
     "Sample",
     "Season Info", "Vintage",
-    "My Status"
+    "My Status",
+    "Popularity"
 ];
 export function partition(maxPer, total) {
     const nParts = Math.ceil(total / maxPer);
@@ -693,6 +699,7 @@ function drawRound_sub(resultList) {
     /* spell-checker: disable */
     layout.fontHeight = pen.getFontHeight();
     layout.index.Width = pen.getTxtWidth("0000");
+    layout.popularity.Width = pen.getTxtWidth("0000");
     layout.type.Width = pen.getTxtWidth("Op 10");
     layout.song.Width = pen.getTxtWidth("Aoarashi no Ato de");
     layout.artist.Width = pen.getTxtWidth("Asuka Nishi to Yukai na");
@@ -775,6 +782,7 @@ function drawRound_sub(resultList) {
         "Vintage": [layout.vintage],
         "Season Info": [layout.seasonInfo, layout.vintage],
         "My Status": [layout.myStatus],
+        "Popularity": [layout.popularity],
     };
     const activeCols = [];
     for (let _col in columns) {
@@ -875,6 +883,12 @@ function drawRound_sub(resultList) {
             else {
                 pen.fillText("%Easy", headerTextColor, cl.Width);
             }
+        }
+        if (columns["Popularity"]) {
+            ctx.textAlign = "left";
+            const cl = layout.popularity;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.fillText("Rank", headerTextColor, cl.Width);
         }
         if (columns["Room Score"]) {
             ctx.textAlign = "left";
@@ -986,6 +1000,14 @@ function drawRound_sub(resultList) {
                 }
                 txt = `${result.correctGuess ? "✅" : "❌"}${tmp}`;
             }
+            pen.fillText(txt, layout.textColor, cl.Width);
+        }
+        /* Popularity Rank */
+        if (columns["Result"]) {
+            const cl = layout.popularity;
+            ctx.textAlign = "left";
+            pen.moveToPoint(cl.X, baseline);
+            txt = `${result.songInfo.popularityRank ?? '????'}`.padStart(4, "0");
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Artist */
