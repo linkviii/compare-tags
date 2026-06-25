@@ -188,6 +188,12 @@ export const COL_GET_NUM = {
         if (s.answer === undefined)
             return -1;
         return s.correctGuess ? 1 : 2;
+    },
+    "Rating": (s) => {
+        const score = s.songInfo.animeScore;
+        if (score == null)
+            return 0;
+        return Number(score);
     }
 };
 function makeSorter_num(key) {
@@ -222,6 +228,7 @@ const SORTS = {
     "Sample": makeSorter_num("Sample"),
     "Popularity": makeSorter_num("Popularity"),
     "Season Info": makeSorter_str("Season Info"),
+    "Rating": makeSorter_num("Rating"),
     "Vintage": (a, b) => {
         // "vintage": "Summer 2014",
         const [q_a, y_a] = COL_GET_TXT["Vintage"](a).split(" ");
@@ -298,7 +305,8 @@ class PngPage {
             Vintage: { startEnabled: false, myBot: "Season Info" },
             "Season Info": { startEnabled: false, isBot: true },
             "My Status": { startEnabled: false },
-            "Popularity": { startEnabled: false }
+            "Popularity": { startEnabled: false, myBot: "Rating" },
+            "Rating": { startEnabled: false, isBot: true }
         };
         for (const str in columns) {
             const params = columns[str];
@@ -517,6 +525,7 @@ export const layout = {
     seasonInfo: nanColumn(),
     myStatus: nanColumn(),
     popularity: nanColumn(),
+    rating: nanColumn(),
     headerHeight: NaN,
     headerColor: "#d4c2c2ff",
     margin: 1,
@@ -534,7 +543,7 @@ const COLUMNS = ["Song #", "Result", "Guess",
     "Sample",
     "Season Info", "Vintage",
     "My Status",
-    "Popularity"
+    "Popularity", "Rating",
 ];
 export function partition(maxPer, total) {
     const nParts = Math.ceil(total / maxPer);
@@ -685,6 +694,7 @@ function drawRound_sub(resultList) {
         columns["Artist"] = columns["Song"];
         columns["Arranger"] = columns["Composer"];
         columns["Season Info"] = columns["Vintage"];
+        columns["Rating"] = columns["Popularity"];
     }
     const pen = page.pen;
     const ctx = pen.ctx;
@@ -700,6 +710,7 @@ function drawRound_sub(resultList) {
     layout.fontHeight = pen.getFontHeight();
     layout.index.Width = pen.getTxtWidth("0000");
     layout.popularity.Width = pen.getTxtWidth("0000");
+    layout.rating.Width = pen.getTxtWidth("0.0");
     layout.type.Width = pen.getTxtWidth("Op 10");
     layout.song.Width = pen.getTxtWidth("Aoarashi no Ato de");
     layout.artist.Width = pen.getTxtWidth("Asuka Nishi to Yukai na");
@@ -720,6 +731,7 @@ function drawRound_sub(resultList) {
         layout.type.Width = pen.getTxtWidth("000");
         setToMax(layout.artist, layout.song);
         setToMax(layout.seasonInfo, layout.vintage);
+        setToMax(layout.rating, layout.popularity);
         layout.artist.Width = Math.max(layout.artist.Width, layout.song.Width);
         layout.song.Width = layout.artist.Width;
         layout.roomScore.Width = pen.getTxtWidth("000");
@@ -783,6 +795,7 @@ function drawRound_sub(resultList) {
         "Season Info": [layout.seasonInfo, layout.vintage],
         "My Status": [layout.myStatus],
         "Popularity": [layout.popularity],
+        "Rating": [layout.rating, layout.popularity]
     };
     const activeCols = [];
     for (let _col in columns) {
@@ -887,8 +900,14 @@ function drawRound_sub(resultList) {
         if (columns["Popularity"]) {
             ctx.textAlign = "left";
             const cl = layout.popularity;
-            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.moveToPoint(cl.X, baseline1);
             pen.fillText("Rank", headerTextColor, cl.Width);
+        }
+        if (columns["Rating"]) {
+            ctx.textAlign = "left";
+            const cl = layout.rating;
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            pen.fillText("Rating", headerTextColor, cl.Width);
         }
         if (columns["Room Score"]) {
             ctx.textAlign = "left";
@@ -1003,11 +1022,22 @@ function drawRound_sub(resultList) {
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Popularity Rank */
-        if (columns["Result"]) {
+        if (columns["Popularity"]) {
             const cl = layout.popularity;
             ctx.textAlign = "left";
             pen.moveToPoint(cl.X, baseline);
             txt = `${result.songInfo.popularityRank ?? '????'}`.padStart(4, "0");
+            pen.fillText(txt, layout.textColor, cl.Width);
+        }
+        /* Anime Rating (score) */
+        if (columns["Rating"]) {
+            const cl = layout.rating;
+            ctx.textAlign = "left";
+            pen.moveToPoint(cl.X, baselineMaybeStacked);
+            let score = result.songInfo.animeScore;
+            if (null === score)
+                score = "n/a";
+            txt = `${score}`;
             pen.fillText(txt, layout.textColor, cl.Width);
         }
         /* Artist */
