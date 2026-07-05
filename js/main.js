@@ -1,6 +1,6 @@
 /*  */
 //import jquery
-import "./jquery.js";
+// import "./jquery.js";
 /* GLOBAL */
 export const usingTestData = false;
 // export const usingTestData = true;

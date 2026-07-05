@@ -2,6 +2,14 @@
 .idea/
 .vscode
 
+node_modules/
+.node_modules/
+
+*.swp
+*.bak
+
+
+
 # favicon.png
 
 # EOF
